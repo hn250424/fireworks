@@ -2,7 +2,7 @@ import './style.scss'
 
 import './ui/cartesianAxes'
 
-import * as THREE from 'three'
+// import * as THREE from 'three'
 
 import scene from './modules/core/scene'
 import animationManager from './modules/feature/animationManager'
@@ -11,7 +11,7 @@ import orbitControls from './modules/feature/orbitControls'
 
 import LaunchingParticle from './modules/entity/LaunchingParticle'
 import Coordinates from './types/Coordinates'
-import ExplosionParticle from './modules/entity/ExplosionParticle'
+
 main()
 
 async function main() {
@@ -21,7 +21,7 @@ async function main() {
 
     // particle.
     const currentPoint: Coordinates = { x: 2, y: 0, z: 5 }
-    const endPoint: Coordinates = { x: 0, y: 7, z: 0 }
+    const endPoint: Coordinates = { x: -2, y: 7, z: -5 }
     
     setTimeout(() => { new LaunchingParticle(currentPoint, endPoint) }, 500)
 }

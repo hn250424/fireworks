@@ -4,59 +4,57 @@ import scene from '../core/scene'
 import Coordinates from '../../types/Coordinates'
 import DeltaPoint from '../../types/DeltaPoint'
 import particles from './particles'
+import ParticleSize from '../../types/ParticleSize'
 
 export default class Particle extends THREE.Mesh {
-    currentPoint: Coordinates
-    endPoint: Coordinates
+    currentAbsolutePoint: Coordinates
+    endRelativePoint: Coordinates
 
     deltaPoint: DeltaPoint
     totalFrame: number
-    gravity: number
 
     constructor(
-        currentPoint: Coordinates,
-        endPoint: Coordinates,
+        currentAbsolutePoint: Coordinates,
+        endRelativePoint: Coordinates,
+        size: ParticleSize,
+        color: string
     ) {
-        const _size = 0.1
         const _time = 2
-        const _color = 'green'
 
-        const geometry = new THREE.BoxGeometry(_size, _size, _size)
-        const material = new THREE.MeshStandardMaterial({ color: _color })
+        const geometry = new THREE.BoxGeometry(size.width, size.height, size.depth)
+        const material = new THREE.MeshStandardMaterial({ color: color })
         super(geometry, material)
 
-        this.currentPoint = currentPoint
-        this.endPoint = endPoint
+        this.currentAbsolutePoint = currentAbsolutePoint
+        this.endRelativePoint = endRelativePoint
 
         this.totalFrame = _time * 60
         this.deltaPoint = {
-            x: (this.endPoint.x - this.currentPoint.x) / this.totalFrame,
-            z: (this.endPoint.z - this.currentPoint.z) / this.totalFrame
+            x: this.endRelativePoint.x / this.totalFrame,
+            y: this.endRelativePoint.y / this.totalFrame,
+            z: this.endRelativePoint.z / this.totalFrame
         }
-        this.gravity = 0.01
 
         scene.add(this)
         particles.push(this)
     }
 
     update(): void {
-        // If this.totalFrame is zero, this.currentPoint.y is infinity.
+        // If this.totalFrame is zero, this.currentAbsolutePoint.y is infinity.
         if (this.totalFrame-- == 1) this.destroy()
 
-        this.endPoint.y -= this.gravity
+        this.currentAbsolutePoint.x += this.deltaPoint.x
+        this.currentAbsolutePoint.y += this.deltaPoint.y
+        this.currentAbsolutePoint.z += this.deltaPoint.z
 
-        this.currentPoint.x += this.deltaPoint.x
-        this.currentPoint.y += (this.endPoint.y - this.currentPoint.y) / this.totalFrame,
-        this.currentPoint.z += this.deltaPoint.z
-
-        this.position.set(this.currentPoint.x, this.currentPoint.y, this.currentPoint.z)
+        this.position.set(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
         this.rotateTowardsEndPoint()
     }
 
     private rotateTowardsEndPoint(): void {
         // Calculate direction vector.
-        const currentVec = new THREE.Vector3(this.currentPoint.x, this.currentPoint.y, this.currentPoint.z)
-        const endVec = new THREE.Vector3(this.endPoint.x, this.endPoint.y, this.endPoint.z)
+        const currentVec = new THREE.Vector3(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
+        const endVec = new THREE.Vector3(this.endRelativePoint.x, this.endRelativePoint.y, this.endRelativePoint.z)
 
         const direction = new THREE.Vector3().subVectors(endVec, currentVec).normalize()
         const up = new THREE.Vector3(0, 1, 0) // Default 'up' direction.

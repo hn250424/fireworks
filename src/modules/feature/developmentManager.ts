@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import scene from '../core/scene'
 
 const cubeSize = 1
-const lineWidth = 0.1
+const lineWidth = 0.05
 const lineLength = 5
 const lineStartPoint = 3
 
