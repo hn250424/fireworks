@@ -1,4 +1,6 @@
-// import './style.scss'
+import './style.scss'
+
+import './ui/cartesianAxes'
 
 import * as THREE from 'three'
 
@@ -6,26 +8,20 @@ import scene from './modules/core/scene'
 import animationManager from './modules/feature/animationManager'
 import ambientLight from './modules/feature/ambientLight'
 import orbitControls from './modules/feature/orbitControls'
-import developmentHelper from './modules/feature/developmentManager'
 
-import BaseParticle from './modules/entity/BaseParticle'
+import LaunchingParticle from './modules/entity/LaunchingParticle'
 import Coordinates from './types/Coordinates'
-
+import ExplosionParticle from './modules/entity/ExplosionParticle'
 main()
 
 async function main() {
-    // 씬.
-    scene.add(ambientLight)
-
-    // 뷰 컨트롤.
-    animationManager.animate()
-    orbitControls.update()
-
-    // Cartesian Axes for development purpose.
-    developmentHelper.createCartesianAxes()
+    scene.add(ambientLight)     // 조명.
+    orbitControls.update()      // 뷰.
+    animationManager.animate()  // 애니메이션 시작.
 
     // particle.
-    const currentPoint: Coordinates = { x: 1, y: 3, z: 0 }
-    const endPoint: Coordinates = { x: 5, y: 3, z: 0 }
-    setTimeout(() => { new BaseParticle(currentPoint, endPoint, 5) }, 500)
+    const currentPoint: Coordinates = { x: 2, y: 0, z: 5 }
+    const endPoint: Coordinates = { x: 0, y: 7, z: 0 }
+    
+    setTimeout(() => { new LaunchingParticle(currentPoint, endPoint) }, 500)
 }
