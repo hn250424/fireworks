@@ -1,47 +1,47 @@
 import * as THREE from 'three'
 
-import scene from '../core/scene'
-import Coordinates from '../../types/Coordinates'
-import DeltaPoint from '../../types/DeltaPoint'
-import particles from './particles'
-import ParticleSize from '../../types/ParticleSize'
+import Coordinates from '../../../types/Coordinates'
+import DeltaPoint from '../../../types/DeltaPoint'
+import ParticleSize from '../../../types/ParticleSize'
+import Particle from './Particle'
 
-export default class Particle extends THREE.Mesh {
+export default class BaseParticle extends THREE.Mesh implements Particle {
     currentAbsolutePoint: Coordinates
     endRelativePoint: Coordinates
+    totalFrames: number
+    remainingFrames: number
+    color: string
 
     deltaPoint: DeltaPoint
-    totalFrame: number
 
     constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
-        size: ParticleSize,
-        color: string
+        color: string,
+        time: number,
+        size: ParticleSize = { width: 0.1, height: 0.1, depth: 0.1 }
     ) {
-        const _time = 2
-
         const geometry = new THREE.BoxGeometry(size.width, size.height, size.depth)
         const material = new THREE.MeshStandardMaterial({ color: color })
         super(geometry, material)
 
         this.currentAbsolutePoint = currentAbsolutePoint
         this.endRelativePoint = endRelativePoint
+        this.totalFrames = time * 60
+        this.remainingFrames = this.totalFrames
+        this.color = color
 
-        this.totalFrame = _time * 60
         this.deltaPoint = {
-            x: this.endRelativePoint.x / this.totalFrame,
-            y: this.endRelativePoint.y / this.totalFrame,
-            z: this.endRelativePoint.z / this.totalFrame
+            x: this.endRelativePoint.x / this.totalFrames,
+            y: this.endRelativePoint.y / this.totalFrames,
+            z: this.endRelativePoint.z / this.totalFrames
         }
-
-        scene.add(this)
-        particles.push(this)
     }
 
+    protected preUpdateTask() {}
+
     update(): void {
-        // If this.totalFrame is zero, this.currentAbsolutePoint.y is infinity.
-        if (this.totalFrame-- == 1) this.destroy()
+        this.preUpdateTask()
 
         this.currentAbsolutePoint.x += this.deltaPoint.x
         this.currentAbsolutePoint.y += this.deltaPoint.y
@@ -68,13 +68,8 @@ export default class Particle extends THREE.Mesh {
 
     protected preDestroyTask() {}
 
-    protected destroy(): void {
+    destroy(): void {
         this.preDestroyTask()
-
-        scene.remove(this)
-
-        const idx = particles.indexOf(this)
-        if (idx > -1) particles.splice(idx, 1)
 
         this.geometry.dispose()
         if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
