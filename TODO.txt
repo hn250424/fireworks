@@ -1,7 +1,0 @@
-- 가속도 & 중력 값 수정.
-- 네이밍: ignite -> createLaunchingParticle.
-- 카메라 각도 조정 버튼.
-- Opacity.
-- Wind (launch).
-- Triangle trace.
-- burst.
