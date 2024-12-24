@@ -2,8 +2,8 @@ import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../types/Coordinates"
 
 export default class ExplosionParticle extends BaseParticle {
-    endRelativeYPointStore: number[] = []
-    deltaArr: Coordinates[]
+    endRelativeYPointStorage: number[] = []   // Updating the y-endPoint to affect the particle's rotation.
+    pointStorage: Coordinates[]
 
     constructor(
         currentAbsolutePoint: Coordinates,
@@ -13,28 +13,29 @@ export default class ExplosionParticle extends BaseParticle {
         const time: number = 5
         super(currentAbsolutePoint, endRelativePoint, color, time)
 
-        this.endRelativeYPointStore = new Array(this.totalFrames)
-        this.deltaArr = new Array(this.totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.endRelativePoint.x / this.totalFrames
-        let copyedEndRelativePointY = this.endRelativePoint.y
-        const delta_z = this.endRelativePoint.z / this.totalFrames
-        const gravity = 0.05
+        this.endRelativeYPointStorage = new Array(this.totalFrames)
+        this.pointStorage = new Array(this.totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const copyedStartAbsolutePoint_y = this.currentAbsolutePoint.y
+        let copyedEndRelativePoint_y = this.endRelativePoint.y
+        const gravity = 0.03
         for (let i = 0; i < this.totalFrames; i++) {
-            this.deltaArr[i].x = delta_x - (delta_x * i / this.totalFrames)
+            const easeOutFactor = super.getEaseOutFactor(i)
+            
+            this.pointStorage[i].x = this.currentAbsolutePoint.x + (this.endRelativePoint.x * easeOutFactor) 
 
-            this.endRelativeYPointStore[i] = copyedEndRelativePointY
-            this.deltaArr[i].y = copyedEndRelativePointY / this.totalFrames
-            copyedEndRelativePointY -= gravity
+            this.endRelativeYPointStorage[i] = copyedEndRelativePoint_y
+            this.pointStorage[i].y = copyedStartAbsolutePoint_y + copyedEndRelativePoint_y * easeOutFactor
+            copyedEndRelativePoint_y -= gravity
 
-            this.deltaArr[i].z = delta_z - (delta_z * i / this.totalFrames)
+            this.pointStorage[i].z = this.currentAbsolutePoint.z + (this.endRelativePoint.z * easeOutFactor) 
         }
     }
 
     update(): void {
-        this.currentAbsolutePoint.x += this.deltaArr[this.elapsedFrames].x
-        this.currentAbsolutePoint.y += this.deltaArr[this.elapsedFrames].y
-        this.currentAbsolutePoint.z += this.deltaArr[this.elapsedFrames].z
-        this.endRelativePoint.y = this.endRelativeYPointStore[this.elapsedFrames]
+        this.currentAbsolutePoint.x = this.pointStorage[this.elapsedFrames].x
+        this.currentAbsolutePoint.y = this.pointStorage[this.elapsedFrames].y
+        this.currentAbsolutePoint.z = this.pointStorage[this.elapsedFrames].z
+        this.endRelativePoint.y = this.endRelativeYPointStorage[this.elapsedFrames]
 
         this.position.set(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
         super.rotateTowardsEndPoint()

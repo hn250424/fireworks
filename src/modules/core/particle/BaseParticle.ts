@@ -36,6 +36,12 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.remainingFrames--
     }
 
+    destroy(): void {
+        this.geometry.dispose()
+        if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
+        else this.material.dispose()
+    }
+
     protected rotateTowardsEndPoint(): void {
         // Calculate direction vector.
         const currentVec = new THREE.Vector3(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
@@ -51,9 +57,14 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.quaternion.copy(quaternion)
     }
 
-    destroy(): void {
-        this.geometry.dispose()
-        if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
-        else this.material.dispose()
+    protected getElapsedRate(elapsedFrames: number) {
+        return elapsedFrames / this.totalFrames
+    }
+
+    protected getEaseOutFactor(elapsedFrames: number) {
+        const elapsedRate = this.getElapsedRate(elapsedFrames)
+        const easeOutFactor = 1 - (1 - elapsedRate) ** 2
+        // const easeInFactor = elapsedRate ** 2
+        return easeOutFactor
     }
 }

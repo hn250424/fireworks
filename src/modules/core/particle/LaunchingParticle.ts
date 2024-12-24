@@ -3,8 +3,7 @@ import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../types/Coordinates"
 
 export default class LaunchingParticle extends BaseParticle {
-    endRelativeYPointStore: number[] = []
-    deltaArr: number[]
+    pointStorage: Coordinates[]
 
     constructor(
         currentAbsolutePoint: Coordinates,
@@ -14,23 +13,29 @@ export default class LaunchingParticle extends BaseParticle {
         const time: number = 5
         super(currentAbsolutePoint, endRelativePoint, color, time)
 
-        this.endRelativeYPointStore = new Array(this.totalFrames)
-        this.deltaArr = new Array(this.totalFrames)
-        let copyedEndRelativePointY = this.endRelativePoint.y
-        const gravity = 0.05
+        this.pointStorage = new Array(this.totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const delta_x = this.endRelativePoint.x / this.totalFrames
+        const delta_z = this.endRelativePoint.z / this.totalFrames
+        let copyedCurrentAbsolutePoint_x = this.currentAbsolutePoint.x
+        let copyedCurrentAbsolutePoint_z = this.currentAbsolutePoint.z
         for (let i = 0; i < this.totalFrames; i++) {
-            this.endRelativeYPointStore[i] = copyedEndRelativePointY
-            this.deltaArr[i] = copyedEndRelativePointY / this.totalFrames
-            copyedEndRelativePointY -= gravity
+            const easeOutFactor = super.getEaseOutFactor(i)
+
+            this.pointStorage[i].x = copyedCurrentAbsolutePoint_x
+            copyedCurrentAbsolutePoint_x += delta_x
+
+            this.pointStorage[i].y = this.endRelativePoint.y * easeOutFactor
+            
+            this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
+            copyedCurrentAbsolutePoint_z += delta_z
         }
     }
 
     update(): void {
-        this.currentAbsolutePoint.y += this.deltaArr[this.elapsedFrames]
-        this.endRelativePoint.y = this.endRelativeYPointStore[this.elapsedFrames]
-
+        this.currentAbsolutePoint.x = this.pointStorage[this.elapsedFrames].x
+        this.currentAbsolutePoint.y = this.pointStorage[this.elapsedFrames].y
+        this.currentAbsolutePoint.z = this.pointStorage[this.elapsedFrames].z
         this.position.set(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
-        super.rotateTowardsEndPoint()
 
         super.update()
     }

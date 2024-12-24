@@ -21,7 +21,8 @@ async function main() {
     palyer.animate()            // 애니메이션 시작.
 
     // particle.
-    const currentPoint: Coordinates = { x: 5, y: 0, z: 5 }
-    const endPoint: Coordinates = { x: 0, y: 15, z: 0 }
+    const currentPoint: Coordinates = { x: 2, y: 0, z: 5 }
+    // const endPoint: Coordinates = { x: 5, y: 7, z: -5 }
+    const endPoint: Coordinates = { x: 0, y: 7, z: 0 }
     player.ignite(currentPoint, endPoint, 500)
 }
