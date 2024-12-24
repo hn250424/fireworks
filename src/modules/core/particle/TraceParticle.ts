@@ -12,4 +12,9 @@ export default class TraceParticle extends Particle {
         const size: ParticleSize = { width: 0.03, height: 0.03, depth: 0.03 }
         super(currentAbsolutePoint, endRelativePoint, color, time, size)
     }
+
+    update(): void {
+        this.position.set(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
+        super.update()
+    }
 }

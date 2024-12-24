@@ -5,6 +5,7 @@ export default interface Particle {
     endRelativePoint: Coordinates,
     totalFrames: number,
     remainingFrames: number,
+    elapsedFrames: number,
     color: string,
 
     update(): void

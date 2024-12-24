@@ -18,7 +18,7 @@ const player = {
             particle.update() 
 
             if (particle instanceof LaunchingParticle) {
-                if (particle.remainingFrames % 3 === 0) {
+                if (particle.remainingFrames % 6 === 0) {
                     const tp = new TraceParticle({...particle.currentAbsolutePoint}, particle.color)
                     _particles.push(tp)
                     scene.add(tp)
@@ -26,7 +26,7 @@ const player = {
             }
             
             // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
-            if (particle.remainingFrames-- == 1) {
+            if (particle.remainingFrames == 1) {
                 particle.destroy()
 
                 const idx = _particles.indexOf(particle)
@@ -35,7 +35,9 @@ const player = {
                 scene.remove(particle as BaseParticle)
                 
                 if (particle instanceof LaunchingParticle) {
-                    player.burst(particle.currentAbsolutePoint, particle.color)
+                    setTimeout(() => {
+                        player.burst(particle.currentAbsolutePoint, particle.color)
+                    }, 1000)
                 }
             }
         })
@@ -54,9 +56,9 @@ const player = {
 
     burst(currentPoint: Coordinates, color: string) {
         const relativeEndPointArray = [
-            { x: 3, y: 0, z: 0  },
-            { x: 0, y: 0, z: 3  },
-            { x: 3, y: 0, z: 3  },
+            { x: 10, y: 10, z: 0  },
+            { x: 0, y: 10, z: 10  },
+            { x: 10, y: 10, z: 10  },
         ]
     
         relativeEndPointArray.forEach(endPoint => { 
