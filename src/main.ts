@@ -4,25 +4,33 @@ import './ui/cartesianAxes'
 
 // import * as THREE from 'three'
 
-import scene from './modules/core/scene'
-import palyer from './modules/feature/player'
-import ambientLight from './modules/feature/ambientLight'
-import orbitControls from './modules/feature/orbitControls'
+import Coordinates from './type/Coordinates'
+import scene from './module/core/scene'
+import ambientLight from './module/core/ambientLight'
 
-import LaunchingParticle from './modules/core/particle/LaunchingParticle'
-import Coordinates from './types/Coordinates'
-import player from './modules/feature/player'
+import fireworksManager from './module/feature/fireworksManager'
+import registerAnimationHandler from './handler/animationHandler'
 
 main()
 
 async function main() {
     scene.add(ambientLight)     // 조명.
-    orbitControls.update()      // 뷰.
-    palyer.animate()            // 애니메이션 시작.
+    registerAnimationHandler()  // 애니메이션.
 
     // particle.
     const currentPoint: Coordinates = { x: 2, y: 0, z: 5 }
-    // const endPoint: Coordinates = { x: 5, y: 7, z: -5 }
     const endPoint: Coordinates = { x: 0, y: 7, z: 0 }
-    player.ignite(currentPoint, endPoint, 500)
+    fireworksManager.launch(currentPoint, endPoint)
+
+    // const currentPoint2: Coordinates = { x: 5, y: 0, z: 2 }
+    // const endPoint2: Coordinates = { x: 0, y: 7, z: 0 }
+    // fireworksManager.launch(currentPoint, endPoint)
+
+    // const currentPoint3: Coordinates = { x: 0, y: 0, z: 5 }
+    // const endPoint3: Coordinates = { x: 0, y: 7, z: 0 }
+    // fireworksManager.launch(currentPoint, endPoint)
+
+    // const currentPoint4: Coordinates = { x: 5, y: 0, z: 0 }
+    // const endPoint4: Coordinates = { x: 0, y: 7, z: 0 }
+    // fireworksManager.launch(currentPoint, endPoint)
 }

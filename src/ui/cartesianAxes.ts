@@ -1,4 +1,4 @@
-import developmentHelper from "../modules/feature/developmentManager"
+import developmentHelper from "../module/feature/developmentManager"
 
 const cartesianAxesButton = document.getElementById('cartesianAxesButton')
 if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
