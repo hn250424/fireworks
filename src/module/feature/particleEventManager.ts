@@ -1,7 +1,7 @@
 import Coordinates from "../../type/Coordinates"
 import ParticleFactory from "../core/particle/ParticleFactory"
 
-const fireworksManager = {
+const particleEventManager = {
     launch(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) { ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint) },
     // ignite(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, ms: number) { setTimeout(() => { this.launch(currentAbsolutePoint, endRelativePoint) }, ms) },
 
@@ -33,10 +33,15 @@ const fireworksManager = {
             { x: 5.427, y: 16, z: -15.02 },
         ]
 
-        setTimeout(() => {
-            relativeEndPointArray.forEach(endPoint => { ParticleFactory.createExplosionParticle({...currentPoint}, endPoint, color) })
-        }, 1000)
+        relativeEndPointArray.forEach(endPoint => { ParticleFactory.createExplosionParticle({...currentPoint}, endPoint, color) })
     },
+
+    bomb() {},
+    erupt() {},
+    bloom() {},
+    twinkle() {},
+    sparkle() {},
+    chainBurst() {},
 }
 
-export default fireworksManager
+export default particleEventManager

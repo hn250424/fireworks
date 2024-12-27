@@ -10,14 +10,14 @@ import ParticleFactory from "../module/core/particle/ParticleFactory"
 import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 
-import fireworksManager from "../module/feature/fireworksManager"
+import particleEventManager from "../module/feature/particleEventManager"
 
 function registerAnimationHandler() {
     animate()
 }
 
 function animate() {
-    particles.forEach((particle: Particle) => { 
+    particles.processEachParticle((particle: Particle) => { 
         particle.update() 
 
         if (particle instanceof LaunchingParticle) {
@@ -30,13 +30,11 @@ function animate() {
         if (particle.getRemainingFrames() == 1) {
             particle.destroy()
 
-            const idx = particles.indexOf(particle)
-            if (idx > -1) particles.splice(idx, 1)
-                
+            particles.remove(particle)
             scene.remove(particle as BaseParticle)
             
             if (particle instanceof LaunchingParticle) {
-                fireworksManager.burst(particle.getCurrentAbsolutePoint(), particle.getColor())
+                particleEventManager.burst(particle.getCurrentAbsolutePoint(), particle.getColor())
             }
         }
     })

@@ -24,7 +24,7 @@ class ParticleFactory {
     }
 
     static addSceneAndParticles(particle: Particle) {
-        particles.push(particle)
+        particles.add(particle)
         scene.add(particle as BaseParticle)
     }
 }
