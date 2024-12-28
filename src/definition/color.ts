@@ -1,11 +1,11 @@
 const COLOR = {
-    BASE_POINT: 'white',
-    LAUNCH_POINT: 'white',
-
+    LAUNCH_POINT: '#D3D3D3 ',
+    
     CATESIAN_AXES: {
-        x: 'red',
-        y: 'blue',
-        z: 'yellow'
+        BASE_POINT: 'white',
+        X: 'red',
+        Y: 'blue',
+        Z: 'yellow'
     },
 
     FIREWORKS: [

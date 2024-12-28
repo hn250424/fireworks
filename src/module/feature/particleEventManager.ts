@@ -7,15 +7,15 @@ const particleEventManager = {
 
     burst(currentPoint: Coordinates, color: string) {
         const relativeEndPointArray = [
-            { x: 10, y: 10, z: 0  },
-            { x: 0, y: 10, z: -10  },
-            { x: -10, y: 10, z: 0  },
-            { x: 0, y: 10, z: 10  },
+            { x: 10, y: 10, z: 0 },
+            { x: 0, y: 10, z: -10 },
+            { x: -10, y: 10, z: 0 },
+            { x: 0, y: 10, z: 10 },
 
-            { x: 7.07, y: 10, z: -7.07  },
-            { x: -7.07, y: 10, z: -7.07  },
-            { x: -7.07, y: 10, z: 7.07  },
-            { x: 7.07, y: 10, z: 7.07  },
+            { x: 7.07, y: 10, z: -7.07 },
+            { x: -7.07, y: 10, z: -7.07 },
+            { x: -7.07, y: 10, z: 7.07 },
+            { x: 7.07, y: 10, z: 7.07 },
 
             // todo:
             { x: 13, y: 13, z: 0 },

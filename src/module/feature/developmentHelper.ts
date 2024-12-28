@@ -3,10 +3,11 @@ import COLOR from '../../definition/color'
 import LAUNCH_POINT from '../../definition/launchPoint'
 import scene from '../core/scene'
 
-const cartesianAxesElementArray: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>[] = []
-const launchPointArray: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>[] = []
+const cartesianAxesElementArray: THREE.Mesh[] = []
+const launchPointArray: THREE.Mesh[] = []
 
-function createCartesianAxes() {
+function createDevelopmentHelperElements(): void {
+    // Cartesian Axes Elements.
     const cubeSize = 1
     const lineWidth = 0.05
     const lineLength = 5
@@ -14,73 +15,48 @@ function createCartesianAxes() {
 
     const cube = new THREE.Mesh(
         new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize),
-        new THREE.MeshStandardMaterial({ color: 'white' })
+        new THREE.MeshStandardMaterial({ color: COLOR.CATESIAN_AXES.BASE_POINT })
     )
     const x = new THREE.Mesh(
         new THREE.BoxGeometry(lineLength, lineWidth, lineWidth),
-        new THREE.MeshStandardMaterial({ color: 'red' })
+        new THREE.MeshStandardMaterial({ color: COLOR.CATESIAN_AXES.X })
     )
     const y = new THREE.Mesh(
         new THREE.BoxGeometry(lineWidth, lineLength, lineWidth),
-        new THREE.MeshStandardMaterial({ color: 'blue' })
+        new THREE.MeshStandardMaterial({ color: COLOR.CATESIAN_AXES.Y })
     )
     const z = new THREE.Mesh(
         new THREE.BoxGeometry(lineWidth, lineWidth, lineLength),
-        new THREE.MeshStandardMaterial({ color: 'yellow' })
+        new THREE.MeshStandardMaterial({ color: COLOR.CATESIAN_AXES.Z })
     )
-    
+
     x.position.set(lineStartPoint, 0, 0)
     y.position.set(0, lineStartPoint, 0)
     z.position.set(0, 0, lineStartPoint)
 
-    cartesianAxesElementArray.push(cube)
-    cartesianAxesElementArray.push(x)
-    cartesianAxesElementArray.push(y)
-    cartesianAxesElementArray.push(z)
-}
+    cartesianAxesElementArray.push(cube, x, y, z)
 
-function createFireworksPoint() {
+    // Fireworks Launch Points
     const radius = 0.1
-    const segmanet = 32
-
-    return new THREE.Mesh(
-        new THREE.SphereGeometry(radius, segmanet, segmanet),
-        new THREE.MeshStandardMaterial({ color: COLOR.LAUNCH_POINT })
-    )
+    const segment = 32
+    LAUNCH_POINT.forEach(p => {
+        const point = new THREE.Mesh(
+            new THREE.SphereGeometry(radius, segment, segment),
+            new THREE.MeshStandardMaterial({ color: COLOR.LAUNCH_POINT })
+        )
+        point.position.set(p[0], p[1], p[2])
+        launchPointArray.push(point)
+    })
 }
 
-createCartesianAxes()
-
-LAUNCH_POINT.forEach(p => {
-    const point = createFireworksPoint()
-    point.position.set(p[0], p[1], p[2])
-    launchPointArray.push(point)
-})
+// Call the unified create method.
+createDevelopmentHelperElements()
 
 const developmentHelper = {
-    showCartesianAxes() {
-        cartesianAxesElementArray.forEach(e => {
-            scene.add(e)
-        })
-    },
-
-    hideCartesianAxes() {
-        cartesianAxesElementArray.forEach(e => {
-            scene.remove(e)
-        })
-    },
-
-    showLaunchPoint() {
-        launchPointArray.forEach(p => {
-            scene.add(p)
-        })
-    },
-
-    hideLaunchPoint() {
-        launchPointArray.forEach(p => {
-            scene.remove(p)
-        })
-    }
+    showCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.add(e)) },
+    hideCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.remove(e)) },
+    showLaunchPoint() { launchPointArray.forEach(p => scene.add(p)) },
+    hideLaunchPoint() { launchPointArray.forEach(p => scene.remove(p)) },
 }
 
 export default developmentHelper

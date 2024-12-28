@@ -3,8 +3,6 @@ import './style.scss'
 import './ui/cartesianAxes'
 import './ui/launchPoint'
 
-// import * as THREE from 'three'
-
 import scene from './module/core/scene'
 import ambientLight from './module/core/ambientLight'
 
