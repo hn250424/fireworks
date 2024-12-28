@@ -1,8 +1,8 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 import camera from '../core/camera'
-import { canvas } from '../core/renderer'
+import renderer from '../core/renderer'
 
-const orbitControls = new OrbitControls(camera, canvas)
+const orbitControls = new OrbitControls(camera, renderer.domElement)
 
 export default orbitControls

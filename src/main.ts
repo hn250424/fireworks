@@ -1,6 +1,7 @@
 import './style.scss'
 
 import './ui/cartesianAxes'
+import './ui/launchPoint'
 
 // import * as THREE from 'three'
 
@@ -18,4 +19,3 @@ async function main() {
     registerAnimationHandler()  // 애니메이션 처리.
     registerPlayHandler()       // 플레이 로직.
 }
-

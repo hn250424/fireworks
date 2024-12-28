@@ -1,6 +1,7 @@
 import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
+import ParticleSize from "../../../type/ParticleSize"
 
 export default class LaunchingParticle extends BaseParticle {
     private pointStorage: Coordinates[]
@@ -9,9 +10,14 @@ export default class LaunchingParticle extends BaseParticle {
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
     ) {
-        const color: string = COLOR[ Math.floor(Math.random() * COLOR.length) ]
+        const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
         const time: number = 5
-        super(currentAbsolutePoint, endRelativePoint, color, time)
+        const size: ParticleSize = {
+            width: 0.03,
+            height: 0.5,
+            depth: 0.03
+        }
+        super(currentAbsolutePoint, endRelativePoint, color, time, size)
 
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()

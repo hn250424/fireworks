@@ -20,7 +20,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         size: ParticleSize = { width: 0.1, height: 0.1, depth: 0.1 }
     ) {
         const geometry = new THREE.BoxGeometry(size.width, size.height, size.depth)
-        const material = new THREE.MeshStandardMaterial({ color: color })
+        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
         super(geometry, material)
 
         this.currentAbsolutePoint = currentAbsolutePoint
@@ -34,6 +34,11 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
     update(): void {
         this.elapsedFrames++
         this.remainingFrames--
+
+        // Opacity.
+        if (this.material instanceof THREE.MeshStandardMaterial) {
+            this.material.opacity = this.remainingFrames / this.totalFrames
+        }
     }
 
     destroy(): void {

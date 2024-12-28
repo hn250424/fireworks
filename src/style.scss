@@ -3,13 +3,17 @@
 
 html,
 body,
-#container,
-canvas {
+#container {
     width: 100%;
     height: 100%;
 }
 
 #cartesianAxesButton {
     top: 80%;
+    left: 80%;
+}
+
+#launchPointButton {
+    top: 70%;
     left: 80%;
 }

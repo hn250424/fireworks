@@ -7,7 +7,6 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 const container = document.getElementById('container')
 if (! container) throw new Error('Container is not exist !')
 
-const canvas = renderer.domElement
-container.appendChild(canvas)
+container.appendChild(renderer.domElement)
 
-export { renderer, canvas }
+export default renderer
