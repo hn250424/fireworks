@@ -12,7 +12,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
     private elapsedFrames: number
     private color: string
 
-    constructor(
+    protected constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
         color: string,

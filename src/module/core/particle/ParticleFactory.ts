@@ -9,17 +9,17 @@ import TraceParticle from "./TraceParticle"
 
 class ParticleFactory {
     static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number) {
-        const particle = new LaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType)
+        const particle = LaunchingParticle.create(currentAbsolutePoint, endRelativePoint, explosionType)
         this.addSceneAndParticles(particle)
     }
 
     static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, color: string) {
-        const particle = new ExplosionParticle(currentAbsolutePoint, endRelativePoint, color)
+        const particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, color)
         this.addSceneAndParticles(particle)
     }
 
     static createTraceParticle(currentAbsolutePoint: Coordinates, color: string) {
-        const particle = new TraceParticle(currentAbsolutePoint, color)
+        const particle = TraceParticle.create(currentAbsolutePoint, color)
         this.addSceneAndParticles(particle)
     }
 

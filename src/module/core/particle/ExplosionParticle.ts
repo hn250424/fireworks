@@ -5,7 +5,7 @@ export default class ExplosionParticle extends BaseParticle {
     private endRelativeYPointStorage: number[] = []   // Updating the y-endPoint to affect the particle's rotation.
     private pointStorage: Coordinates[]
 
-    constructor(
+    private constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
         color: string
@@ -29,6 +29,14 @@ export default class ExplosionParticle extends BaseParticle {
 
             this.pointStorage[i].z = this.getCurrentAbsolutePoint().z + (this.getEndRelativePoint().z * easeOutFactor) 
         }
+    }
+
+    public static create(
+        currentAbsolutePoint: Coordinates,
+        endRelativePoint: Coordinates,
+        color: string
+    ): ExplosionParticle {
+        return new ExplosionParticle(currentAbsolutePoint, endRelativePoint, color)
     }
 
     public update(): void {

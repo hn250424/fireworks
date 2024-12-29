@@ -7,7 +7,7 @@ export default class LaunchingParticle extends BaseParticle {
     private explosionType: number
     private pointStorage: Coordinates[]
 
-    constructor(
+    private constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
         explosionType: number
@@ -38,6 +38,14 @@ export default class LaunchingParticle extends BaseParticle {
             this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
             copyedCurrentAbsolutePoint_z += delta_z
         }
+    }
+
+    public static create(
+        currentAbsolutePoint: Coordinates,
+        endRelativePoint: Coordinates,
+        explosionType: number
+    ): LaunchingParticle {
+        return new LaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType)
     }
 
     public update(): void {
