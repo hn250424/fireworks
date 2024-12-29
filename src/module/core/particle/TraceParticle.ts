@@ -13,7 +13,7 @@ export default class TraceParticle extends Particle {
         super(currentAbsolutePoint, endRelativePoint, color, time, size)
     }
 
-    update(): void {
+    public update(): void {
         this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
         super.update()
     }

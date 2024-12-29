@@ -31,7 +31,7 @@ export default class ExplosionParticle extends BaseParticle {
         }
     }
 
-    update(): void {
+    public update(): void {
         this.getCurrentAbsolutePoint().x = this.pointStorage[this.getElapsedFrames()].x
         this.getCurrentAbsolutePoint().y = this.pointStorage[this.getElapsedFrames()].y
         this.getCurrentAbsolutePoint().z = this.pointStorage[this.getElapsedFrames()].z

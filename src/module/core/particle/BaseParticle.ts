@@ -31,7 +31,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.color = color
     }
 
-    update(): void {
+    public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
 
@@ -41,7 +41,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         }
     }
 
-    destroy(): void {
+    public destroy(): void {
         this.geometry.dispose()
         if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
         else this.material.dispose()
@@ -92,8 +92,8 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
 
     protected getEaseOutFactor(elapsedFrames: number) {
         const elapsedRate = this.getElapsedRate(elapsedFrames)
-        const easeOutFactor = 1 - (1 - elapsedRate) ** 2
-        // const easeInFactor = elapsedRate ** 2
+        const easeOutFactor = 1 - (1 - elapsedRate) ** 4
+        // const easeInFactor = elapsedRate ** 4
         return easeOutFactor
     }
 }

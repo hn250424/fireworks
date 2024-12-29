@@ -4,11 +4,13 @@ import Coordinates from "../../../type/Coordinates"
 import ParticleSize from "../../../type/ParticleSize"
 
 export default class LaunchingParticle extends BaseParticle {
+    private explosionType: number
     private pointStorage: Coordinates[]
 
     constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
+        explosionType: number
     ) {
         const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
         const time: number = 5
@@ -19,6 +21,7 @@ export default class LaunchingParticle extends BaseParticle {
         }
         super(currentAbsolutePoint, endRelativePoint, color, time, size)
 
+        this.explosionType = explosionType
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()
         const delta_z = this.getEndRelativePoint().z / this.getTotalFrames()
@@ -37,12 +40,16 @@ export default class LaunchingParticle extends BaseParticle {
         }
     }
 
-    update(): void {
+    public update(): void {
         this.getCurrentAbsolutePoint().x = this.pointStorage[this.getElapsedFrames()].x
         this.getCurrentAbsolutePoint().y = this.pointStorage[this.getElapsedFrames()].y
         this.getCurrentAbsolutePoint().z = this.pointStorage[this.getElapsedFrames()].z
         this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
 
         super.update()
+    }
+
+    public getExplosionType() {
+        return this.explosionType
     }
 }

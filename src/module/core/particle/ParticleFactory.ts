@@ -8,8 +8,8 @@ import ExplosionParticle from "./ExplosionParticle"
 import TraceParticle from "./TraceParticle"
 
 class ParticleFactory {
-    static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        const particle = new LaunchingParticle(currentAbsolutePoint, endRelativePoint)
+    static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number) {
+        const particle = new LaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType)
         this.addSceneAndParticles(particle)
     }
 

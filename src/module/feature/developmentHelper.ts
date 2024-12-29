@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import COLOR from '../../definition/color'
-import LAUNCH_POINT from '../../definition/launchPoint'
+import POINT from '../../definition/point'
 import scene from '../core/scene'
 
 const cartesianAxesElementArray: THREE.Mesh[] = []
@@ -39,14 +39,23 @@ function createDevelopmentHelperElements(): void {
     // Fireworks Launch Points
     const radius = 0.1
     const segment = 32
-    LAUNCH_POINT.forEach(p => {
+    Object.values(POINT.LAUNCHING_BASE).forEach(p => {
         const point = new THREE.Mesh(
             new THREE.SphereGeometry(radius, segment, segment),
             new THREE.MeshStandardMaterial({ color: COLOR.LAUNCH_POINT })
         )
-        point.position.set(p[0], p[1], p[2])
+        point.position.set(p.x, p.y, p.z)
         launchPointArray.push(point)
     })
+
+    // POINT.TEST.forEach(p => {
+    //     const point = new THREE.Mesh(
+    //         new THREE.SphereGeometry(radius, segment, segment),
+    //         new THREE.MeshStandardMaterial({ color: 'red' })
+    //     )
+    //     point.position.set(p.x, p.y, p.z)
+    //     launchPointArray.push(point)
+    // })
 }
 
 // Call the unified create method.

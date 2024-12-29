@@ -1,5 +1,5 @@
 const COLOR = {
-    LAUNCH_POINT: '#D3D3D3 ',
+    LAUNCH_POINT: '#D3D3D3',
     
     CATESIAN_AXES: {
         BASE_POINT: 'white',
