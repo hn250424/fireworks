@@ -1,5 +1,5 @@
 const COLOR = {
-    LAUNCH_POINT: '#D3D3D3',
+    LAUNCH_POINT: 'white',
     
     CATESIAN_AXES: {
         BASE_POINT: 'white',
@@ -9,11 +9,11 @@ const COLOR = {
     },
 
     FIREWORKS: [
-        '#00FFFF',  // Neon Blue
-        '#00FF00',  // Lime Green
-        '#FF69B4',  // Hot Pink
-        '#FF6600',  // Bright Orange
-        '#9500ff'   // Violet
+        '#00FFFF',      // Neon Blue
+        '#00FF00',      // Lime Green
+        '#ff0381',      // Hot Pink
+        '#FF6600',      // Bright Orange
+        '#C77DF5',      // Violet
     ]
 }
 

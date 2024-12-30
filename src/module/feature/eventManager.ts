@@ -1,34 +1,39 @@
-import FIREWORK_TYPES from "../../definition/fireworkTypes"
+import EXPLOSION_TYPES from "../../definition/EXPLOSION_TYPES"
 import Coordinates from "../../type/Coordinates"
 import ParticleFactory from "../core/particle/ParticleFactory"
 
 const eventManager = {
+    // 1
     burst(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) { 
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.BURST) 
+        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, EXPLOSION_TYPES.BURST) 
     },
 
-    bomb(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.BOMB) 
-    },
+    // 2, 3
+    burstEvenLeftToRight() {},
+    burstOddLeftToRight() {},
+    busrtEvenRightToLeft() {},
+    busrtOddRightToLeft() {},
+    busrtEvenCenterToOuter() {},
+    busrtOddCenterToOuter() {},
+    burstEvenOuterToCenter() {},
+    burstOddOuterToCenter() {},
+
+    // 5
+    burstLeftToRight() {},
+    busrtRightToLeft() {},
+    burstCenterToOuter() {},
+    burstOuterToCenter() {},
 
     erupt(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.ERUPT) 
+        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, EXPLOSION_TYPES.ERUPT) 
     },
 
     bloom(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.BLOOM) 
-    },
-
-    twinkle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.TWINKLE) 
-    },
-
-    sparkle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.SPARKLE) 
+        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, EXPLOSION_TYPES.BLOOM) 
     },
 
     chainBurst(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates) {
-        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, FIREWORK_TYPES.CHAIN_BURST) 
+        ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, EXPLOSION_TYPES.CHAIN_BURST) 
     },
 }
 

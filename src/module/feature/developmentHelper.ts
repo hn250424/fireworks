@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import COLOR from '../../definition/color'
-import POINT from '../../definition/point'
+import COLOR from '../../definition/COLOR'
+import POINT from '../../definition/POINT'
 import scene from '../core/scene'
 
 const cartesianAxesElementArray: THREE.Mesh[] = []
@@ -48,14 +48,14 @@ function createDevelopmentHelperElements(): void {
         launchPointArray.push(point)
     })
 
-    // POINT.TEST.forEach(p => {
-    //     const point = new THREE.Mesh(
-    //         new THREE.SphereGeometry(radius, segment, segment),
-    //         new THREE.MeshStandardMaterial({ color: 'red' })
-    //     )
-    //     point.position.set(p.x, p.y, p.z)
-    //     launchPointArray.push(point)
-    // })
+    POINT.TEST.forEach(p => {
+        const point = new THREE.Mesh(
+            new THREE.SphereGeometry(radius, segment, segment),
+            new THREE.MeshStandardMaterial({ color: 'red' })
+        )
+        point.position.set(p.x, p.y, p.z)
+        launchPointArray.push(point)
+    })
 }
 
 // Call the unified create method.

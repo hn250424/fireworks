@@ -1,4 +1,4 @@
-import POINT from "../definition/point"
+import POINT from "../definition/POINT"
 import eventManager from "../module/feature/eventManager"
 
 function registerPlayHandler() {
@@ -10,7 +10,7 @@ async function play() {
     //     eventManager.erupt(p, POINT.LAUNCHING_OFFSET.HIGH)
     // })
 
-    eventManager.burst(POINT.LAUNCHING_BASE.THREE, POINT.LAUNCHING_OFFSET.LOW)
+    eventManager.chainBurst(POINT.LAUNCHING_BASE.THREE, POINT.LAUNCHING_OFFSET.MEDIUM)
     // await particles.isEmpty()
 }
 
