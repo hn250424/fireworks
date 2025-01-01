@@ -8,12 +8,12 @@ import ExplosionParticle from "./ExplosionParticle"
 import TraceParticle from "./TraceParticle"
 
 class ParticleFactory {
-    static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number) {
+    static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: string) {
         const particle = LaunchingParticle.create(currentAbsolutePoint, endRelativePoint, explosionType)
         this.addSceneAndParticles(particle)
     }
 
-    static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number, color: string) {
+    static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: string, color: string) {
         const particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, explosionType, color)
         this.addSceneAndParticles(particle)
     }

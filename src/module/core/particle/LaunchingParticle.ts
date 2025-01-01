@@ -4,13 +4,13 @@ import Coordinates from "../../../type/Coordinates"
 import ParticleSize from "../../../type/ParticleSize"
 
 export default class LaunchingParticle extends BaseParticle {
-    private explosionType: number
+    private explosionType: string
     private pointStorage: Coordinates[]
 
     private constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
-        explosionType: number
+        explosionType: string
     ) {
         const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
         const time: number = 5
@@ -43,7 +43,7 @@ export default class LaunchingParticle extends BaseParticle {
     public static create(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
-        explosionType: number
+        explosionType: string
     ): LaunchingParticle {
         return new LaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType)
     }
@@ -57,7 +57,7 @@ export default class LaunchingParticle extends BaseParticle {
         super.update()
     }
 
-    public getExplosionType() {
+    public getExplosionType(): string {
         return this.explosionType
     }
 }

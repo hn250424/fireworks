@@ -1,19 +1,21 @@
-enum EXPLOSION {
-    BURST,
-    ERUPT,
-    BLOOM,
-    CHAIN_BURST
-}
-
-enum EVENT {
-    SHOT,
-    VOLLEY,
-    FINALE
-}
-
 const TYPE = {
-    EXPLOSION,
-    EVENT,
+    EXPLOSION: {
+        NORMAL: {
+            BURST: 'BURST',
+            ERUPT: 'ERUPT',
+            BLOOM: 'BLOOM'
+        },
+
+        FINALE: {
+            CHAIN_BURST: 'CHAIN_BURST'
+        }
+    },
+
+    EVENT: {
+        SHOT: 'SHOT',
+        VOLLEY: 'VOLLEY',
+        FINALE: 'FINALE'
+    }
 }
 
 export default TYPE

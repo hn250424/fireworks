@@ -1,4 +1,4 @@
-import developmentHelper from "../module/feature/developmentHelper"
+import uiManager from "../module/feature/uiManager"
 
 const cartesianAxesButton = document.getElementById('cartesianAxesButton')
 if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
@@ -8,15 +8,15 @@ cartesianAxesButton.innerText = 'Hide cartesian axes'
 
 cartesianAxesButton?.addEventListener('click', () => {
     if (cartesianAxes) {
-        developmentHelper.hideCartesianAxes()
+        uiManager.hideCartesianAxes()
         cartesianAxes = false
         cartesianAxesButton.innerText = 'Show cartesian axes'
     } else {
-        developmentHelper.showCartesianAxes()
+        uiManager.showCartesianAxes()
         cartesianAxes = true
         cartesianAxesButton.innerText = 'Hide cartesian axes'
     }
 })
 
 // Cartesian Axes for development purpose.
-developmentHelper.showCartesianAxes()
+uiManager.showCartesianAxes()

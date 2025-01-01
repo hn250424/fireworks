@@ -5,9 +5,9 @@ import particles from "../state/particles"
 
 function registerPlayHandler() {
     // test.
-    eventManager['test']()
-
-    // play()
+    // (eventManager['test'] as (() => void))()
+    
+    play()
 }
 
 async function play() {
@@ -23,20 +23,20 @@ async function play() {
     }
 }
 
-function getEvent(eventType: number) {
+function getEvent(eventType: string): (() => void) | (() => Promise<void>) {
     switch (eventType) {
         case TYPE.EVENT.SHOT:
-            return eventManager[TYPE.EVENT.SHOT]
+            return eventManager[TYPE.EVENT.SHOT] as (() => void)
         case TYPE.EVENT.VOLLEY:
-            const rand_3 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.VOLLEY].length - 1)
-            const event_3 = eventManager[TYPE.EVENT.VOLLEY][rand_3]
-            return event_3
+            const volleyIdx = getRandomNumberInRange(0, eventManager[TYPE.EVENT.VOLLEY].length - 1)
+            const volleyEvent = (eventManager[TYPE.EVENT.VOLLEY] as (() => Promise<void>)[])[volleyIdx]
+            return volleyEvent
         case TYPE.EVENT.FINALE:
-            const rand_5 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.FINALE].length - 1)
-            const event_5 = eventManager[TYPE.EVENT.FINALE][rand_5]
-            return event_5
+            const finaleIdx = getRandomNumberInRange(0, eventManager[TYPE.EVENT.FINALE].length - 1)
+            const finaleEvent = (eventManager[TYPE.EVENT.FINALE] as (() => Promise<void>)[])[finaleIdx]
+            return finaleEvent
         default:
-            return () => { }
+            return () => {}
     }
 }
 

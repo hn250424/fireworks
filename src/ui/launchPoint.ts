@@ -1,4 +1,4 @@
-import developmentHelper from "../module/feature/developmentHelper"
+import uiManager from "../module/feature/uiManager"
 
 const launchPointButton = document.getElementById('launchPointButton')
 if (! launchPointButton) throw new Error('launchPointButton is not exist !')
@@ -8,15 +8,15 @@ launchPointButton.innerText = 'Hide launch point'
 
 launchPointButton?.addEventListener('click', () => {
     if (launchPoint) {
-        developmentHelper.hideLaunchPoint()
+        uiManager.hideLaunchPoint()
         launchPoint = false
         launchPointButton.innerText = 'Show launch point'
     } else {
-        developmentHelper.showLaunchPoint()
+        uiManager.showLaunchPoint()
         launchPoint = true
         launchPointButton.innerText = 'Hide launch point'
     }
 })
 
 // LaunchPoint for development purpose.
-developmentHelper.showLaunchPoint()
+uiManager.showLaunchPoint()

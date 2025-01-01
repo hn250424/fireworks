@@ -6,178 +6,186 @@ import { sleep, getRandomNumberInRange } from "../utils"
 
 const launchingDelay = 500
 
-const eventManager = {
-    'test': () => {
-        generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...POINT.LAUNCHING_OFFSET.HIGH}, TYPE.EXPLOSION.BLOOM)
+interface EventManager {
+    [key: string]: (() => void) | (() => Promise<void>)[]
+}
+
+const eventManager: EventManager = {
+    'test': async () => {
+        generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...POINT.LAUNCHING_OFFSET.LOW}, TYPE.EXPLOSION.NORMAL.BURST)
     },
 
     [TYPE.EVENT.SHOT]: () => {
-        const randomExplosionType = getRandomExplosionType()
+        const idx = getRandomNormalExplosionTypeIndex()
         const launchingBasePoint = getLaunchingBasePoint()
         const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-        generateEvent({...launchingBasePoint}, {...launchingOffsetPoint}, randomExplosionType)
+        generateEvent({...launchingBasePoint}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
     },
 
     [TYPE.EVENT.VOLLEY]: [
-        // evenLeftToRight
+        // Even indexed, Left to right.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // oddLeftToRight
+        // Odd indexed, Left to right.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // evenRightToLeft
+        // Even indexed, Right to left.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // oddRightToLeft
+        // Odd indexed, Right to left.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // evenCenterToOuter
+        // Even indexed, Center to outer.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // oddCenterToOuter
+        // Odd indexed, Center to outer.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // evenOuterToCenter
+        // Even indexed, Outer to center.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
 
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         },
 
-        // oddOuterToCenter
+        // Odd indexed, Outer to center.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomNormalExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
             
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.NORMAL)[idx])
         }
     ],
 
     [TYPE.EVENT.FINALE]: [
-        // leftToRight
+        // Left to right.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomFinaleExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
             
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
         },
 
-        // rightToLeft
+        // Right to left.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomFinaleExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
             
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
         },
 
-        // centerToOuter
+        // Center to outer.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomFinaleExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
             
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
         },
 
-        // outerToCenter
+        // Outer to center.
         async () => {
-            const randomExplosionType = getRandomExplosionType()
+            const idx = getRandomFinaleExplosionTypeIndex()
             const launchingOffsetPoint = getLaunchingOffsetPoint()
             
-            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FIVE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, randomExplosionType)
-            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.TWO}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
+            generateEvent({...POINT.LAUNCHING_BASE.FOUR}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
             await sleep(launchingDelay)
-            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, randomExplosionType)
+            generateEvent({...POINT.LAUNCHING_BASE.THREE}, {...launchingOffsetPoint}, Object.values(TYPE.EXPLOSION.FINALE)[idx])
         },
     ]
 }
 
-function generateEvent(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number) {
+function generateEvent(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: string) {
     ParticleFactory.createLaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType) 
 }
 
-function getRandomExplosionType(): number {
-    return getRandomNumberInRange(0, Object.keys(TYPE.EXPLOSION).filter(key => isNaN(Number(key))).length - 1)
+function getRandomNormalExplosionTypeIndex(): number {
+    return getRandomNumberInRange(0, Object.keys(TYPE.EXPLOSION.NORMAL).length - 1)
+}
+
+function getRandomFinaleExplosionTypeIndex(): number {
+    return getRandomNumberInRange(0, Object.keys(TYPE.EXPLOSION.FINALE).length - 1)
 }
 
 function getLaunchingBasePoint(pointNumber?: number): Coordinates {

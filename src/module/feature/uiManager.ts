@@ -6,7 +6,7 @@ import scene from '../core/scene'
 const cartesianAxesElementArray: THREE.Mesh[] = []
 const launchPointArray: THREE.Mesh[] = []
 
-function createDevelopmentHelperElements(): void {
+function createElements(): void {
     // Cartesian Axes Elements.
     const cubeSize = 1
     const lineWidth = 0.05
@@ -59,13 +59,13 @@ function createDevelopmentHelperElements(): void {
 }
 
 // Call the unified create method.
-createDevelopmentHelperElements()
+createElements()
 
-const developmentHelper = {
+const uiManager = {
     showCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.add(e)) },
     hideCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.remove(e)) },
     showLaunchPoint() { launchPointArray.forEach(p => scene.add(p)) },
     hideLaunchPoint() { launchPointArray.forEach(p => scene.remove(p)) },
 }
 
-export default developmentHelper
+export default uiManager
