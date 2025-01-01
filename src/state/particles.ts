@@ -1,4 +1,4 @@
-import Particle from "../interface/Particle"
+import Particle from "../module/core/particle/Particle"
 
 const _arr: Particle[] = []
 

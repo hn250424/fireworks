@@ -3,17 +3,20 @@ import Coordinates from "../../../type/Coordinates"
 
 export default class ExplosionParticle extends BaseParticle {
     private endRelativeYPointStorage: number[] = []   // Updating the y-endPoint to affect the particle's rotation.
+    private explosionType: number
     private pointStorage: Coordinates[]
 
     private constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
+        explosionType: number,
         color: string
     ) {
         const time: number = 5
         super(currentAbsolutePoint, endRelativePoint, color, time)
 
         this.endRelativeYPointStorage = new Array(this.getTotalFrames())
+        this.explosionType = explosionType
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const copyedStartAbsolutePoint_y = this.getCurrentAbsolutePoint().y
         let copyedEndRelativePoint_y = this.getEndRelativePoint().y
@@ -34,9 +37,10 @@ export default class ExplosionParticle extends BaseParticle {
     public static create(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
+        explosionType: number,
         color: string
     ): ExplosionParticle {
-        return new ExplosionParticle(currentAbsolutePoint, endRelativePoint, color)
+        return new ExplosionParticle(currentAbsolutePoint, endRelativePoint, explosionType, color)
     }
 
     public update(): void {
@@ -49,5 +53,9 @@ export default class ExplosionParticle extends BaseParticle {
         super.rotateTowardsEndPoint()
 
         super.update()
+    }
+
+    public getExplosionType() {
+        return this.explosionType
     }
 }

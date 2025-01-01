@@ -1,6 +1,6 @@
 import scene from "../scene"
 import Coordinates from "../../../type/Coordinates"
-import Particle from "../../../interface/Particle"
+import Particle from "./Particle"
 import particles from "../../../state/particles"
 import BaseParticle from "./BaseParticle"
 import LaunchingParticle from "./LaunchingParticle"
@@ -13,8 +13,8 @@ class ParticleFactory {
         this.addSceneAndParticles(particle)
     }
 
-    static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, color: string) {
-        const particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, color)
+    static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: number, color: string) {
+        const particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, explosionType, color)
         this.addSceneAndParticles(particle)
     }
 

@@ -1,4 +1,4 @@
-import Coordinates from "../type/Coordinates"
+import Coordinates from "../../../type/Coordinates"
 
 export default interface Particle {
     update(): void

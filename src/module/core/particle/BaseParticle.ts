@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 import Coordinates from '../../../type/Coordinates'
 import ParticleSize from '../../../type/ParticleSize'
-import Particle from '../../../interface/Particle'
+import Particle from './Particle'
 
 export default class BaseParticle extends THREE.Mesh implements Particle {
     private currentAbsolutePoint: Coordinates
