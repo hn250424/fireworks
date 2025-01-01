@@ -4,33 +4,36 @@ import { getRandomNumberInRange } from "../module/utils"
 import particles from "../state/particles"
 
 function registerPlayHandler() {
-    play()
+    // test.
+    eventManager['test']()
+
+    // play()
 }
 
 async function play() {
     while (1) {
-        getEvent(TYPE.EVENT.ONE)()
+        getEvent(TYPE.EVENT.SHOT)()
         await particles.isEmpty()
 
-        getEvent(TYPE.EVENT.TWO_OR_THREE)()
+        getEvent(TYPE.EVENT.VOLLEY)()
         await particles.isEmpty()
 
-        getEvent(TYPE.EVENT.FIVE)()
+        getEvent(TYPE.EVENT.FINALE)()
         await particles.isEmpty()
     }
 }
 
 function getEvent(eventType: number) {
     switch (eventType) {
-        case TYPE.EVENT.ONE:
-            return eventManager[TYPE.EVENT.ONE]
-        case TYPE.EVENT.TWO_OR_THREE:
-            const rand_3 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.TWO_OR_THREE].length - 1)
-            const event_3 = eventManager[TYPE.EVENT.TWO_OR_THREE][rand_3]
+        case TYPE.EVENT.SHOT:
+            return eventManager[TYPE.EVENT.SHOT]
+        case TYPE.EVENT.VOLLEY:
+            const rand_3 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.VOLLEY].length - 1)
+            const event_3 = eventManager[TYPE.EVENT.VOLLEY][rand_3]
             return event_3
-        case TYPE.EVENT.FIVE:
-            const rand_5 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.FIVE].length - 1)
-            const event_5 = eventManager[TYPE.EVENT.FIVE][rand_5]
+        case TYPE.EVENT.FINALE:
+            const rand_5 = getRandomNumberInRange(0, eventManager[TYPE.EVENT.FINALE].length - 1)
+            const event_5 = eventManager[TYPE.EVENT.FINALE][rand_5]
             return event_5
         default:
             return () => { }

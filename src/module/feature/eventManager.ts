@@ -7,7 +7,11 @@ import { sleep, getRandomNumberInRange } from "../utils"
 const launchingDelay = 500
 
 const eventManager = {
-    [TYPE.EVENT.ONE]: () => {
+    'test': () => {
+        generateEvent({...POINT.LAUNCHING_BASE.ONE}, {...POINT.LAUNCHING_OFFSET.HIGH}, TYPE.EXPLOSION.BLOOM)
+    },
+
+    [TYPE.EVENT.SHOT]: () => {
         const randomExplosionType = getRandomExplosionType()
         const launchingBasePoint = getLaunchingBasePoint()
         const launchingOffsetPoint = getLaunchingOffsetPoint()
@@ -15,7 +19,7 @@ const eventManager = {
         generateEvent({...launchingBasePoint}, {...launchingOffsetPoint}, randomExplosionType)
     },
 
-    [TYPE.EVENT.TWO_OR_THREE]: [
+    [TYPE.EVENT.VOLLEY]: [
         // evenLeftToRight
         async () => {
             const randomExplosionType = getRandomExplosionType()
@@ -105,7 +109,7 @@ const eventManager = {
         }
     ],
 
-    [TYPE.EVENT.FIVE]: [
+    [TYPE.EVENT.FINALE]: [
         // leftToRight
         async () => {
             const randomExplosionType = getRandomExplosionType()

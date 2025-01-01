@@ -6,9 +6,9 @@ enum EXPLOSION {
 }
 
 enum EVENT {
-    ONE,
-    TWO_OR_THREE,
-    FIVE
+    SHOT,
+    VOLLEY,
+    FINALE
 }
 
 const TYPE = {
