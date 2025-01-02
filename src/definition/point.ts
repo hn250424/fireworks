@@ -4,11 +4,19 @@ const POINT = {
     ],
 
     LAUNCHING_BASE: {
-        ONE: { x: -5.5, y: 0, z: 16.5 },
-        TWO: { x: 0, y: 0, z: 11 },
-        THREE: { x: 5.5, y: 0, z: 5.5 },
-        FOUR: { x: 11, y: 0, z: 0 },
-        FIVE: { x: 16.5, y: 0, z: -5.5 },
+        ONE: { x: -27.5, y: 0, z: 38.5 },
+        TWO: { x: -22, y: 0, z: 33 },
+        THREE: { x: -16.5, y: 0, z: 27.5 },
+        FOUR: { x: -11, y: 0, z: 22 },
+        FIVE: { x: -5.5, y: 0, z: 16.5 },
+        SIX: { x: 0, y: 0, z: 11 },
+        SEVEN: { x: 5.5, y: 0, z: 5.5 },
+        EIGHT: { x: 11, y: 0, z: 0 },
+        NINE: { x: 16.5, y: 0, z: -5.5 },
+        TEN: { x: 22, y: 0, z: -11 },
+        ELEVEN: { x: 27.5, y: 0, z: -16.5 },
+        TWELVE: { x: 33, y: 0, z: -22 },
+        THIRTEEN: { x: 38.5, y: 0, z: -27.5 },
     },
 
     LAUNCHING_OFFSET: {

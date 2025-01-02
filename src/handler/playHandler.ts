@@ -1,43 +1,51 @@
 import TYPE from "../definition/TYPE"
 import eventManager from "../module/feature/eventManager"
-import { getRandomNumberInRange } from "../module/utils"
+import utils from "../module/utils"
 import particles from "../state/particles"
 
 function registerPlayHandler() {
     // test.
     // (eventManager['test'] as (() => void))()
     
-    play()
+    // play()
 }
 
 async function play() {
     while (1) {
-        getEvent(TYPE.EVENT.SHOT)()
+        getShotEvent()()
         await particles.isEmpty()
 
-        getEvent(TYPE.EVENT.VOLLEY)()
+        getRippleEvnet()(4)
         await particles.isEmpty()
 
-        getEvent(TYPE.EVENT.FINALE)()
+        getVolleyEvent()()
+        await particles.isEmpty()
+
+        getFinaleEvnet()()
         await particles.isEmpty()
     }
 }
 
-function getEvent(eventType: string): (() => void) | (() => Promise<void>) {
-    switch (eventType) {
-        case TYPE.EVENT.SHOT:
-            return eventManager[TYPE.EVENT.SHOT] as (() => void)
-        case TYPE.EVENT.VOLLEY:
-            const volleyIdx = getRandomNumberInRange(0, eventManager[TYPE.EVENT.VOLLEY].length - 1)
-            const volleyEvent = (eventManager[TYPE.EVENT.VOLLEY] as (() => Promise<void>)[])[volleyIdx]
-            return volleyEvent
-        case TYPE.EVENT.FINALE:
-            const finaleIdx = getRandomNumberInRange(0, eventManager[TYPE.EVENT.FINALE].length - 1)
-            const finaleEvent = (eventManager[TYPE.EVENT.FINALE] as (() => Promise<void>)[])[finaleIdx]
-            return finaleEvent
-        default:
-            return () => {}
-    }
+function getShotEvent() {
+    return eventManager[TYPE.EVENT.SHOT] as (() => void)
+}
+
+function getRippleEvnet() {
+    return eventManager[TYPE.EVENT.RIPPLE] as ((count: number) => Promise<void>)
+}
+
+function getVolleyEvent() {
+    const volleyLamdaArr: (() => Promise<void>)[] = eventManager[TYPE.EVENT.VOLLEY] as (() => Promise<void>)[]
+    const idx: number = utils.getRandomNumberInRange(0, eventManager[TYPE.EVENT.VOLLEY].length - 1)
+    const event = volleyLamdaArr[idx]
+    return event
+}
+
+function getFinaleEvnet() {
+    const finaleLamdaArr: (() => Promise<void>)[] = eventManager[TYPE.EVENT.FINALE] as (() => Promise<void>)[]
+    const idx = utils.getRandomNumberInRange(0, eventManager[TYPE.EVENT.FINALE].length - 1)
+    const event = finaleLamdaArr[idx]
+    return event
 }
 
 export default registerPlayHandler

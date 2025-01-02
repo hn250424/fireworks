@@ -13,7 +13,7 @@ import ParticleFactory from "../module/core/particle/ParticleFactory"
 import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import ExplosionParticle from "../module/core/particle/ExplosionParticle"
-import { sleep } from "../module/utils"
+import utils from "../module/utils"
 
 function registerAnimationHandler() {
     animate()
@@ -30,7 +30,7 @@ function particlesUpdate() {
     particles.processEachParticle(async (particle: Particle) => { 
         particle.update() 
 
-        if (particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.FINALE.CHAIN_BURST)) {
+        if (particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
             if (particle.getRemainingFrames() % 6 === 0) {
                 ParticleFactory.createTraceParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
             }
@@ -45,22 +45,22 @@ function particlesUpdate() {
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
-                    case TYPE.EXPLOSION.NORMAL.BURST:
+                    case TYPE.EXPLOSION.STRIKE.BURST:
                         POINT.EXPLOSION_OFFSET.BURST.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
-                    case TYPE.EXPLOSION.NORMAL.ERUPT:
+                    case TYPE.EXPLOSION.STRIKE.ERUPT:
                         POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
-                    case TYPE.EXPLOSION.NORMAL.BLOOM:
+                    case TYPE.EXPLOSION.STRIKE.BLOOM:
                         POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
-                    case TYPE.EXPLOSION.FINALE.CHAIN_BURST:
+                    case TYPE.EXPLOSION.CHAIN.CHAIN_BURST:
                         const currentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...currentAbsolutePoint}
@@ -72,7 +72,7 @@ function particlesUpdate() {
                                 ParticleFactory.createExplosionParticle(_copyedCurrentAbsolutePoint, {...endPoint}, particle.getExplosionType(), particle.getColor())
                             })
 
-                            await sleep(200)
+                            await utils.sleep(200)
                         }
                         break
                 }

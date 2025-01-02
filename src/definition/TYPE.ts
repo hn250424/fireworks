@@ -1,18 +1,19 @@
 const TYPE = {
     EXPLOSION: {
-        NORMAL: {
+        STRIKE: {
             BURST: 'BURST',
             ERUPT: 'ERUPT',
             BLOOM: 'BLOOM'
         },
 
-        FINALE: {
+        CHAIN: {
             CHAIN_BURST: 'CHAIN_BURST'
         }
     },
 
     EVENT: {
         SHOT: 'SHOT',
+        RIPPLE: 'RIPPLE',
         VOLLEY: 'VOLLEY',
         FINALE: 'FINALE'
     }

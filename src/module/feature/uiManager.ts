@@ -8,10 +8,10 @@ const launchPointArray: THREE.Mesh[] = []
 
 function createElements(): void {
     // Cartesian Axes Elements.
-    const cubeSize = 1
+    const cubeSize = 0.5
     const lineWidth = 0.05
     const lineLength = 5
-    const lineStartPoint = 3
+    const lineStartPoint = 2.5
 
     const cube = new THREE.Mesh(
         new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize),
