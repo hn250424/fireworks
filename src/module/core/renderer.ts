@@ -38,6 +38,7 @@ renderer.domElement.addEventListener('mouseup', function (event) {
 // 마우스 휠 이벤트 리스너
 renderer.domElement.addEventListener('wheel', function (event) {
     console.log('Mouse wheel used: ', event.deltaY);  // 휠의 방향을 추적
+    console.log('Mouse wheel used: ', event.clientX, event.clientY);  // 휠의 방향을 추적
     // 여기서 휠에 따른 카메라 또는 다른 처리를 할 수 있습니다
 });
 // ***

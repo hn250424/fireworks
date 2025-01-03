@@ -1,5 +1,5 @@
 Defendency flow:
-types -> interface -> (definition) -> state -> modules(core) -> modules(feature) -> ui -> handlers
+types definition -> modules(core) -> modules(feature) -> ui -> handlers
 
 Particle Event Pipeline:
-Particle -> ParticleFactory -> eventManager -> playHandler
+Particle -> particlePoolManager -> ParticleFactory -> eventManager -> playHandler

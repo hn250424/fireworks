@@ -20,6 +20,16 @@ export default class TraceParticle extends Particle {
         return new TraceParticle(currentAbsolutePoint, color)
     }
 
+    public recycle(
+        currentAbsolutePoint: Coordinates,
+        color: string
+    ): void {
+        super.setCurrentAbsolutePoint(currentAbsolutePoint)
+        super.setRemainingFrames(this.getTotalFrames())
+        super.setElapsedFrames(0)
+        super.setColor(color)
+    }
+
     public update(): void {
         this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
         super.update()

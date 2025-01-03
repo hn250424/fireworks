@@ -51,8 +51,16 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         return this.currentAbsolutePoint
     }
 
+    protected setCurrentAbsolutePoint(currentAbsolutePoint: Coordinates): void {
+        this.currentAbsolutePoint = currentAbsolutePoint
+    }
+
     public getEndRelativePoint(): Coordinates {
         return this.endRelativePoint
+    }
+
+    protected setEndRelativePoint(endRelativePoint: Coordinates): void {
+        this.endRelativePoint = endRelativePoint
     }
 
     protected getTotalFrames(): number {
@@ -63,12 +71,27 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         return this.remainingFrames
     }
 
+    protected setRemainingFrames(remainingFrames: number): void {
+        this.remainingFrames = remainingFrames
+    }
+
     protected getElapsedFrames(): number {
         return this.elapsedFrames
     }
 
+    protected setElapsedFrames(elapsedFrames: number): void {
+        this.elapsedFrames = elapsedFrames
+    }
+
     public getColor(): string {
         return this.color
+    }
+
+    protected setColor(color: string): void {
+        this.color = color
+        if (this.material instanceof THREE.MeshStandardMaterial) {
+            this.material.color.set(color)
+        }
     }
 
     protected rotateTowardsEndPoint(): void {
