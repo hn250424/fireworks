@@ -1,5 +1,5 @@
-import POINT from "../definition2/point"
-import TYPE from "../definition2/type"
+import POINT from "../definition/point"
+import TYPE from "../definition/type"
 
 import Particle from "../module/core/particle/Particle"
 import particles from "../state/particles"

@@ -1,4 +1,4 @@
-import COLOR from "../../../definition2/color"
+import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
 import ParticleSize from "../../../type/ParticleSize"
