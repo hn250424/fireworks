@@ -1,5 +1,5 @@
-import POINT from "../../definition/POINT"
-import TYPE from "../../definition/TYPE"
+import POINT from "../../definition2/point"
+import TYPE from "../../definition2/type"
 import Coordinates from "../../type/Coordinates"
 import ParticleFactory from "../core/particle/ParticleFactory"
 import utils from "../utils"

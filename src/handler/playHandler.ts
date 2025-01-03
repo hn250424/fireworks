@@ -1,4 +1,4 @@
-import TYPE from "../definition/TYPE"
+import TYPE from "../definition2/type"
 import eventManager from "../module/feature/eventManager"
 import utils from "../module/utils"
 import particles from "../state/particles"

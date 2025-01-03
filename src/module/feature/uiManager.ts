@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import COLOR from '../../definition/COLOR'
-import POINT from '../../definition/POINT'
+import COLOR from '../../definition2/color'
+import POINT from '../../definition2/point'
 import scene from '../core/scene'
 
 const cartesianAxesElementArray: THREE.Mesh[] = []
