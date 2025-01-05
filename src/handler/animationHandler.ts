@@ -30,7 +30,8 @@ function particlesUpdate() {
     particlePoolManager.processEachParticle(async (particle: Particle) => { 
         particle.update() 
 
-        if (particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
+        if (particle instanceof LaunchingParticle ||
+            particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
             if (particle.getRemainingFrames() % 6 === 0) {
                 ParticleFactory.createTraceParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
             }

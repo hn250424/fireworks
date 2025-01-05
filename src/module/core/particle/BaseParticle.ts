@@ -119,4 +119,8 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         // const easeInFactor = elapsedRate ** 4
         return easeOutFactor
     }
+
+    protected getDragForce(): number {
+        return Math.random() > 0.5 ? 0.005 : -0.005
+    }
 }

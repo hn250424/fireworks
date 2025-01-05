@@ -48,12 +48,21 @@ function createElements(): void {
         launchPointArray.push(point)
     })
 
-    POINT.TEST.forEach(p => {
+    // For testing coordinates during development.
+    POINT.RED.forEach(p => {
         const point = new THREE.Mesh(
             new THREE.SphereGeometry(radius, segment, segment),
             new THREE.MeshStandardMaterial({ color: 'red' })
         )
-        point.position.set(p.x, p.y, p.z)
+        point.position.set(p.x, p.y+5, p.z)
+        launchPointArray.push(point)
+    })
+    POINT.BLUE.forEach(p => {
+        const point = new THREE.Mesh(
+            new THREE.SphereGeometry(radius, segment, segment),
+            new THREE.MeshStandardMaterial({ color: 'blue' })
+        )
+        point.position.set(p.x, p.y+5, p.z)
         launchPointArray.push(point)
     })
 }

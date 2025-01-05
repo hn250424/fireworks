@@ -64,13 +64,13 @@ export default class ExplosionParticle extends BaseParticle {
         for (let i = 0; i < this.getTotalFrames(); i++) {
             const easeOutFactor = super.getEaseOutFactor(i)
             
-            this.pointStorage[i].x = this.getCurrentAbsolutePoint().x + (this.getEndRelativePoint().x * easeOutFactor) 
+            this.pointStorage[i].x = this.getCurrentAbsolutePoint().x + (this.getEndRelativePoint().x * easeOutFactor)
 
             this.endRelativeYPointStorage[i] = copyedEndRelativePoint_y
             this.pointStorage[i].y = copyedStartAbsolutePoint_y + copyedEndRelativePoint_y * easeOutFactor
             copyedEndRelativePoint_y -= gravity
 
-            this.pointStorage[i].z = this.getCurrentAbsolutePoint().z + (this.getEndRelativePoint().z * easeOutFactor) 
+            this.pointStorage[i].z = this.getCurrentAbsolutePoint().z + (this.getEndRelativePoint().z * easeOutFactor)
         }
     }
 

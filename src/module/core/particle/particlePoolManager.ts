@@ -6,22 +6,29 @@ import ExplosionParticle from "./ExplosionParticle"
 import TraceParticle from "./TraceParticle"
 
 const activatePool: Particle[] = []
-
-// todo:
 const launchingParticlePool: LaunchingParticle[] = []
-for (let i = 0; i < 15; i++) {
-    launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM) )
-}
 const exlosionParticlePool: ExplosionParticle[] = []
-for (let i = 0; i < 2000; i++) {
-    exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM, COLOR.FIREWORKS[0]) )
-}
 const traceParticlePool: TraceParticle[] = []
-for (let i = 0; i < 6000; i++) {
-    traceParticlePool.push( TraceParticle.create({x: 0, y: 0, z: 0}, COLOR.FIREWORKS[0]) )
-}
+
+const expectedLaunchingParticleCount = 15
+const expectedExplosionParticleCount = 2000
+const expectedTraceParticleCount = 6000
 
 const particlePoolManager = {
+    init() {
+        for (let i = 0; i < expectedLaunchingParticleCount; i++) {
+            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM) )
+        }
+
+        for (let i = 0; i < expectedExplosionParticleCount; i++) {
+            exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM, COLOR.FIREWORKS[0]) )
+        }
+
+        for (let i = 0; i < expectedTraceParticleCount; i++) {
+            traceParticlePool.push( TraceParticle.create({x: 0, y: 0, z: 0}, COLOR.FIREWORKS[0]) )
+        }
+    },
+
     add(particle: Particle): void { activatePool.push(particle) },
 
     lendLaunchingParticle() { return launchingParticlePool.shift() },
