@@ -4,9 +4,9 @@ import particlePoolManager from "../module/core/particle/particlePoolManager"
 import eventManager from "../module/feature/eventManager"
 
 function registerPlayHandler() {
-    // eventManager.executeTest()
+    eventManager.executeTest()
 
-    play()
+    // play()
 }
 
 async function play() {

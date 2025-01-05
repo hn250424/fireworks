@@ -3,6 +3,21 @@ import COLOR from '../../definition/color'
 import POINT from '../../definition/point'
 import scene from '../core/scene'
 
+const loadingPage = document.getElementById('loadingPage')
+if (! loadingPage) throw new Error('loadingPage is not exist !')
+
+const container = document.getElementById('container')
+if (! container) throw new Error('loadingPage is not exist !')
+
+const cartesianAxesButton = document.getElementById('cartesianAxesButton')
+if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
+
+const launchPointButton = document.getElementById('launchPointButton')
+if (! launchPointButton) throw new Error('launchPointButton is not exist !')
+
+let cartesianAxes: boolean
+let launchPoint: boolean
+
 const cartesianAxesElementArray: THREE.Mesh[] = []
 const launchPointArray: THREE.Mesh[] = []
 
@@ -67,14 +82,54 @@ function createElements(): void {
     })
 }
 
-// Call the unified create method.
-createElements()
+function showCartesianAxes() { 
+    cartesianAxesElementArray.forEach(e => scene.add(e)) 
+    cartesianAxes = true
+    if (cartesianAxesButton) cartesianAxesButton.innerText = 'Hide cartesian axes'
+}
+
+function hideCartesianAxes() { 
+    cartesianAxesElementArray.forEach(e => scene.remove(e)) 
+    cartesianAxes = false
+    if (cartesianAxesButton) cartesianAxesButton.innerText = 'Show cartesian axes'
+}
+
+function showLaunchPoint() { 
+    launchPointArray.forEach(p => scene.add(p)) 
+    launchPoint = true
+    if (launchPointButton) launchPointButton.innerText = 'Hide launch point'
+}
+
+function hideLaunchPoint() { 
+    launchPointArray.forEach(p => scene.remove(p)) 
+    launchPoint = false
+    if (launchPointButton) launchPointButton.innerText = 'Show launch point'
+}
 
 const uiManager = {
-    showCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.add(e)) },
-    hideCartesianAxes() { cartesianAxesElementArray.forEach(e => scene.remove(e)) },
-    showLaunchPoint() { launchPointArray.forEach(p => scene.add(p)) },
-    hideLaunchPoint() { launchPointArray.forEach(p => scene.remove(p)) },
+    init() {
+        loadingPage.style.display = 'none'
+
+        container.style.width = '100%'
+        container.style.height = '100%'
+        container.style.display = 'block'
+
+        createElements()
+        showCartesianAxes()
+        showLaunchPoint()
+    },
+
+    registerUiListeners() {
+        cartesianAxesButton.addEventListener('click', () => {
+            if (cartesianAxes) hideCartesianAxes()
+            else showCartesianAxes() 
+        })
+
+        launchPointButton.addEventListener('click', () => {
+            if (launchPoint) hideLaunchPoint()
+            else showLaunchPoint()
+        })
+    },
 }
 
 export default uiManager
