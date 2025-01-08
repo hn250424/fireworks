@@ -31,12 +31,12 @@ export default class LaunchingParticle extends BaseParticle {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = copyedCurrentAbsolutePoint_x
-            copyedCurrentAbsolutePoint_x += delta_x + super.getDragForce()
+            copyedCurrentAbsolutePoint_x += delta_x
 
             this.pointStorage[i].y = this.getEndRelativePoint().y * easeOutFactor
             
             this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
-            copyedCurrentAbsolutePoint_z += delta_z + super.getDragForce()
+            copyedCurrentAbsolutePoint_z += delta_z
         }
     }
 

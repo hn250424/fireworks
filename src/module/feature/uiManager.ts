@@ -69,7 +69,7 @@ function createElements(): void {
             new THREE.SphereGeometry(radius, segment, segment),
             new THREE.MeshStandardMaterial({ color: 'red' })
         )
-        point.position.set(p.x, p.y+5, p.z)
+        point.position.set(p.x, p.y, p.z)
         launchPointArray.push(point)
     })
     POINT.BLUE.forEach(p => {
@@ -77,7 +77,7 @@ function createElements(): void {
             new THREE.SphereGeometry(radius, segment, segment),
             new THREE.MeshStandardMaterial({ color: 'blue' })
         )
-        point.position.set(p.x, p.y+5, p.z)
+        point.position.set(p.x, p.y, p.z)
         launchPointArray.push(point)
     })
 }

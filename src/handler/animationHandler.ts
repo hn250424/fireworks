@@ -30,12 +30,12 @@ function particlesUpdate() {
     particlePoolManager.processEachParticle(async (particle: Particle) => { 
         particle.update() 
 
-        if (particle instanceof LaunchingParticle ||
-            particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
-            if (particle.getRemainingFrames() % 6 === 0) {
-                ParticleFactory.createTraceParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
-            }
-        }
+        // if (particle instanceof LaunchingParticle ||
+        //     particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
+        //     if (particle.getRemainingFrames() % 10 === 0) {
+        //         ParticleFactory.createTraceParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
+        //     }
+        // }
         
         // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
         if (particle.getRemainingFrames() == 1) {
@@ -52,16 +52,16 @@ function particlesUpdate() {
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
-                    case TYPE.EXPLOSION.STRIKE.ERUPT:
-                        POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
-                        break
-                    case TYPE.EXPLOSION.STRIKE.BLOOM:
-                        POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
-                        break
+                    // case TYPE.EXPLOSION.STRIKE.ERUPT:
+                    //     POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
+                    //         ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
+                    //     })
+                    //     break
+                    // case TYPE.EXPLOSION.STRIKE.BLOOM:
+                    //     POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
+                    //         ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
+                    //     })
+                    //     break
                     case TYPE.EXPLOSION.CHAIN.CHAIN_BURST:
                         const currentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.CHAIN_ORIGIN) {

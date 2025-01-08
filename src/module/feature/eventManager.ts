@@ -45,7 +45,7 @@ const eventManager = {
 
         testEventArr.push(
             async () => {
-                ParticleFactory.createLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ...POINT.LAUNCHING_OFFSET.MEDIUM }, TYPE.EXPLOSION.STRIKE.BURST)
+                ParticleFactory.createLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ...POINT.LAUNCHING_OFFSET.HIGH }, TYPE.EXPLOSION.STRIKE.BURST)
             },
         )
 

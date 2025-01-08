@@ -109,7 +109,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.quaternion.copy(quaternion)
     }
 
-    protected getElapsedRate(elapsedFrames: number) {
+    public getElapsedRate(elapsedFrames: number) {
         return elapsedFrames / this.totalFrames
     }
 

@@ -2,8 +2,8 @@ const TYPE = {
     EXPLOSION: {
         STRIKE: {
             BURST: 'BURST',
-            ERUPT: 'ERUPT',
-            BLOOM: 'BLOOM'
+            // ERUPT: 'ERUPT',
+            // BLOOM: 'BLOOM'
         },
 
         CHAIN: {
