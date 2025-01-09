@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
 
@@ -5,6 +7,8 @@ export default class ExplosionParticle extends BaseParticle {
     private endRelativeYPointStorage: number[] = []   // Updating the y-endPoint to affect the particle's rotation.
     private explosionType: string
     private pointStorage: Coordinates[]
+    private trailStorage: THREE.Vector3[]
+    private trail: THREE.Line
 
     private constructor(
         currentAbsolutePoint: Coordinates,
@@ -13,11 +17,21 @@ export default class ExplosionParticle extends BaseParticle {
         color: string
     ) {
         const time = 5
-        super(currentAbsolutePoint, endRelativePoint, color, time)
+        const width = 0.1
+        const height = 0.1
+        const depth = 0.1
+        const geometry = new THREE.BoxGeometry(width, height, depth)
+        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
+        super(currentAbsolutePoint, endRelativePoint, color, time, geometry, material)
 
         this.endRelativeYPointStorage = new Array(this.getTotalFrames())
         this.explosionType = explosionType
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        this.trailStorage = []
+        const trailGeometry = new THREE.BufferGeometry().setFromPoints(this.trailStorage)
+        const trailMaterial = new THREE.LineBasicMaterial({ color: this.getColor() })
+        this.trail = new THREE.Line(trailGeometry, trailMaterial)
+
         const copyedStartAbsolutePoint_y = this.getCurrentAbsolutePoint().y
         let copyedEndRelativePoint_y = this.getEndRelativePoint().y
         const gravity = 0.03
@@ -54,6 +68,11 @@ export default class ExplosionParticle extends BaseParticle {
         super.setRemainingFrames(this.getTotalFrames())
         super.setElapsedFrames(0)
         super.setColor(color)
+        this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        this.trailStorage = []
+        const trailGeometry = new THREE.BufferGeometry().setFromPoints(this.trailStorage)
+        const trailMaterial = new THREE.LineBasicMaterial({ color: this.getColor() })
+        this.trail = new THREE.Line(trailGeometry, trailMaterial)
         
         this.endRelativeYPointStorage = new Array(this.getTotalFrames())
         this.explosionType = explosionType
@@ -83,10 +102,27 @@ export default class ExplosionParticle extends BaseParticle {
         this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
         super.rotateTowardsEndPoint()
 
+        const trailPos = new THREE.Vector3(this.pointStorage[this.getElapsedFrames()].x, this.pointStorage[this.getElapsedFrames()].y, this.pointStorage[this.getElapsedFrames()].z)
+        this.trailStorage.push(trailPos)
+
+        if (this.trailStorage.length > 10) this.trailStorage.shift()
+
+        const trailGeometry = new THREE.BufferGeometry().setFromPoints(this.trailStorage)
+        const trailMaterial = new THREE.LineBasicMaterial({ 
+            color: this.getColor(),
+            transparent: true,
+            opacity: (this.getRemainingFrames() / this.getTotalFrames()) / 2
+        })
+        this.trail = new THREE.Line(trailGeometry, trailMaterial)
+
         super.update()
     }
 
     public getExplosionType(): string {
         return this.explosionType
+    }
+
+    public getTrail(): THREE.Line {
+        return this.trail
     }
 }

@@ -5,7 +5,7 @@ import particlePoolManager from "./particlePoolManager"
 import BaseParticle from "./BaseParticle"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
-import TraceParticle from "./TraceParticle"
+import DustParticle from "./DustParticle"
 
 class ParticleFactory {
     static createLaunchingParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: string) {
@@ -26,11 +26,11 @@ class ParticleFactory {
         this.addSceneAndParticles(particle)
     }
 
-    static createTraceParticle(currentAbsolutePoint: Coordinates, color: string) {
-        let particle = particlePoolManager.lendTraceParticle()
+    static createDustParticle(currentAbsolutePoint: Coordinates, color: string) {
+        let particle = particlePoolManager.lendDustParticle()
 
         if (particle) particle.recycle(currentAbsolutePoint, color)
-        else particle = TraceParticle.create(currentAbsolutePoint, color)
+        else particle = DustParticle.create(currentAbsolutePoint, color)
 
         this.addSceneAndParticles(particle)
     }

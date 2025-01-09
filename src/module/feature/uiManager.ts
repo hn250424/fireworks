@@ -74,6 +74,7 @@ function createElements(): void {
     })
     POINT.BLUE.forEach(p => {
         const point = new THREE.Mesh(
+            // new THREE.CylinderGeometry(0.05, 0, 0.7),
             new THREE.SphereGeometry(radius, segment, segment),
             new THREE.MeshStandardMaterial({ color: 'blue' })
         )

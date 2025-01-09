@@ -1,7 +1,8 @@
+import * as THREE from 'three'
+
 import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
-import ParticleSize from "../../../type/ParticleSize"
 
 export default class LaunchingParticle extends BaseParticle {
     private explosionType: string
@@ -14,12 +15,12 @@ export default class LaunchingParticle extends BaseParticle {
     ) {
         const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
         const time: number = 5
-        const size: ParticleSize = {
-            width: 0.05,
-            height: 0.1,
-            depth: 0.05
-        }
-        super(currentAbsolutePoint, endRelativePoint, color, time, size)
+        const radiusTop = 0.05
+        const radiusBottom = 0
+        const height = 0.7
+        const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
+        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
+        super(currentAbsolutePoint, endRelativePoint, color, time, geometry, material)
         
         this.explosionType = explosionType
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
@@ -68,12 +69,12 @@ export default class LaunchingParticle extends BaseParticle {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = copyedCurrentAbsolutePoint_x
-            copyedCurrentAbsolutePoint_x += delta_x + super.getDragForce()
+            copyedCurrentAbsolutePoint_x += delta_x
 
             this.pointStorage[i].y = this.getEndRelativePoint().y * easeOutFactor
             
             this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
-            copyedCurrentAbsolutePoint_z += delta_z + super.getDragForce()
+            copyedCurrentAbsolutePoint_z += delta_z
         }
     }
 

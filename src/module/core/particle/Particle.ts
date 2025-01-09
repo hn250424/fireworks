@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import Coordinates from "../../../type/Coordinates"
 
 export default interface Particle {

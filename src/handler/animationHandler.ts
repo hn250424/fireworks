@@ -27,22 +27,18 @@ function animate() {
 }
 
 function particlesUpdate() {
-    particlePoolManager.processEachParticle(async (particle: Particle) => { 
+    particlePoolManager.processEachParticle(async (particle: Particle) => {
+        if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
         particle.update() 
+        if (particle instanceof ExplosionParticle) scene.add(particle.getTrail())
 
-        // if (particle instanceof LaunchingParticle ||
-        //     particle instanceof ExplosionParticle && (particle.getExplosionType() !== TYPE.EXPLOSION.CHAIN.CHAIN_BURST)) {
-        //     if (particle.getRemainingFrames() % 10 === 0) {
-        //         ParticleFactory.createTraceParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
-        //     }
-        // }
-        
         // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
         if (particle.getRemainingFrames() == 1) {
             //
             // particlePoolManager.destroy()
 
             particlePoolManager.remove(particle)
+            if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
             scene.remove(particle as BaseParticle)
 
             if (particle instanceof LaunchingParticle) {

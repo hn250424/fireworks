@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 
 import Coordinates from '../../../type/Coordinates'
-import ParticleSize from '../../../type/ParticleSize'
 import Particle from './Particle'
 
 export default class BaseParticle extends THREE.Mesh implements Particle {
@@ -17,10 +16,9 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         endRelativePoint: Coordinates,
         color: string,
         time: number,
-        size: ParticleSize = { width: 0.1, height: 0.1, depth: 0.1 }
+        geometry: THREE.BufferGeometry, 
+        material: THREE.Material | THREE.Material[],
     ) {
-        const geometry = new THREE.BoxGeometry(size.width, size.height, size.depth)
-        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
         super(geometry, material)
 
         this.currentAbsolutePoint = currentAbsolutePoint
@@ -35,7 +33,6 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.elapsedFrames++
         this.remainingFrames--
 
-        // Opacity.
         if (this.material instanceof THREE.MeshStandardMaterial) {
             this.material.opacity = this.remainingFrames / this.totalFrames
         }
@@ -109,6 +106,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.quaternion.copy(quaternion)
     }
 
+    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
     public getElapsedRate(elapsedFrames: number) {
         return elapsedFrames / this.totalFrames
     }
@@ -118,9 +116,5 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         const easeOutFactor = 1 - (1 - elapsedRate) ** 4
         // const easeInFactor = elapsedRate ** 4
         return easeOutFactor
-    }
-
-    protected getDragForce(): number {
-        return Math.random() > 0.5 ? 0.005 : -0.005
     }
 }

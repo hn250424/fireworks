@@ -3,16 +3,16 @@ import COLOR from "../../../definition/color"
 import Particle from "./Particle"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
-import TraceParticle from "./TraceParticle"
+import DustParticle from "./DustParticle"
 
 const activatePool: Particle[] = []
 const launchingParticlePool: LaunchingParticle[] = []
 const exlosionParticlePool: ExplosionParticle[] = []
-const traceParticlePool: TraceParticle[] = []
+const dustParticlePool: DustParticle[] = []
 
 const expectedLaunchingParticleCount = 15
 const expectedExplosionParticleCount = 2000
-const expectedTraceParticleCount = 6000
+const expectedDustParticleCount = 6000
 
 const particlePoolManager = {
     init() {
@@ -24,8 +24,8 @@ const particlePoolManager = {
             exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM, COLOR.FIREWORKS[0]) )
         }
 
-        for (let i = 0; i < expectedTraceParticleCount; i++) {
-            traceParticlePool.push( TraceParticle.create({x: 0, y: 0, z: 0}, COLOR.FIREWORKS[0]) )
+        for (let i = 0; i < expectedDustParticleCount; i++) {
+            dustParticlePool.push( DustParticle.create({x: 0, y: 0, z: 0}, COLOR.FIREWORKS[0]) )
         }
     },
 
@@ -33,14 +33,14 @@ const particlePoolManager = {
 
     lendLaunchingParticle() { return launchingParticlePool.shift() },
     lendExplosionParticle() { return exlosionParticlePool.shift() },
-    lendTraceParticle() { return traceParticlePool.shift() },
+    lendDustParticle() { return dustParticlePool.shift() },
 
     remove(particle: Particle): void {
         const idx = activatePool.indexOf(particle)
         if (idx > -1) activatePool.splice(idx, 1)
         
         if (particle.constructor.name === ExplosionParticle.name) exlosionParticlePool.push(particle as ExplosionParticle)
-        else if (particle.constructor.name === TraceParticle.name) traceParticlePool.push(particle as TraceParticle)
+        else if (particle.constructor.name === DustParticle.name) dustParticlePool.push(particle as DustParticle)
         else if (particle.constructor.name === LaunchingParticle.name) launchingParticlePool.push(particle as LaunchingParticle)
     },
 
