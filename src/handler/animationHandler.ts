@@ -28,17 +28,18 @@ function animate() {
 
 function particlesUpdate() {
     particlePoolManager.processEachParticle(async (particle: Particle) => {
-        if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
+        // if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
         particle.update() 
-        if (particle instanceof ExplosionParticle) scene.add(particle.getTrail())
+        // if (particle instanceof ExplosionParticle) scene.add(particle.getTrail())
+        
+        if (particle instanceof ExplosionParticle) {
+            if (particle.getRemainingFrames() % 6 === 0) ParticleFactory.createDustParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
+        }
 
         // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
         if (particle.getRemainingFrames() == 1) {
-            //
-            // particlePoolManager.destroy()
-
             particlePoolManager.remove(particle)
-            if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
+            // if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
             scene.remove(particle as BaseParticle)
 
             if (particle instanceof LaunchingParticle) {

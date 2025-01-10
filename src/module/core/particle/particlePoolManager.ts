@@ -12,7 +12,7 @@ const dustParticlePool: DustParticle[] = []
 
 const expectedLaunchingParticleCount = 15
 const expectedExplosionParticleCount = 2000
-const expectedDustParticleCount = 6000
+const expectedDustParticleCount = 3000
 
 const particlePoolManager = {
     init() {
@@ -31,17 +31,17 @@ const particlePoolManager = {
 
     add(particle: Particle): void { activatePool.push(particle) },
 
-    lendLaunchingParticle() { return launchingParticlePool.shift() },
-    lendExplosionParticle() { return exlosionParticlePool.shift() },
-    lendDustParticle() { return dustParticlePool.shift() },
+    lendLaunchingParticle() { return launchingParticlePool.length > 0 ? launchingParticlePool.shift() : null; },
+    lendExplosionParticle() { return exlosionParticlePool.length > 0 ? exlosionParticlePool.shift() : null; },
+    lendDustParticle() { return dustParticlePool.length > 0 ? dustParticlePool.shift() : null; },
 
     remove(particle: Particle): void {
         const idx = activatePool.indexOf(particle)
         if (idx > -1) activatePool.splice(idx, 1)
         
         if (particle.constructor.name === ExplosionParticle.name) exlosionParticlePool.push(particle as ExplosionParticle)
-        else if (particle.constructor.name === DustParticle.name) dustParticlePool.push(particle as DustParticle)
         else if (particle.constructor.name === LaunchingParticle.name) launchingParticlePool.push(particle as LaunchingParticle)
+        else if (particle.constructor.name === DustParticle.name) dustParticlePool.push(particle as DustParticle)
     },
 
     /**

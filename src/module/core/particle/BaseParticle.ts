@@ -38,11 +38,11 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         }
     }
 
-    public destroy(): void {
-        this.geometry.dispose()
-        if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
-        else this.material.dispose()
-    }
+    // public destroy(): void {
+    //     this.geometry.dispose()
+    //     if (Array.isArray(this.material)) this.material.forEach(material => material.dispose())
+    //     else this.material.dispose()
+    // }
 
     public getCurrentAbsolutePoint(): Coordinates {
         return this.currentAbsolutePoint
@@ -76,6 +76,7 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         return this.elapsedFrames
     }
 
+    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
     protected setElapsedFrames(elapsedFrames: number): void {
         this.elapsedFrames = elapsedFrames
     }
@@ -107,10 +108,11 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
     }
 
     // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
-    public getElapsedRate(elapsedFrames: number) {
+    public getElapsedRate(elapsedFrames: number = this.elapsedFrames) {
         return elapsedFrames / this.totalFrames
     }
 
+    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
     protected getEaseOutFactor(elapsedFrames: number) {
         const elapsedRate = this.getElapsedRate(elapsedFrames)
         const easeOutFactor = 1 - (1 - elapsedRate) ** 4

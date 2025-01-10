@@ -8,10 +8,13 @@ import eventManager from './module/feature/eventManager'
 import registerAnimationHandler from './handler/animationHandler'
 import registerPlayHandler from './handler/playHandler'
 import uiManager from './module/feature/uiManager'
+import ParticleFactory from './module/core/particle/ParticleFactory'
 
 main()
 
 async function main() {
+    // ParticleFactory.createDustParticle({x: 0, y: 15, z: 0}, 'red')
+
     particlePoolManager.init()
     eventManager.init()
 
