@@ -8,7 +8,6 @@ import eventManager from './module/feature/eventManager'
 import registerAnimationHandler from './handler/animationHandler'
 import registerPlayHandler from './handler/playHandler'
 import uiManager from './module/feature/uiManager'
-import ParticleFactory from './module/core/particle/ParticleFactory'
 
 main()
 

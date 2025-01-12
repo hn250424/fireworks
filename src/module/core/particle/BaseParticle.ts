@@ -2,36 +2,48 @@ import * as THREE from 'three'
 
 import Coordinates from '../../../type/Coordinates'
 import Particle from './Particle'
+import ChildDustInfo from '../../../type/ChildDustInfo'
 
 export default class BaseParticle extends THREE.Mesh implements Particle {
     private currentAbsolutePoint: Coordinates
     private endRelativePoint: Coordinates
+    private explosionType: string
     private totalFrames: number
     private remainingFrames: number
     private elapsedFrames: number
     private color: string
+    private childDustInfo: ChildDustInfo
 
     protected constructor(
         currentAbsolutePoint: Coordinates,
         endRelativePoint: Coordinates,
+        explosionType: string,
         color: string,
         time: number,
         geometry: THREE.BufferGeometry, 
         material: THREE.Material | THREE.Material[],
+        childDustInfo: ChildDustInfo = { use: false, unit: 0, request: false }
     ) {
         super(geometry, material)
 
         this.currentAbsolutePoint = currentAbsolutePoint
         this.endRelativePoint = endRelativePoint
+        this.explosionType = explosionType
         this.totalFrames = time * 60
         this.remainingFrames = this.totalFrames
         this.elapsedFrames = 0
         this.color = color
+        this.childDustInfo = childDustInfo
     }
 
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
+
+        if (this.childDustInfo.use) {
+            if (this.elapsedFrames % this.childDustInfo.unit === 0) this.childDustInfo.request = true
+            else this.childDustInfo.request = false
+        }
 
         if (this.material instanceof THREE.MeshStandardMaterial) {
             this.material.opacity = this.remainingFrames / this.totalFrames
@@ -81,6 +93,14 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         this.elapsedFrames = elapsedFrames
     }
 
+    public getExplosionType(): string {
+        return this.explosionType
+    }
+
+    protected setExplosionType(explosionType: string) {
+        this.explosionType = explosionType
+    }
+
     public getColor(): string {
         return this.color
     }
@@ -90,6 +110,10 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         if (this.material instanceof THREE.MeshStandardMaterial) {
             this.material.color.set(color)
         }
+    }
+
+    public getDustRequestStatus(): boolean {
+        return this.childDustInfo.request
     }
 
     protected rotateTowardsEndPoint(): void {

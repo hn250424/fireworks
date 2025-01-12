@@ -12,20 +12,20 @@ const dustParticlePool: DustParticle[] = []
 
 const expectedLaunchingParticleCount = 15
 const expectedExplosionParticleCount = 2000
-const expectedDustParticleCount = 3000
+const expectedDustParticleCount = 6000
 
 const particlePoolManager = {
     init() {
         for (let i = 0; i < expectedLaunchingParticleCount; i++) {
-            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM) )
+            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM) )
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.STRIKE.BLOOM, COLOR.FIREWORKS[0]) )
+            exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
-            dustParticlePool.push( DustParticle.create({x: 0, y: 0, z: 0}, COLOR.FIREWORKS[0]) )
+            dustParticlePool.push( DustParticle.create({x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
     },
 

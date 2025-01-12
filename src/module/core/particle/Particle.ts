@@ -5,7 +5,9 @@ export default interface Particle {
     // destroy(): void
     getCurrentAbsolutePoint(): Coordinates
     getEndRelativePoint(): Coordinates
+    getExplosionType(): string
     getRemainingFrames(): number
     getElapsedRate(): number
     getColor(): string
+    getDustRequestStatus(): boolean
 }

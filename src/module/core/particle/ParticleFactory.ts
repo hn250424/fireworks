@@ -26,11 +26,11 @@ class ParticleFactory {
         this.addSceneAndParticles(particle)
     }
 
-    static createDustParticle(currentAbsolutePoint: Coordinates, color: string) {
+    static createDustParticle(currentAbsolutePoint: Coordinates, explosionType: string, color: string) {
         let particle = particlePoolManager.lendDustParticle()
 
-        if (particle) particle.recycle(currentAbsolutePoint, color)
-        else particle = DustParticle.create(currentAbsolutePoint, color)
+        if (particle) particle.recycle(currentAbsolutePoint, explosionType, color)
+        else particle = DustParticle.create(currentAbsolutePoint, explosionType, color)
 
         this.addSceneAndParticles(particle)
     }

@@ -52,11 +52,10 @@ function createElements(): void {
     cartesianAxesElementArray.push(cube, x, y, z)
 
     // Fireworks Launch Points
-    const radius = 0.1
-    const segment = 32
+    const size = 0.1
     Object.values(POINT.LAUNCHING_BASE).forEach(p => {
         const point = new THREE.Mesh(
-            new THREE.SphereGeometry(radius, segment, segment),
+            new THREE.BoxGeometry(size, size, size),
             new THREE.MeshStandardMaterial({ color: COLOR.LAUNCH_POINT })
         )
         point.position.set(p.x, p.y, p.z)
@@ -64,6 +63,8 @@ function createElements(): void {
     })
 
     // For testing coordinates during development.
+    const radius = 0.1
+    const segment = 8
     POINT.RED.forEach(p => {
         const point = new THREE.Mesh(
             new THREE.SphereGeometry(radius, segment, segment),

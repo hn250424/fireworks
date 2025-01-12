@@ -1,13 +1,14 @@
 const TYPE = {
     EXPLOSION: {
-        STRIKE: {
+        ROUTINE: {
             BURST: 'BURST',
             ERUPT: 'ERUPT',
             BLOOM: 'BLOOM'
         },
 
-        CHAIN: {
-            CHAIN_BURST: 'CHAIN_BURST'
+        FINALE: {
+            HUGE_BURST: 'HUGE_BURST',
+            CHAIN_BURST: 'CHAIN_BURST',
         }
     },
 

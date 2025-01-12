@@ -32,9 +32,7 @@ function particlesUpdate() {
         particle.update() 
         // if (particle instanceof ExplosionParticle) scene.add(particle.getTrail())
         
-        if (particle instanceof ExplosionParticle) {
-            if (particle.getRemainingFrames() % 6 === 0) ParticleFactory.createDustParticle({...particle.getCurrentAbsolutePoint()}, particle.getColor())
-        }
+        if (particle.getDustRequestStatus()) ParticleFactory.createDustParticle({...particle.getCurrentAbsolutePoint()}, particle.getExplosionType(), particle.getColor())
 
         // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
         if (particle.getRemainingFrames() == 1) {
@@ -44,30 +42,35 @@ function particlesUpdate() {
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
-                    case TYPE.EXPLOSION.STRIKE.BURST:
+                    case TYPE.EXPLOSION.ROUTINE.BURST:
                         POINT.EXPLOSION_OFFSET.BURST.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
-                    // case TYPE.EXPLOSION.STRIKE.ERUPT:
-                    //     POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
-                    //         ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                    //     })
-                    //     break
-                    // case TYPE.EXPLOSION.STRIKE.BLOOM:
-                    //     POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
-                    //         ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                    //     })
-                    //     break
-                    case TYPE.EXPLOSION.CHAIN.CHAIN_BURST:
+                    case TYPE.EXPLOSION.ROUTINE.ERUPT:
+                        POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
+                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
+                        })
+                        break
+                    case TYPE.EXPLOSION.ROUTINE.BLOOM:
+                        POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
+                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
+                        })
+                        break
+                    case TYPE.EXPLOSION.FINALE.HUGE_BURST:
+                        POINT.EXPLOSION_OFFSET.HUGE_BURST.forEach(endPoint => { 
+                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
+                        })
+                        break
+                    case TYPE.EXPLOSION.FINALE.CHAIN_BURST:
                         const currentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
-                        for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.CHAIN_ORIGIN) {
+                        for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...currentAbsolutePoint}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x
                             _copyedCurrentAbsolutePoint.y += explosionRelativePoint.y
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
                             
-                            POINT.EXPLOSION_OFFSET.CHAIN_BURST.CHAIN_OFFSET.forEach(endPoint => {
+                            POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET.forEach(endPoint => {
                                 ParticleFactory.createExplosionParticle(_copyedCurrentAbsolutePoint, {...endPoint}, particle.getExplosionType(), particle.getColor())
                             })
 

@@ -3,9 +3,9 @@ import * as THREE from 'three'
 import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
+import ChildDustInfo from '../../../type/ChildDustInfo'
 
 export default class LaunchingParticle extends BaseParticle {
-    private explosionType: string
     private pointStorage: Coordinates[]
 
     private constructor(
@@ -20,9 +20,13 @@ export default class LaunchingParticle extends BaseParticle {
         const height = 0.7
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
         const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
-        super(currentAbsolutePoint, endRelativePoint, color, time, geometry, material)
+        const childDustInfo: ChildDustInfo = {
+            use: true,
+            unit: 10,
+            request: false
+        }
+        super(currentAbsolutePoint, endRelativePoint, explosionType, color, time, geometry, material, childDustInfo)
         
-        this.explosionType = explosionType
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()
         const delta_z = this.getEndRelativePoint().z / this.getTotalFrames()
@@ -58,7 +62,7 @@ export default class LaunchingParticle extends BaseParticle {
         super.setEndRelativePoint(endRelativePoint)
         super.setRemainingFrames(this.getTotalFrames())
         super.setElapsedFrames(0)
-        this.explosionType = explosionType
+        super.setExplosionType(explosionType)
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
 
         const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()
@@ -85,9 +89,5 @@ export default class LaunchingParticle extends BaseParticle {
         this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
 
         super.update()
-    }
-
-    public getExplosionType(): string {
-        return this.explosionType
     }
 }
