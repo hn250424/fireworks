@@ -1,12 +1,15 @@
 const ASSETS = {
     IMAGES: {
-        FLOOR: '../../public/images/floor1.jpg'
+        ON_VOLUME: 'images/on_volume.png',
+        OFF_VOLUME: 'images/off_volume.png',
+        SHOW_MENU: 'images/show_menu.png',
+        HIDE_MENU: 'images/hide_menu.png',
     },
 
-    XMLS: {
-        HOUSE: '../../public/xmls/house.dae',
-        VENUS: '../../public/xmls/venus.obj'
-    }
+    SOUNDS: {
+        LAUNCH: 'sounds/launch.mp3',
+        EXPLOSION: 'sounds/explosion.mp3'
+    },
 }
 
 export default ASSETS

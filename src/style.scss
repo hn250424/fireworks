@@ -1,6 +1,50 @@
 @import './css/common.scss';
 @import './css/variable.scss';
 
+#displayButton,
+#volumeButton {
+    width: map-get($map: $circle, $key: width);
+    height: map-get($map: $circle, $key: height);
+
+    border: none;
+    border-radius: map-get($map: $circle, $key: radius);
+
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+#displayButton:hover,
+#volumeButton:hover {
+    filter: brightness(0.7);
+}
+
+#displayButton {
+    top: 10%;
+    left: 80%;
+    // background-image: url('/images/show_menu.png'); // uiManager init()
+}
+
+#volumeButton {
+    top: 10%;
+    left: 83%;
+    // background-image: url('/images/on_volume.png'); // uiManager init() 
+}
+
+#cartesianAxesButton,
+#launchPointButton {
+    width: map-get($map: $rect, $key: width);
+    height: map-get($map: $rect, $key: height);
+
+    border: 1px solid map-get($map: $rect, $key: color);
+    color: map-get($map: $rect, $key: color);
+}
+
+#cartesianAxesButton:hover,
+#launchPointButton:hover {
+    background-color: map-get($map: $rect, $key: hoverColor)
+}
+
 #cartesianAxesButton {
     top: 80%;
     left: 80%;
@@ -10,3 +54,4 @@
     top: 70%;
     left: 80%;
 }
+

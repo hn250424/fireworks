@@ -1,6 +1,8 @@
 import POINT from "../definition/point"
 import TYPE from "../definition/type"
+import ASSETS from "../definition/assets"
 
+import stateManager from "../module/core/stateManager"
 import Particle from "../module/core/particle/Particle"
 import particlePoolManager from "../module/core/particle/particlePoolManager"
 
@@ -12,7 +14,6 @@ import orbitControls from "../module/feature/orbitControls"
 import ParticleFactory from "../module/core/particle/ParticleFactory"
 import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
-import ExplosionParticle from "../module/core/particle/ExplosionParticle"
 import utils from "../module/utils"
 
 function registerAnimationHandler() {
@@ -41,6 +42,12 @@ function particlesUpdate() {
             scene.remove(particle as BaseParticle)
 
             if (particle instanceof LaunchingParticle) {
+                // todo: sound !
+                if (stateManager.getVolumeState()) {
+                    const s = new Audio(ASSETS.SOUNDS.EXPLOSION)
+                    s.play()
+                }
+                
                 switch (particle.getExplosionType()) {
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         POINT.EXPLOSION_OFFSET.BURST.forEach(endPoint => { 

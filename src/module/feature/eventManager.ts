@@ -1,6 +1,8 @@
+import ASSETS from "../../definition/assets"
 import POINT from "../../definition/point"
 import TYPE from "../../definition/type"
 import Coordinates from "../../type/Coordinates"
+import stateManager from "../core/stateManager"
 import ParticleFactory from "../core/particle/ParticleFactory"
 import utils from "../utils"
 
@@ -21,7 +23,7 @@ const eventManager = {
     init() {
         testEventArr.push(
             async () => {
-                ParticleFactory.createLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.FINALE.HUGE_BURST)
+                ParticleFactory.createLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BLOOM)
             },
         )
 
@@ -428,7 +430,15 @@ const eventManager = {
         )   // finaleEventArr.push
     },
 
-    executeTest() { testEventArr[0]() },
+    executeTest() {
+        if (stateManager.getVolumeState()) {
+            // todo: sound !
+            const s = new Audio(ASSETS.SOUNDS.LAUNCH)
+            s.play()
+        }
+        
+        testEventArr[0]() 
+    },
 
     executeAnyShot() {
         const idx = utils.getRandomNumberInRange(0, shotEvnetArr.length - 1)

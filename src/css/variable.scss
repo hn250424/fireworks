@@ -1,6 +1,14 @@
-$background-color: #000;
+$background: transparent;
 
-$button-width: 150px;
-$button-height: 50px;
-$button-color: #266bb5;
-$button-hoverColor: #3f3f3f;
+$circle: (
+    width: 25px,
+    height: 25px,
+    radius: 50%,
+);
+
+$rect: (
+    width: 150px,
+    height: 50px,
+    color: #266bb5,
+    hoverColor: #3f3f3f,
+);

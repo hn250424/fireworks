@@ -28,8 +28,7 @@ export default class ExplosionParticle extends BaseParticle {
             request: false
         }
         if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) childDustInfo.unit = 10
-        else if (explosionType === TYPE.EXPLOSION.FINALE.HUGE_BURST) childDustInfo.unit = 20
-        else if (explosionType === TYPE.EXPLOSION.FINALE.CHAIN_BURST) childDustInfo.use = false
+        else if (explosionType === (TYPE.EXPLOSION.FINALE.HUGE_BURST || TYPE.EXPLOSION.FINALE.CHAIN_BURST)) childDustInfo.use = false
         super(currentAbsolutePoint, endRelativePoint, explosionType, color, time, geometry, material, childDustInfo)
 
         this.endRelativeYPointStorage = new Array(this.getTotalFrames())
