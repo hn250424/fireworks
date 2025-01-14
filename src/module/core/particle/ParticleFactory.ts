@@ -12,8 +12,8 @@ class ParticleFactory {
         let particle = particlePoolManager.lendLaunchingParticle()
 
         if (particle) particle.recycle(currentAbsolutePoint, endRelativePoint, explosionType)
-        else particle = LaunchingParticle.create(currentAbsolutePoint, endRelativePoint, explosionType) 
-        
+        else particle = LaunchingParticle.create(currentAbsolutePoint, endRelativePoint, explosionType)
+    
         this.addSceneAndParticles(particle)
     }
 

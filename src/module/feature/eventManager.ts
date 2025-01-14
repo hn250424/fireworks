@@ -431,34 +431,38 @@ const eventManager = {
     },
 
     executeTest() {
-        if (stateManager.getVolumeState()) {
-            // todo: sound !
-            const s = new Audio(ASSETS.SOUNDS.LAUNCH)
-            s.play()
-        }
-        
+        playLaunchSound()
         testEventArr[0]() 
     },
 
     executeAnyShot() {
+        playLaunchSound()
         const idx = utils.getRandomNumberInRange(0, shotEvnetArr.length - 1)
         shotEvnetArr[idx]()
     },
 
     executeAnyRipple(count: number) {
+        playLaunchSound()
         const idx = utils.getRandomNumberInRange(0, rippleEventArr.length - 1)
         rippleEventArr[idx](count)
     },
 
     executeAnyVolley() {
-        console.log()
+        playLaunchSound()
         const idx = utils.getRandomNumberInRange(0, volleyEventArr.length - 1)
         volleyEventArr[idx]()
     },
 
     executeAnyFinale() {
+        playLaunchSound()
         const idx = utils.getRandomNumberInRange(0, finaleEventArr.length - 1)
         finaleEventArr[idx]()
+    }
+}
+
+function playLaunchSound() {
+    if (stateManager.getVolumeState()) { 
+        new Audio(ASSETS.SOUNDS.LAUNCH).play() 
     }
 }
 

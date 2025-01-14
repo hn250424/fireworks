@@ -6,7 +6,7 @@ import eventManager from "../module/feature/eventManager"
 function registerPlayHandler() {
     // eventManager.executeTest()
 
-    // play()
+    play()
 }
 
 async function play() {

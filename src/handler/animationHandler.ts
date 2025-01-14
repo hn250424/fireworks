@@ -42,29 +42,27 @@ function particlesUpdate() {
             scene.remove(particle as BaseParticle)
 
             if (particle instanceof LaunchingParticle) {
-                // todo: sound !
-                if (stateManager.getVolumeState()) {
-                    const s = new Audio(ASSETS.SOUNDS.EXPLOSION)
-                    s.play()
-                }
-                
                 switch (particle.getExplosionType()) {
                     case TYPE.EXPLOSION.ROUTINE.BURST:
+                        playExplosionSound()
                         POINT.EXPLOSION_OFFSET.BURST.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
                     case TYPE.EXPLOSION.ROUTINE.ERUPT:
+                        playExplosionSound()
                         POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
                     case TYPE.EXPLOSION.ROUTINE.BLOOM:
+                        playExplosionSound()
                         POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
                         break
                     case TYPE.EXPLOSION.FINALE.HUGE_BURST:
+                        playExplosionSound()
                         POINT.EXPLOSION_OFFSET.HUGE_BURST.forEach(endPoint => { 
                             ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
                         })
@@ -77,6 +75,7 @@ function particlesUpdate() {
                             _copyedCurrentAbsolutePoint.y += explosionRelativePoint.y
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
                             
+                            playExplosionSound()
                             POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET.forEach(endPoint => {
                                 ParticleFactory.createExplosionParticle(_copyedCurrentAbsolutePoint, {...endPoint}, particle.getExplosionType(), particle.getColor())
                             })
@@ -88,6 +87,12 @@ function particlesUpdate() {
             }
         }
     })
+}
+
+function playExplosionSound() {
+    if (stateManager.getVolumeState()) { 
+        new Audio(ASSETS.SOUNDS.EXPLOSION).play() 
+    }
 }
 
 export default registerAnimationHandler
