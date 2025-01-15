@@ -16,15 +16,19 @@ import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import utils from "../module/utils"
 
-import TestParticle from "../module/core/particle/TestParticle"
+import ExplosionParticle from "../module/core/particle/ExplosionParticle"
+import COLOR from "../definition/color"
 
-const a = new TestParticle(scene, 100)
+const a = new ExplosionParticle({x:0,y:10,z:0}, TYPE.EXPLOSION.ROUTINE.BLOOM, 'red')
+scene.add(a.instancedMesh)
 function registerAnimationHandler() {
     animate()
 }
 
 function animate() {
     a.update()
+    if (a.getRemainingFrames() === 1) scene.remove(a.instancedMesh)
+        
     particlesUpdate()
     requestAnimationFrame(animate)
     orbitControls.update()

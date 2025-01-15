@@ -26,6 +26,12 @@ export default class LaunchingParticle extends BaseParticle {
             request: false
         }
         super(currentAbsolutePoint, endRelativePoint, explosionType, color, time, geometry, material, childDustInfo)
+
+        // After delete extends Mesh in BaseParticle.
+        // const geometry = new THREE.SphereGeometry(1, 32, 32)
+        // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+        // const launchingParticle = new THREE.Mesh(geometry, material)
+        // scene.add(launchingParticle)
         
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()

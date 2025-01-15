@@ -21,7 +21,7 @@ const particlePoolManager = {
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            // exlosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {

@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 
-import Particle from "./BaseParticle"
+import BaseParticle from "./BaseParticle"
 import Coordinates from "../../../type/Coordinates"
 import TYPE from '../../../definition/type'
 
-export default class DustParticle extends Particle {
+export default class DustParticle extends BaseParticle {
     constructor(
         currentAbsolutePoint: Coordinates,
         explosionType: string,

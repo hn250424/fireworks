@@ -18,12 +18,12 @@ class ParticleFactory {
     }
 
     static createExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePoint: Coordinates, explosionType: string, color: string) {
-        let particle = particlePoolManager.lendExplosionParticle()
+        // let particle = particlePoolManager.lendExplosionParticle()
 
-        if (particle) particle.recycle(currentAbsolutePoint, endRelativePoint, explosionType, color)
-        else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, explosionType, color)
+        // if (particle) particle.recycle(currentAbsolutePoint, endRelativePoint, explosionType, color)
+        // else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePoint, explosionType, color)
 
-        this.addSceneAndParticles(particle)
+        // this.addSceneAndParticles(particle)
     }
 
     static createDustParticle(currentAbsolutePoint: Coordinates, explosionType: string, color: string) {
