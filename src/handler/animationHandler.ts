@@ -16,11 +16,15 @@ import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import utils from "../module/utils"
 
+import TestParticle from "../module/core/particle/TestParticle"
+
+const a = new TestParticle(scene, 100)
 function registerAnimationHandler() {
     animate()
 }
 
 function animate() {
+    a.update()
     particlesUpdate()
     requestAnimationFrame(animate)
     orbitControls.update()
