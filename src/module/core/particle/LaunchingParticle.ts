@@ -7,6 +7,7 @@ import ChildDustInfo from '../../../type/ChildDustInfo'
 
 export default class LaunchingParticle extends BaseParticle {
     private pointStorage: Coordinates[]
+    private endRelativePoint: Coordinates
 
     private constructor(
         currentAbsolutePoint: Coordinates,
@@ -20,12 +21,15 @@ export default class LaunchingParticle extends BaseParticle {
         const height = 0.7
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
         const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
+        const mesh = new THREE.Mesh(geometry, material)
         const childDustInfo: ChildDustInfo = {
             use: true,
             unit: 10,
             request: false
         }
-        super(currentAbsolutePoint, endRelativePoint, explosionType, color, time, geometry, material, childDustInfo)
+        super(mesh, material, currentAbsolutePoint, explosionType, color, time, childDustInfo)
+
+        this.endRelativePoint = endRelativePoint
 
         // After delete extends Mesh in BaseParticle.
         // const geometry = new THREE.SphereGeometry(1, 32, 32)
@@ -34,8 +38,8 @@ export default class LaunchingParticle extends BaseParticle {
         // scene.add(launchingParticle)
         
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()
-        const delta_z = this.getEndRelativePoint().z / this.getTotalFrames()
+        const delta_x = this.endRelativePoint.x / this.getTotalFrames()
+        const delta_z = this.endRelativePoint.z / this.getTotalFrames()
         let copyedCurrentAbsolutePoint_x = this.getCurrentAbsolutePoint().x
         let copyedCurrentAbsolutePoint_z = this.getCurrentAbsolutePoint().z
         for (let i = 0; i < this.getTotalFrames(); i++) {
@@ -44,7 +48,7 @@ export default class LaunchingParticle extends BaseParticle {
             this.pointStorage[i].x = copyedCurrentAbsolutePoint_x
             copyedCurrentAbsolutePoint_x += delta_x
 
-            this.pointStorage[i].y = this.getEndRelativePoint().y * easeOutFactor
+            this.pointStorage[i].y = this.endRelativePoint.y * easeOutFactor
             
             this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
             copyedCurrentAbsolutePoint_z += delta_z
@@ -65,14 +69,14 @@ export default class LaunchingParticle extends BaseParticle {
         explosionType: string
     ): void {
         super.setCurrentAbsolutePoint(currentAbsolutePoint)
-        super.setEndRelativePoint(endRelativePoint)
+        this.endRelativePoint = endRelativePoint
         super.setRemainingFrames(this.getTotalFrames())
         super.setElapsedFrames(0)
         super.setExplosionType(explosionType)
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
 
-        const delta_x = this.getEndRelativePoint().x / this.getTotalFrames()
-        const delta_z = this.getEndRelativePoint().z / this.getTotalFrames()
+        const delta_x = this.endRelativePoint.x / this.getTotalFrames()
+        const delta_z = this.endRelativePoint.z / this.getTotalFrames()
         let copyedCurrentAbsolutePoint_x = this.getCurrentAbsolutePoint().x
         let copyedCurrentAbsolutePoint_z = this.getCurrentAbsolutePoint().z
         for (let i = 0; i < this.getTotalFrames(); i++) {
@@ -81,7 +85,7 @@ export default class LaunchingParticle extends BaseParticle {
             this.pointStorage[i].x = copyedCurrentAbsolutePoint_x
             copyedCurrentAbsolutePoint_x += delta_x
 
-            this.pointStorage[i].y = this.getEndRelativePoint().y * easeOutFactor
+            this.pointStorage[i].y = this.endRelativePoint.y * easeOutFactor
             
             this.pointStorage[i].z = copyedCurrentAbsolutePoint_z
             copyedCurrentAbsolutePoint_z += delta_z
@@ -92,8 +96,9 @@ export default class LaunchingParticle extends BaseParticle {
         this.getCurrentAbsolutePoint().x = this.pointStorage[this.getElapsedFrames()].x
         this.getCurrentAbsolutePoint().y = this.pointStorage[this.getElapsedFrames()].y
         this.getCurrentAbsolutePoint().z = this.pointStorage[this.getElapsedFrames()].z
-        this.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
+        this.mesh.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
 
+        // super.rotateTowardsEndPoint(this.currentAbsolutePoint, this.endRelativePoint)
         super.update()
     }
 }

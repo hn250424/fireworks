@@ -4,30 +4,29 @@ import Coordinates from '../../../type/Coordinates'
 import Particle from './Particle'
 import ChildDustInfo from '../../../type/ChildDustInfo'
 
-export default class BaseParticle extends THREE.Mesh implements Particle {
-    private currentAbsolutePoint: Coordinates
-    private endRelativePoint: Coordinates
-    private explosionType: string
-    private totalFrames: number
-    private remainingFrames: number
-    private elapsedFrames: number
-    private color: string
-    private childDustInfo: ChildDustInfo
+export default class BaseParticle implements Particle {
+    protected mesh: THREE.InstancedMesh | THREE.Mesh
+    protected material: THREE.MeshStandardMaterial
+    protected currentAbsolutePoint: Coordinates
+    protected explosionType: string
+    protected totalFrames: number
+    protected remainingFrames: number
+    protected elapsedFrames: number
+    protected color: string
+    protected childDustInfo: ChildDustInfo
 
     protected constructor(
+        mesh: THREE.InstancedMesh | THREE.Mesh,
+        material: THREE.MeshStandardMaterial,
         currentAbsolutePoint: Coordinates,
-        endRelativePoint: Coordinates,
         explosionType: string,
         color: string,
         time: number,
-        geometry: THREE.BufferGeometry, 
-        material: THREE.Material | THREE.Material[],
         childDustInfo: ChildDustInfo = { use: false, unit: 0, request: false }
     ) {
-        super(geometry, material)
-
+        this.mesh = mesh
+        this.material = material
         this.currentAbsolutePoint = currentAbsolutePoint
-        this.endRelativePoint = endRelativePoint
         this.explosionType = explosionType
         this.totalFrames = time * 60
         this.remainingFrames = this.totalFrames
@@ -62,14 +61,6 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
 
     protected setCurrentAbsolutePoint(currentAbsolutePoint: Coordinates): void {
         this.currentAbsolutePoint = currentAbsolutePoint
-    }
-
-    public getEndRelativePoint(): Coordinates {
-        return this.endRelativePoint
-    }
-
-    protected setEndRelativePoint(endRelativePoint: Coordinates): void {
-        this.endRelativePoint = endRelativePoint
     }
 
     protected getTotalFrames(): number {
@@ -116,10 +107,10 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         return this.childDustInfo.request
     }
 
-    protected rotateTowardsEndPoint(): void {
+    protected rotateTowardsEndPoint(currentPoint: Coordinates, endPoint: Coordinates, object3D: THREE.Object3D | null = null): void {
         // Calculate direction vector.
-        const currentVec = new THREE.Vector3(this.currentAbsolutePoint.x, this.currentAbsolutePoint.y, this.currentAbsolutePoint.z)
-        const endVec = new THREE.Vector3(this.endRelativePoint.x, this.endRelativePoint.y, this.endRelativePoint.z)
+        const currentVec = new THREE.Vector3(currentPoint.x, currentPoint.y, currentPoint.z)
+        const endVec = new THREE.Vector3(endPoint.x, endPoint.y, endPoint.z)
 
         const direction = new THREE.Vector3().subVectors(endVec, currentVec).normalize()
         const up = new THREE.Vector3(0, 1, 0) // Default 'up' direction.
@@ -128,7 +119,8 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         const quaternion = new THREE.Quaternion().setFromUnitVectors(up, direction)
 
         // Apply rotation.
-        this.quaternion.copy(quaternion)
+        if (object3D) object3D.quaternion.copy(quaternion)
+        else this.mesh.quaternion.copy(quaternion)
     }
 
     // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
@@ -142,5 +134,9 @@ export default class BaseParticle extends THREE.Mesh implements Particle {
         const easeOutFactor = 1 - (1 - elapsedRate) ** 4
         // const easeInFactor = elapsedRate ** 4
         return easeOutFactor
+    }
+
+    public getMesh() {
+        return this.mesh
     }
 }

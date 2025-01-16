@@ -12,23 +12,14 @@ import renderer from "../module/core/renderer"
 import orbitControls from "../module/feature/orbitControls"
 
 import ParticleFactory from "../module/core/particle/ParticleFactory"
-import BaseParticle from "../module/core/particle/BaseParticle"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import utils from "../module/utils"
 
-import ExplosionParticle from "../module/core/particle/ExplosionParticle"
-import COLOR from "../definition/color"
-
-const a = new ExplosionParticle({x:0,y:10,z:0}, TYPE.EXPLOSION.ROUTINE.BLOOM, 'red')
-scene.add(a.instancedMesh)
 function registerAnimationHandler() {
     animate()
 }
-
+let count = 0
 function animate() {
-    a.update()
-    if (a.getRemainingFrames() === 1) scene.remove(a.instancedMesh)
-        
     particlesUpdate()
     requestAnimationFrame(animate)
     orbitControls.update()
@@ -36,44 +27,37 @@ function animate() {
 }
 
 function particlesUpdate() {
+    if (count > -1 && count < 5) {
+        console.log(POINT.EXPLOSION_OFFSET.TEST, 'TEST')
+    }
+    count++
     particlePoolManager.processEachParticle(async (particle: Particle) => {
-        // if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
         particle.update() 
-        // if (particle instanceof ExplosionParticle) scene.add(particle.getTrail())
-        
-        if (particle.getDustRequestStatus()) ParticleFactory.createDustParticle({...particle.getCurrentAbsolutePoint()}, particle.getExplosionType(), particle.getColor())
 
         // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
-        if (particle.getRemainingFrames() == 1) {
-            particlePoolManager.remove(particle)
-            // if (particle instanceof ExplosionParticle) scene.remove(particle.getTrail())
-            scene.remove(particle as BaseParticle)
+        if (particle.getRemainingFrames() === 1) {
+            ParticleFactory.retrieveParticle(particle)
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
+                    case 'TEST':
+                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, [...POINT.EXPLOSION_OFFSET.TEST], particle.getExplosionType(), particle.getColor()) 
+                        break
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         playExplosionSound()
-                        POINT.EXPLOSION_OFFSET.BURST.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
+                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, [...POINT.EXPLOSION_OFFSET.BURST], particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.ROUTINE.ERUPT:
                         playExplosionSound()
-                        POINT.EXPLOSION_OFFSET.ERUPT.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
+                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, [...POINT.EXPLOSION_OFFSET.ERUPT], particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.ROUTINE.BLOOM:
                         playExplosionSound()
-                        POINT.EXPLOSION_OFFSET.BLOOM.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
+                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, [...POINT.EXPLOSION_OFFSET.BLOOM], particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.FINALE.HUGE_BURST:
                         playExplosionSound()
-                        POINT.EXPLOSION_OFFSET.HUGE_BURST.forEach(endPoint => { 
-                            ParticleFactory.createExplosionParticle({...particle.getCurrentAbsolutePoint()}, {...endPoint}, particle.getExplosionType(), particle.getColor()) 
-                        })
+                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, [...POINT.EXPLOSION_OFFSET.HUGE_BURST], particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.FINALE.CHAIN_BURST:
                         const currentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
@@ -84,9 +68,7 @@ function particlesUpdate() {
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
                             
                             playExplosionSound()
-                            POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET.forEach(endPoint => {
-                                ParticleFactory.createExplosionParticle(_copyedCurrentAbsolutePoint, {...endPoint}, particle.getExplosionType(), particle.getColor())
-                            })
+                            ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, [...POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET], particle.getExplosionType(), particle.getColor()) 
 
                             await utils.sleep(200)
                         }

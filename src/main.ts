@@ -12,14 +12,12 @@ import uiManager from './module/feature/uiManager'
 main()
 
 async function main() {
-    // ParticleFactory.createDustParticle({x: 0, y: 15, z: 0}, 'red')
-
     particlePoolManager.init()
     eventManager.init()
-
+    
     uiManager.init()
     scene.add(ambientLight)     
-
+    
     uiManager.registerUiListeners()
     
     registerAnimationHandler()  
