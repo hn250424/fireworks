@@ -20,8 +20,10 @@ class ParticleFactory {
     static provideExplosionParticle(currentAbsolutePoint: Coordinates, endRelativePointArr: Coordinates[], explosionType: string, color: string) {
         let particle = particlePoolManager.shiftExplosionParticle()
         
+        console.log('provideExplosionParticle', endRelativePointArr)
         if (particle) particle.recycle(currentAbsolutePoint, endRelativePointArr, explosionType, color)
-        else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePointArr, explosionType, color)
+            else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePointArr, explosionType, color)
+        console.log('provideExplosionParticle2222', endRelativePointArr)
 
         this.addSceneAndParticles(particle)
     }

@@ -21,7 +21,7 @@ export default class DustParticle extends BaseParticle {
         const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
         const mesh = new THREE.Mesh(geometry, material)
 
-        super(mesh, material, currentAbsolutePoint, explosionType, color, time)
+        super(geometry, material, mesh, currentAbsolutePoint, explosionType, color, time)
     }
 
     public static create(
@@ -45,7 +45,7 @@ export default class DustParticle extends BaseParticle {
     }
 
     public update(): void {
-        this.mesh.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
+        this.getMesh().position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
         super.update()
     }
 }

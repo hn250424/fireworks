@@ -5,27 +5,30 @@ import Particle from './Particle'
 import ChildDustInfo from '../../../type/ChildDustInfo'
 
 export default class BaseParticle implements Particle {
-    protected mesh: THREE.InstancedMesh | THREE.Mesh
+    protected geometry: THREE.BufferGeometry
     protected material: THREE.MeshStandardMaterial
-    protected currentAbsolutePoint: Coordinates
-    protected explosionType: string
-    protected totalFrames: number
-    protected remainingFrames: number
-    protected elapsedFrames: number
-    protected color: string
-    protected childDustInfo: ChildDustInfo
+    protected mesh: THREE.InstancedMesh | THREE.Mesh
+    private currentAbsolutePoint: Coordinates
+    private explosionType: string
+    private totalFrames: number
+    private remainingFrames: number
+    private elapsedFrames: number
+    private color: string
+    private childDustInfo: ChildDustInfo
 
     protected constructor(
-        mesh: THREE.InstancedMesh | THREE.Mesh,
+        geometry: THREE.BufferGeometry,
         material: THREE.MeshStandardMaterial,
+        mesh: THREE.InstancedMesh | THREE.Mesh,
         currentAbsolutePoint: Coordinates,
         explosionType: string,
         color: string,
         time: number,
         childDustInfo: ChildDustInfo = { use: false, unit: 0, request: false }
     ) {
-        this.mesh = mesh
+        this.geometry = geometry
         this.material = material
+        this.mesh = mesh
         this.currentAbsolutePoint = currentAbsolutePoint
         this.explosionType = explosionType
         this.totalFrames = time * 60

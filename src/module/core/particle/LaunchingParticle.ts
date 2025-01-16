@@ -27,7 +27,7 @@ export default class LaunchingParticle extends BaseParticle {
             unit: 10,
             request: false
         }
-        super(mesh, material, currentAbsolutePoint, explosionType, color, time, childDustInfo)
+        super(geometry, material, mesh, currentAbsolutePoint, explosionType, color, time, childDustInfo)
 
         this.endRelativePoint = endRelativePoint
 
@@ -96,7 +96,7 @@ export default class LaunchingParticle extends BaseParticle {
         this.getCurrentAbsolutePoint().x = this.pointStorage[this.getElapsedFrames()].x
         this.getCurrentAbsolutePoint().y = this.pointStorage[this.getElapsedFrames()].y
         this.getCurrentAbsolutePoint().z = this.pointStorage[this.getElapsedFrames()].z
-        this.mesh.position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
+        this.getMesh().position.set(this.getCurrentAbsolutePoint().x, this.getCurrentAbsolutePoint().y, this.getCurrentAbsolutePoint().z)
 
         // super.rotateTowardsEndPoint(this.currentAbsolutePoint, this.endRelativePoint)
         super.update()

@@ -2,6 +2,9 @@ import TYPE from "../definition/type"
 import utils from "../module/utils"
 import particlePoolManager from "../module/core/particle/particlePoolManager"
 import eventManager from "../module/feature/eventManager"
+import ParticleFactory from "../module/core/particle/ParticleFactory"
+
+import POINT from "../definition/point"
 
 function registerPlayHandler() {
     eventManager.executeTest()

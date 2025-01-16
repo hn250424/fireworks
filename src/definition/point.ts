@@ -46,11 +46,6 @@ const POINT = {
     },
 
     EXPLOSION_OFFSET: {
-        TEST: [
-            { x: 0.00, y: 12.5, z: 0.00 },
-            { x: 12.00, y: 12.5, z: 0.00 },
-        ],
-
         BURST: [
             // origin.
             { x: 0.00, y: 12.5, z: 0.00 },
@@ -357,8 +352,6 @@ const POINT = {
         },
     }
 }
-
-console.log(POINT)
 
 export default POINT
 

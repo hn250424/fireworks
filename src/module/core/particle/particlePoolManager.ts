@@ -11,9 +11,9 @@ const launchingParticlePool: LaunchingParticle[] = []
 const explosionParticlePool: ExplosionParticle[] = []
 const dustParticlePool: DustParticle[] = []
 
-const expectedLaunchingParticleCount = 15
-const expectedExplosionParticleCount = 2000
-const expectedDustParticleCount = 6000
+const expectedLaunchingParticleCount = 33
+const expectedExplosionParticleCount = 33
+const expectedDustParticleCount = 1000
 
 const particlePoolManager = {
     init() {
@@ -22,7 +22,7 @@ const particlePoolManager = {
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, [...POINT.EXPLOSION_OFFSET.BLOOM], TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
@@ -62,11 +62,6 @@ const particlePoolManager = {
 
             check()
         })
-    },
-
-    // test.
-    getActivatePoolLength() {
-        return activatePool.length
     },
 }
 
