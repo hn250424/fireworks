@@ -5,7 +5,6 @@ import particlePoolManager from "./particlePoolManager"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
-import POINT from "../../../definition/point"
 
 class ParticleFactory {
     static provideLaunchingParticle(currentAbsolutePoint: CVector3, endRelativePoint: CVector3, explosionType: string) {

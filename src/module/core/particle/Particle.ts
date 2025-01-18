@@ -3,13 +3,14 @@ import CVector3 from "../../../type/CVector3"
 
 export default interface Particle {
     update(): void
-    // destroy(): void
-    getCurrentAbsolutePoint(): CVector3
-    getExplosionType(): string
-    getRemainingFrames(): number
-    getColor(): string
-    getDustCreationFlag(): boolean
+    getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh>
+    getCurrentAbsolutePoint(): Readonly<CVector3>
+    getExplosionType(): Readonly<string>
+    getColor(): Readonly<string>
+    getRemainingFrames(): Readonly<number>
+    getDustCreationFlag(): Readonly<boolean>
     setDustCreationFlag(flag: boolean): void
-    getMesh(): THREE.Mesh | THREE.InstancedMesh
-    getDustVector3(): CVector3[]
+    getDustVector3(): Readonly<CVector3[]>
 }
+
+// destroy(): void

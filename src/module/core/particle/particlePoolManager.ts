@@ -4,7 +4,6 @@ import Particle from "./Particle"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
-import POINT from "../../../definition/point"
 
 const activatePool: Particle[] = []
 const launchingParticlePool: LaunchingParticle[] = []

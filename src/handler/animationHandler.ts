@@ -14,8 +14,6 @@ import orbitControls from "../module/feature/orbitControls"
 import ParticleFactory from "../module/core/particle/ParticleFactory"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import utils from "../module/utils"
-import ExplosionParticle from "../module/core/particle/ExplosionParticle"
-import CVector3 from "../type/CVector3"
 
 function registerAnimationHandler() {
     animate()
@@ -36,7 +34,8 @@ function particlesUpdate() {
         particle.update() 
 
         if ( particle.getDustCreationFlag() ) {
-            ParticleFactory.provideDustParticle(particle.getDustVector3(), particle.getExplosionType(), particle.getColor())
+            // Unlike 'ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(),' CVector3[] requires a deep copy.
+            ParticleFactory.provideDustParticle(JSON.parse(JSON.stringify(particle.getDustVector3())), particle.getExplosionType(), particle.getColor())
             particle.setDustCreationFlag(false)
         }
 
@@ -48,19 +47,19 @@ function particlesUpdate() {
                 switch (particle.getExplosionType()) {
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.ROUTINE.ERUPT:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getExplosionType(), particle.getColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.ROUTINE.BLOOM:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.FINALE.HUGE_BURST:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle({...particle.getCurrentAbsolutePoint()}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getColor()) 
                         break
                     case TYPE.EXPLOSION.FINALE.CHAIN_BURST:
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {

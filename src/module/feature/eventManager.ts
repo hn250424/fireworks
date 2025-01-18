@@ -31,6 +31,18 @@ const eventManager = {
                 await utils.sleep(200)
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
 
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.ERUPT)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.ERUPT)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.ERUPT)
+                
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BLOOM)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BLOOM)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BLOOM)
+
                 await particlePoolManager.isActivatePoolEmpty()
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.FINALE.CHAIN_BURST)
             },
