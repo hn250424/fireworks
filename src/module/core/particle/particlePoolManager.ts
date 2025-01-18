@@ -16,17 +16,24 @@ const expectedExplosionParticleCount = 33
 const expectedDustParticleCount = 1000
 
 const particlePoolManager = {
+    // Test.
+    countPool() {
+        console.log('launchingParticlePool: ', launchingParticlePool.length)
+        console.log('explosionParticlePool: ', explosionParticlePool.length)
+        console.log('dustParticlePool: ', dustParticlePool.length)
+    },
+
     init() {
         for (let i = 0; i < expectedLaunchingParticleCount; i++) {
             launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM) )
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, [{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
-            dustParticlePool.push( DustParticle.create({x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            dustParticlePool.push( DustParticle.create([{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
         }
     },
 
@@ -36,7 +43,7 @@ const particlePoolManager = {
     shiftExplosionParticle() { return explosionParticlePool.length > 0 ? explosionParticlePool.shift() : null },
     shiftDustParticle() { return dustParticlePool.length > 0 ? dustParticlePool.shift() : null },
 
-    moveWaitingPool(particle: Particle): void {
+    moveToWaitingPool(particle: Particle): void {
         const idx = activatePool.indexOf(particle)
         if (idx > -1) activatePool.splice(idx, 1)
         
@@ -53,7 +60,7 @@ const particlePoolManager = {
         activatePool.forEach(callback)
     },
 
-    isEmpty(): Promise<void> {
+    isActivatePoolEmpty(): Promise<void> {
         return new Promise((resolve) => {
             const check = () => {
                 if (activatePool.length === 0) resolve()

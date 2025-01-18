@@ -1,15 +1,17 @@
 import ASSETS from "../../definition/assets"
 import POINT from "../../definition/point"
 import TYPE from "../../definition/type"
-import Coordinates from "../../type/Coordinates"
+import CVector3 from "../../type/CVector3"
 import stateManager from "../core/stateManager"
 import ParticleFactory from "../core/particle/ParticleFactory"
 import utils from "../utils"
 
+import particlePoolManager from "../core/particle/particlePoolManager"
+
 const launchingDelay = 500
 
-const launchingBaseArr: Coordinates[] = []
-const launchingOffsetArr: Coordinates[] = []
+const launchingBaseArr: CVector3[] = []
+const launchingOffsetArr: CVector3[] = []
 const explosionRoutineArr: string[] = []
 const explosionFinaleArr: string[] = []
 
@@ -23,8 +25,14 @@ const eventManager = {
     init() {
         testEventArr.push(
             async () => {
-                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.FINALE.HUGE_BURST)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+                await utils.sleep(200)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+
+                await particlePoolManager.isActivatePoolEmpty()
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.FINALE.CHAIN_BURST)
             },
         )
 

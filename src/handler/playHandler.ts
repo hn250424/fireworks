@@ -15,17 +15,17 @@ function registerPlayHandler() {
 async function play() {
     while(1) {
         eventManager.executeAnyShot()
-        await particlePoolManager.isEmpty()
+        await particlePoolManager.isActivatePoolEmpty()
     
         const idx = utils.getRandomNumberInRange(0, Object.values(TYPE.EVENT.RIPPLE).length)
         eventManager.executeAnyRipple(idx)
-        await particlePoolManager.isEmpty()
+        await particlePoolManager.isActivatePoolEmpty()
     
         eventManager.executeAnyVolley()
-        await particlePoolManager.isEmpty()
+        await particlePoolManager.isActivatePoolEmpty()
     
         eventManager.executeAnyFinale()
-        await particlePoolManager.isEmpty()
+        await particlePoolManager.isActivatePoolEmpty()
     }
 }
 

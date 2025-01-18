@@ -1,14 +1,15 @@
 import * as THREE from 'three'
-import Coordinates from "../../../type/Coordinates"
+import CVector3 from "../../../type/CVector3"
 
 export default interface Particle {
     update(): void
     // destroy(): void
-    getCurrentAbsolutePoint(): Coordinates
+    getCurrentAbsolutePoint(): CVector3
     getExplosionType(): string
     getRemainingFrames(): number
-    getElapsedRate(): number
     getColor(): string
-    getDustRequestStatus(): boolean
+    getDustCreationFlag(): boolean
+    setDustCreationFlag(flag: boolean): void
     getMesh(): THREE.Mesh | THREE.InstancedMesh
+    getDustVector3(): CVector3[]
 }

@@ -73,7 +73,7 @@ function createElements(): void {
         launchPointArray.push(point)
     })
 
-    // For testing coordinates during development.
+    // For testing point during development.
     const radius = 0.1
     const segment = 8
     POINT.RED.forEach(p => {

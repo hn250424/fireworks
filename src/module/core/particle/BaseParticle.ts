@@ -1,30 +1,30 @@
 import * as THREE from 'three'
 
-import Coordinates from '../../../type/Coordinates'
+import CVector3 from '../../../type/CVector3'
 import Particle from './Particle'
-import ChildDustInfo from '../../../type/ChildDustInfo'
 
 export default class BaseParticle implements Particle {
-    protected geometry: THREE.BufferGeometry
-    protected material: THREE.MeshStandardMaterial
+    private geometry: THREE.BufferGeometry
+    private material: THREE.MeshStandardMaterial
     protected mesh: THREE.InstancedMesh | THREE.Mesh
-    private currentAbsolutePoint: Coordinates
+    private currentAbsolutePoint: CVector3
     private explosionType: string
     private totalFrames: number
     private remainingFrames: number
     private elapsedFrames: number
     private color: string
-    private childDustInfo: ChildDustInfo
+    private dustCreationFlag: boolean
+    private dustCreationInterval: number
 
     protected constructor(
         geometry: THREE.BufferGeometry,
         material: THREE.MeshStandardMaterial,
         mesh: THREE.InstancedMesh | THREE.Mesh,
-        currentAbsolutePoint: Coordinates,
+        currentAbsolutePoint: CVector3,
         explosionType: string,
         color: string,
         time: number,
-        childDustInfo: ChildDustInfo = { use: false, unit: 0, request: false }
+        dustCreationInterval: number = 0
     ) {
         this.geometry = geometry
         this.material = material
@@ -35,17 +35,15 @@ export default class BaseParticle implements Particle {
         this.remainingFrames = this.totalFrames
         this.elapsedFrames = 0
         this.color = color
-        this.childDustInfo = childDustInfo
+        this.dustCreationFlag = false
+        this.dustCreationInterval = dustCreationInterval
     }
 
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
 
-        if (this.childDustInfo.use) {
-            if (this.elapsedFrames % this.childDustInfo.unit === 0) this.childDustInfo.request = true
-            else this.childDustInfo.request = false
-        }
+        if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
 
         if (this.material instanceof THREE.MeshStandardMaterial) {
             this.material.opacity = this.remainingFrames / this.totalFrames
@@ -58,11 +56,11 @@ export default class BaseParticle implements Particle {
     //     else this.material.dispose()
     // }
 
-    public getCurrentAbsolutePoint(): Coordinates {
+    public getCurrentAbsolutePoint(): CVector3 {
         return this.currentAbsolutePoint
     }
 
-    protected setCurrentAbsolutePoint(currentAbsolutePoint: Coordinates): void {
+    protected setCurrentAbsolutePoint(currentAbsolutePoint: CVector3): void {
         this.currentAbsolutePoint = currentAbsolutePoint
     }
 
@@ -106,11 +104,32 @@ export default class BaseParticle implements Particle {
         }
     }
 
-    public getDustRequestStatus(): boolean {
-        return this.childDustInfo.request
+    public getDustCreationFlag(): boolean {
+        return this.dustCreationFlag
     }
 
-    protected rotateTowardsEndPoint(currentPoint: Coordinates, endPoint: Coordinates, object3D: THREE.Object3D | null = null): void {
+    public setDustCreationFlag(flag: boolean) {
+        this.dustCreationFlag = flag
+    }
+
+    public getDustVector3(): CVector3[] {
+        if (this.mesh instanceof THREE.InstancedMesh) {
+            const result: CVector3[] = []
+            for (let i = 0; i < this.mesh.count; i++) {
+                const matrix = new THREE.Matrix4()
+                this.mesh.getMatrixAt(i, matrix)
+                const position = new THREE.Vector3().setFromMatrixPosition(matrix)
+                result.push({ x: position.x, y: position.y, z: position.z })
+            }
+            return result
+        } else if (this.mesh instanceof THREE.Mesh) {
+            return [{...this.currentAbsolutePoint}]
+        } else {
+            return [] as CVector3[]
+        }
+    }
+
+    protected rotateTowardsEndPoint(currentPoint: CVector3, endPoint: CVector3, object3D: THREE.Object3D | null = null): void {
         // Calculate direction vector.
         const currentVec = new THREE.Vector3(currentPoint.x, currentPoint.y, currentPoint.z)
         const endVec = new THREE.Vector3(endPoint.x, endPoint.y, endPoint.z)
@@ -127,19 +146,42 @@ export default class BaseParticle implements Particle {
     }
 
     // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
-    public getElapsedRate(elapsedFrames: number = this.elapsedFrames) {
-        return elapsedFrames / this.totalFrames
-    }
-
-    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
     protected getEaseOutFactor(elapsedFrames: number) {
-        const elapsedRate = this.getElapsedRate(elapsedFrames)
+        const elapsedRate = elapsedFrames / this.totalFrames
         const easeOutFactor = 1 - (1 - elapsedRate) ** 4
         // const easeInFactor = elapsedRate ** 4
         return easeOutFactor
     }
 
-    public getMesh() {
+    protected getGeometry(): Readonly<THREE.BufferGeometry> {
+        return this.geometry
+    }
+
+    protected setGeometry(geometry: THREE.BufferGeometry) {
+        this.geometry = geometry
+    }
+
+    protected getMaterial(): Readonly<THREE.MeshStandardMaterial> {
+        return this.material
+    }
+
+    protected setMaterial(material: THREE.MeshStandardMaterial) {
+        this.material = material
+    }
+
+    public getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh> {
         return this.mesh
+    }
+
+    protected setMesh(mesh: THREE.Mesh | THREE.InstancedMesh) {
+        this.mesh = mesh
+    }
+
+    protected setMatrixAt(i: number, object3D: THREE.Object3D) {
+        if (this.mesh instanceof THREE.InstancedMesh) this.mesh.setMatrixAt(i, object3D.matrix)
+    }
+
+    protected needsUpdateInstanceMatrix() {
+        if (this.mesh instanceof THREE.InstancedMesh) this.mesh.instanceMatrix.needsUpdate = true
     }
 }

@@ -2,16 +2,15 @@ import * as THREE from 'three'
 
 import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
-import Coordinates from "../../../type/Coordinates"
-import ChildDustInfo from '../../../type/ChildDustInfo'
+import CVector3 from "../../../type/CVector3"
 
 export default class LaunchingParticle extends BaseParticle {
-    private pointStorage: Coordinates[]
-    private endRelativePoint: Coordinates
+    private pointStorage: CVector3[]
+    private endRelativePoint: CVector3
 
     private constructor(
-        currentAbsolutePoint: Coordinates,
-        endRelativePoint: Coordinates,
+        currentAbsolutePoint: CVector3,
+        endRelativePoint: CVector3,
         explosionType: string
     ) {
         const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
@@ -22,20 +21,10 @@ export default class LaunchingParticle extends BaseParticle {
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
         const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
         const mesh = new THREE.Mesh(geometry, material)
-        const childDustInfo: ChildDustInfo = {
-            use: true,
-            unit: 10,
-            request: false
-        }
-        super(geometry, material, mesh, currentAbsolutePoint, explosionType, color, time, childDustInfo)
+        const dustCreationInterval = 15
+        super(geometry, material, mesh, currentAbsolutePoint, explosionType, color, time, dustCreationInterval)
 
         this.endRelativePoint = endRelativePoint
-
-        // After delete extends Mesh in BaseParticle.
-        // const geometry = new THREE.SphereGeometry(1, 32, 32)
-        // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        // const launchingParticle = new THREE.Mesh(geometry, material)
-        // scene.add(launchingParticle)
         
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.endRelativePoint.x / this.getTotalFrames()
@@ -56,25 +45,27 @@ export default class LaunchingParticle extends BaseParticle {
     }
 
     public static create(
-        currentAbsolutePoint: Coordinates,
-        endRelativePoint: Coordinates,
+        currentAbsolutePoint: CVector3,
+        endRelativePoint: CVector3,
         explosionType: string
     ): LaunchingParticle {
         return new LaunchingParticle(currentAbsolutePoint, endRelativePoint, explosionType)
     }
 
     public recycle(
-        currentAbsolutePoint: Coordinates,
-        endRelativePoint: Coordinates,
+        currentAbsolutePoint: CVector3,
+        endRelativePoint: CVector3,
         explosionType: string
     ): void {
         super.setCurrentAbsolutePoint(currentAbsolutePoint)
         this.endRelativePoint = endRelativePoint
+        super.setExplosionType(explosionType)
         super.setRemainingFrames(this.getTotalFrames())
         super.setElapsedFrames(0)
-        super.setExplosionType(explosionType)
+        const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
+        super.setColor(color)
+        
         this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-
         const delta_x = this.endRelativePoint.x / this.getTotalFrames()
         const delta_z = this.endRelativePoint.z / this.getTotalFrames()
         let copyedCurrentAbsolutePoint_x = this.getCurrentAbsolutePoint().x

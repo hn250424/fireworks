@@ -1,7 +1,7 @@
-type Coordinates = {
+type CVector3 = {
     x: number,
     y: number,
     z: number
 }
 
-export default Coordinates
+export default CVector3
