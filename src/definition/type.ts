@@ -1,6 +1,7 @@
 const TYPE = {
     EXPLOSION: {
         ROUTINE: {
+            PETITE_BURST: 'PETITE_BURST',
             BURST: 'BURST',
         },
         

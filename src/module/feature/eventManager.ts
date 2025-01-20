@@ -39,26 +39,27 @@ const eventManager = {
     init() {
         testEventArr.push(
             async () => {
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.ERUPT)
                 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
-                await utils.sleep(200)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
+                // await utils.sleep(200)
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
 
-                await particlePoolManager.isActivatePoolEmpty()
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST)
+                // await particlePoolManager.isActivatePoolEmpty()
+                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST)
             },
         )
 

@@ -42,7 +42,7 @@ export default class BaseParticle implements Particle {
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
-
+        
         if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
 
         if (this.material instanceof THREE.MeshStandardMaterial) {
@@ -116,6 +116,10 @@ export default class BaseParticle implements Particle {
 
     protected needsUpdateInstanceMatrix(): void {
         if (this.mesh instanceof THREE.InstancedMesh) this.mesh.instanceMatrix.needsUpdate = true
+    }
+
+    protected setDustCreationInterval(dustCreationInterval: number) {
+        this.dustCreationInterval = dustCreationInterval
     }
 
     public getDustCreationFlag(): Readonly<boolean> {

@@ -45,6 +45,10 @@ function particlesUpdate() {
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
+                    case TYPE.EXPLOSION.ROUTINE.PETITE_BURST:
+                        playExplosionSound()
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getColor()) 
+                        break
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getColor()) 

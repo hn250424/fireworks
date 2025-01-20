@@ -22,14 +22,8 @@ export default class ExplosionParticle extends BaseParticle {
         const instancedMesh = new THREE.InstancedMesh(geometry, material, endRelativePointArr.length)
         const object3D = new THREE.Object3D()
         const time = 5
-        let dustCreationInterval = 15
-        if (
-            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST ||
-            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
-        ) {
-            dustCreationInterval = 5
-        }
-        super(beginAbsolutePoint, explosionType, color, geometry, material, instancedMesh, time, dustCreationInterval)
+        
+        super(beginAbsolutePoint, explosionType, color, geometry, material, instancedMesh, time)
         
         this.object3D = object3D
         this.endRelativePointArr = endRelativePointArr
@@ -56,6 +50,21 @@ export default class ExplosionParticle extends BaseParticle {
         super.setExplosionType(explosionType)
         super.setColor(color)
         super.setMesh( new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), endRelativePointArr.length) )
+        if (
+            explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT 
+        ) {
+            super.setDustCreationInterval(15)
+        } else if (explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST) {
+            super.setDustCreationInterval(25)
+        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST) {
+            super.setDustCreationInterval(5)
+        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
+            super.setDustCreationInterval(0)
+        } else {
+            super.setDustCreationInterval(15)
+        }
         super.setRemainingFrames(this.getTotalFrames())
         super.setElapsedFrames(0)
     }
