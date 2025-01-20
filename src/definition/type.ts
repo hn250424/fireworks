@@ -2,11 +2,14 @@ const TYPE = {
     EXPLOSION: {
         ROUTINE: {
             BURST: 'BURST',
+        },
+        
+        SPECIAL: {
             ERUPT: 'ERUPT',
             BLOOM: 'BLOOM'
         },
 
-        FINALE: {
+        HIGHLIGHTS: {
             HUGE_BURST: 'HUGE_BURST',
             CHAIN_BURST: 'CHAIN_BURST',
         }

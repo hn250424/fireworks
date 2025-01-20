@@ -24,8 +24,8 @@ export default class ExplosionParticle extends BaseParticle {
         const time = 5
         let dustCreationInterval = 15
         if (
-            explosionType === TYPE.EXPLOSION.FINALE.CHAIN_BURST ||
-            explosionType === TYPE.EXPLOSION.FINALE.HUGE_BURST
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST ||
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
             dustCreationInterval = 5
         }

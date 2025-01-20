@@ -13,7 +13,7 @@ import orbitControls from "../module/feature/orbitControls"
 
 import ParticleFactory from "../module/core/particle/ParticleFactory"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
-import utils from "../module/utils"
+import { sleep } from "../module/utils"
 
 function registerAnimationHandler() {
     animate()
@@ -49,19 +49,19 @@ function particlesUpdate() {
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getColor()) 
                         break
-                    case TYPE.EXPLOSION.ROUTINE.ERUPT:
+                    case TYPE.EXPLOSION.SPECIAL.ERUPT:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getExplosionType(), particle.getColor()) 
                         break
-                    case TYPE.EXPLOSION.ROUTINE.BLOOM:
+                    case TYPE.EXPLOSION.SPECIAL.BLOOM:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getColor()) 
                         break
-                    case TYPE.EXPLOSION.FINALE.HUGE_BURST:
+                    case TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getColor()) 
                         break
-                    case TYPE.EXPLOSION.FINALE.CHAIN_BURST:
+                    case TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST:
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x
@@ -71,7 +71,7 @@ function particlesUpdate() {
                             playExplosionSound()
                             ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET)), particle.getExplosionType(), particle.getColor()) 
 
-                            await utils.sleep(200)
+                            await sleep(200)
                         }
                         break
                 }
