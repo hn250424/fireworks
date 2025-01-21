@@ -6,9 +6,9 @@ import POINT from "../definition/point"
 const launchingBaseArrLength = Object.values(POINT.LAUNCHING_BASE).length   // 11.
 
 function registerPlayHandler() {
-    // eventManager.executeTest()  
+    eventManager.executeTest()  
 
-    play()
+    // play()
 }
 
 async function play() {

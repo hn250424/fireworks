@@ -39,7 +39,7 @@ const eventManager = {
     init() {
         testEventArr.push(
             async () => {
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.SPECIAL.BLOOM)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST)
                 // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)
                 // await utils.sleep(200)
                 // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.ROUTINE.BURST)

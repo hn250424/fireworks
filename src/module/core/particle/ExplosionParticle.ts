@@ -53,13 +53,14 @@ export default class ExplosionParticle extends BaseParticle {
         if (
             explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
             explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM ||
-            explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT 
+            explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT ||
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
             super.setDustCreationInterval(15)
-        } else if (explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST) {
+        } else if (
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+        ) {
             super.setDustCreationInterval(25)
-        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST) {
-            super.setDustCreationInterval(5)
         } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
             super.setDustCreationInterval(0)
         } else {
