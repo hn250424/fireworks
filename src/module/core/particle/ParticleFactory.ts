@@ -5,6 +5,7 @@ import particlePoolManager from "./particlePoolManager"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
+import Color from "../../../type/Color"
 
 class ParticleFactory {
     static provideLaunchingParticle(currentAbsolutePoint: CVector3, endRelativePoint: CVector3, explosionType: string) {
@@ -16,7 +17,7 @@ class ParticleFactory {
         this.addSceneAndActivatePool(particle)
     }
 
-    static provideExplosionParticle(currentAbsolutePoint: CVector3, endRelativePointArr: CVector3[], explosionType: string, color: string) {
+    static provideExplosionParticle(currentAbsolutePoint: CVector3, endRelativePointArr: CVector3[], explosionType: string, color: Color) {
         let particle = particlePoolManager.shiftExplosionParticle()
 
         if (particle) particle.recycle(currentAbsolutePoint, endRelativePointArr, explosionType, color)
@@ -25,7 +26,7 @@ class ParticleFactory {
         this.addSceneAndActivatePool(particle)
     }
 
-    static provideDustParticle(currentAbsolutePointArr: CVector3[], explosionType: string, color: string) {
+    static provideDustParticle(currentAbsolutePointArr: CVector3[], explosionType: string, color: Color) {
         let particle = particlePoolManager.shiftDustParticle()
 
         if (particle) particle.recycle(currentAbsolutePointArr, explosionType, color)

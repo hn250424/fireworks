@@ -2,11 +2,12 @@ import * as THREE from 'three'
 
 import CVector3 from '../../../type/CVector3'
 import Particle from './Particle'
+import Color from '../../../type/Color'
 
 export default class BaseParticle implements Particle {
     private beginAbsolutePoint: CVector3
     private explosionType: string
-    private color: string
+    private color: Color
     private geometry: THREE.BufferGeometry
     private material: THREE.MeshStandardMaterial
     private mesh: THREE.InstancedMesh | THREE.Mesh
@@ -19,7 +20,7 @@ export default class BaseParticle implements Particle {
     protected constructor(
         beginAbsolutePoint: CVector3,
         explosionType: string,
-        color: string,
+        color: Color,
         geometry: THREE.BufferGeometry,
         material: THREE.MeshStandardMaterial,
         mesh: THREE.InstancedMesh | THREE.Mesh,
@@ -42,7 +43,7 @@ export default class BaseParticle implements Particle {
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
-        
+
         if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
 
         if (this.material instanceof THREE.MeshStandardMaterial) {
@@ -59,9 +60,9 @@ export default class BaseParticle implements Particle {
     }
 
     public getCurrentAbsolutePoint(): Readonly<CVector3> {
-        if (this.mesh instanceof THREE.Mesh){
+        if (this.mesh instanceof THREE.Mesh) {
             const arr = this.mesh.position.toArray()
-            return {x: arr[0], y: arr[1], z: arr[2]}
+            return { x: arr[0], y: arr[1], z: arr[2] }
         } else {
             throw new Error('Only the mesh type, not instancedMesh type, can call this method.')
         }
@@ -75,14 +76,30 @@ export default class BaseParticle implements Particle {
         this.explosionType = explosionType
     }
 
-    public getColor(): Readonly<string> {
+    public getColor(): Readonly<Color> {
         return this.color
     }
 
-    protected setColor(color: string): void {
+    // Set the color for the material and update the color variable.
+    protected setColor(color: Color): void {
         this.color = color
         if (this.material instanceof THREE.MeshStandardMaterial) {
-            this.material.color.set(color)
+            this.material.color.set(color.main)
+        }
+    }
+
+    // Set the color for a specific instance in the InstancedMesh.
+    protected setColorAt(index: number, color: string): void {
+        if (this.mesh instanceof THREE.InstancedMesh) {
+            if (! this.mesh.instanceColor) {
+                this.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.mesh.count * 3), 3)
+            }
+
+            const c = new THREE.Color(color)
+            this.mesh.instanceColor.setXYZ(index, c.r, c.g, c.b)
+            this.mesh.instanceColor.needsUpdate = true
+        } else {
+            console.log('Only InstancedMesh can setColor now.')
         }
     }
 

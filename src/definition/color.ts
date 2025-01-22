@@ -11,7 +11,7 @@ const COLOR = {
     FIREWORKS: [
         '#00FFFF',      // Neon Blue
         '#00FF00',      // Lime Green
-        '#ff0381',      // Hot Pink
+        '#FF0381',      // Hot Pink
         '#FF6600',      // Bright Orange
         '#C77DF5',      // Violet
     ]

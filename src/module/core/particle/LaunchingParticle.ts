@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import COLOR from "../../../definition/color"
 import BaseParticle from "./BaseParticle"
 import CVector3 from "../../../type/CVector3"
+import { shuffle } from '../../utils'
+import Color from '../../../type/Color'
 
 export default class LaunchingParticle extends BaseParticle {
     private pointStorage: CVector3[]
@@ -16,9 +18,13 @@ export default class LaunchingParticle extends BaseParticle {
         const radiusTop = 0.05
         const radiusBottom = 0
         const height = 0.7
-        const color = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
+        shuffle(COLOR.FIREWORKS)
+        const color: Color = {
+            main: COLOR.FIREWORKS[0],
+            sub: COLOR.FIREWORKS[1]
+        }
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
-        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
         const mesh = new THREE.Mesh(geometry, material)
         const time = 5
         const dustCreationInterval = 10
@@ -26,11 +32,11 @@ export default class LaunchingParticle extends BaseParticle {
 
         this.endRelativePoint = endRelativePoint
         
-        this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.endRelativePoint.x / this.getTotalFrames()
-        const delta_z = this.endRelativePoint.z / this.getTotalFrames()
-        const currentPoint = {...this.getBeginAbsolutePoint()}
-        for (let i = 0; i < this.getTotalFrames(); i++) {
+        this.pointStorage = new Array(super.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const delta_x = this.endRelativePoint.x / super.getTotalFrames()
+        const delta_z = this.endRelativePoint.z / super.getTotalFrames()
+        const currentPoint = {...super.getBeginAbsolutePoint()}
+        for (let i = 0; i < super.getTotalFrames(); i++) {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = currentPoint.x
@@ -59,16 +65,20 @@ export default class LaunchingParticle extends BaseParticle {
         super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePoint = endRelativePoint
         super.setExplosionType(explosionType)
-        const color: string = COLOR.FIREWORKS[ Math.floor(Math.random() * COLOR.FIREWORKS.length) ]
+        shuffle(COLOR.FIREWORKS)
+        const color: Color = {
+            main: COLOR.FIREWORKS[0],
+            sub: COLOR.FIREWORKS[1]
+        }
         super.setColor(color)
-        super.setRemainingFrames(this.getTotalFrames())
+        super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
         
-        this.pointStorage = new Array(this.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.endRelativePoint.x / this.getTotalFrames()
-        const delta_z = this.endRelativePoint.z / this.getTotalFrames()
-        const currentPoint = {...this.getBeginAbsolutePoint()}
-        for (let i = 0; i < this.getTotalFrames(); i++) {
+        this.pointStorage = new Array(super.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const delta_x = this.endRelativePoint.x / super.getTotalFrames()
+        const delta_z = this.endRelativePoint.z / super.getTotalFrames()
+        const currentPoint = {...super.getBeginAbsolutePoint()}
+        for (let i = 0; i < super.getTotalFrames(); i++) {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = currentPoint.x
@@ -82,11 +92,11 @@ export default class LaunchingParticle extends BaseParticle {
     }
 
     public update(): void {
-        const elapsedFrames = this.getElapsedFrames()
+        const elapsedFrames = super.getElapsedFrames()
         const _x = this.pointStorage[elapsedFrames].x
         const _y = this.pointStorage[elapsedFrames].y
         const _z = this.pointStorage[elapsedFrames].z
-        this.getMesh().position.set(_x, _y, _z)
+        super.getMesh().position.set(_x, _y, _z)
 
         // super.rotateTowardsEndPoint(this.currentAbsolutePoint, this.endRelativePoint)
         super.update()

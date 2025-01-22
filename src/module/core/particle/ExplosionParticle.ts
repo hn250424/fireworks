@@ -4,6 +4,7 @@ import CVector3 from "../../../type/CVector3"
 
 import BaseParticle from "./BaseParticle"
 import TYPE from '../../../definition/type'
+import Color from '../../../type/Color'
 
 export default class ExplosionParticle extends BaseParticle {
     private object3D: THREE.Object3D
@@ -14,11 +15,11 @@ export default class ExplosionParticle extends BaseParticle {
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
         explosionType: string,
-        color: string
+        color: Color
     ) {
         const size = 0.1
         const geometry = new THREE.BoxGeometry(size, size, size)
-        const material = new THREE.MeshStandardMaterial({ color: color, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, endRelativePointArr.length)
         const object3D = new THREE.Object3D()
         const time = 5
@@ -34,7 +35,7 @@ export default class ExplosionParticle extends BaseParticle {
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
         explosionType: string,
-        color: string
+        color: Color = { main: 'white', sub: 'white'},
     ): ExplosionParticle {
         return new ExplosionParticle(beginAbsolutePoint, endRelativePointArr, explosionType, color)
     }
@@ -43,9 +44,9 @@ export default class ExplosionParticle extends BaseParticle {
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
         explosionType: string,
-        color: string
+        color: Color
     ): void {
-        this.setBeginAbsolutePoint(beginAbsolutePoint)
+        super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePointArr = endRelativePointArr
         super.setExplosionType(explosionType)
         super.setColor(color)
@@ -66,14 +67,15 @@ export default class ExplosionParticle extends BaseParticle {
         } else {
             super.setDustCreationInterval(15)
         }
-        super.setRemainingFrames(this.getTotalFrames())
+        super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
     }
 
     public update(): void {
-        const bp = this.getBeginAbsolutePoint()
+        const bp = super.getBeginAbsolutePoint()
         for (let i = 0; i < this.endRelativePointArr.length; i++) {
-            const easeOutFactor = this.getEaseOutFactor(this.getElapsedFrames())
+            // vector.
+            const easeOutFactor = super.getEaseOutFactor(super.getElapsedFrames())
 
             this.object3D.position.x = bp.x + (this.endRelativePointArr[i].x * easeOutFactor)
             
@@ -89,7 +91,14 @@ export default class ExplosionParticle extends BaseParticle {
             )
             
             this.object3D.updateMatrix()
-            if (this.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
+            if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
+
+            // todo:
+            // set subColor.
+            // if (super.getMesh() instanceof THREE.InstancedMesh) {
+            //     const newColor = i % 2 === 0 ? super.getColor().main : super.getColor().sub
+            //     super.setColorAt(i, newColor)
+            // }
         }
         super.needsUpdateInstanceMatrix()
 

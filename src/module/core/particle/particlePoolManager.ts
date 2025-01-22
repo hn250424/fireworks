@@ -24,15 +24,15 @@ const particlePoolManager = {
 
     init() {
         for (let i = 0; i < expectedLaunchingParticleCount; i++) {
-            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BLOOM) )
+            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BURST) )
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, [{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, [{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BURST) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
-            dustParticlePool.push( DustParticle.create([{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BLOOM, COLOR.FIREWORKS[0]) )
+            dustParticlePool.push( DustParticle.create([{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BURST) )
         }
     },
 
