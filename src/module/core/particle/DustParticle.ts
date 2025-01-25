@@ -2,7 +2,11 @@ import * as THREE from 'three'
 
 import BaseParticle from "./BaseParticle"
 import CVector3 from "../../../type/CVector3"
-import Color from '../../../type/Color'
+import PColor from '../../../type/PColor'
+import PStatus from '../../../type/PType'
+import TYPE from '../../../definition/type'
+
+const petiteBurstTime = 1
 
 export default class DustParticle extends BaseParticle {
     private object3D: THREE.Object3D
@@ -10,8 +14,8 @@ export default class DustParticle extends BaseParticle {
 
     constructor(
         currentAbsolutePointArr: CVector3[],
-        explosionType: string,
-        color: Color,
+        pStatus: PStatus,
+        pColor: PColor,
     ) {
         const size = 0.03
         const geometry = new THREE.BoxGeometry(size, size, size)
@@ -22,9 +26,16 @@ export default class DustParticle extends BaseParticle {
         const material = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, currentAbsolutePointArr.length)
         const object3D = new THREE.Object3D()
-        const time = 0.5
 
-        super({ x: 0, y: 0, z: 0 }, explosionType, color, geometry, material, instancedMesh, time)
+        // Time.
+        let time = 1.5
+        if (
+            pStatus.instance === TYPE.PARTICLE.EXPLOSION && pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+        ) {
+            time = petiteBurstTime
+        }
+
+        super({ x: 0, y: 0, z: 0 }, pStatus, pColor, geometry, material, instancedMesh, time)
 
         this.object3D = object3D
         this.currentAbsolutePointArr = currentAbsolutePointArr
@@ -36,27 +47,43 @@ export default class DustParticle extends BaseParticle {
 
             this.object3D.updateMatrix()
             if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
+
+            // [TODO]: #1
+            // The base material color blends with the instance color set by setColorAt.
+            // To avoid this, the material color is now set to white (#ffffff).
+            // However, this means the color for all instances must be explicitly set, not just specific ones.
+            if (super.getMesh() instanceof THREE.InstancedMesh) {
+                if (i % 2 === 0) {
+                    super.setColorAt(i, super.getPColor().main)
+                } else {
+                    super.setColorAt(i, super.getPColor().sub)
+                }
+            }
         }
+
         super.needsUpdateInstanceMatrix()
+        super.needsUpdateInstanceColor()
     }
 
     public static create(
         currentAbsolutePointArr: CVector3[],
-        explosionType: string,
-        color: Color = { main: 'white', sub: 'white' },
+        pStatus: PStatus,
+        pColor: PColor = { main: 'white', sub: 'white' },
     ): DustParticle {
-        return new DustParticle(currentAbsolutePointArr, explosionType, color)
+        return new DustParticle(currentAbsolutePointArr, pStatus, pColor)
     }
 
     public recycle(
         currentAbsolutePointArr: CVector3[],
-        explosionType: string,
-        color: Color
+        pStatus: PStatus,
+        pColor: PColor
     ): void {
         this.currentAbsolutePointArr = currentAbsolutePointArr
-        super.setExplosionType(explosionType)
-        super.setColor(color)
+        super.setPStatus(pStatus)
+        super.setPColor(pColor)
         super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
+        this._setTime(pStatus)
+        super.setTotalFrames(super.getTime())
         super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
 
@@ -67,26 +94,29 @@ export default class DustParticle extends BaseParticle {
 
             this.object3D.updateMatrix()
             if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
-        }
-        super.needsUpdateInstanceMatrix()
-    }
 
-    public update(): void {
-        // [TODO]: #1
-        // The base material color blends with the instance color set by setColorAt.
-        // To avoid this, the material color is now set to white (#ffffff).
-        // However, this means the color for all instances must be explicitly set, not just specific ones.
-        for (let i = 0; i < this.currentAbsolutePointArr.length; i++) {
+            // [TODO]: #1
+            // The base material color blends with the instance color set by setColorAt.
+            // To avoid this, the material color is now set to white (#ffffff).
+            // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
                 if (i % 2 === 0) {
-                    super.setColorAt(i, super.getColor().main)
+                    super.setColorAt(i, super.getPColor().main)
                 } else {
-                    super.setColorAt(i, super.getColor().sub)
+                    super.setColorAt(i, super.getPColor().sub)
                 }
             }
         }
-        super.needsUpdateInstanceColor()
 
-        super.update()
+        super.needsUpdateInstanceMatrix()
+        super.needsUpdateInstanceColor()
+    }
+
+    private _setTime(pStatus: PStatus) {
+        if (
+            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+        ) {
+            super.setTime(petiteBurstTime)
+        }
     }
 }

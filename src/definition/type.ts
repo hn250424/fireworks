@@ -1,4 +1,10 @@
 const TYPE = {
+    PARTICLE: {
+        LAUNCHING: 'LAUNCHING',
+        EXPLOSION: 'EXPLOSION',
+        DUST: 'DUST',
+    },
+
     EXPLOSION: {
         ROUTINE: {
             PETITE_BURST: 'PETITE_BURST',

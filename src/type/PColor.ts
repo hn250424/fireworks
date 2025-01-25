@@ -1,6 +1,6 @@
-type Color = {
+type PColor = {
     main: string,
     sub: string
 }
 
-export default Color
+export default PColor

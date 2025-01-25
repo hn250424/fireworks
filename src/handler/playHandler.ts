@@ -48,6 +48,10 @@ async function play() {
 
         eventManager.executeHighlightsFinale()
         await particlePoolManager.isActivatePoolEmpty()
+
+        // Test.
+        // particlePoolManager.countPool()
+        // break
     }
 }
 

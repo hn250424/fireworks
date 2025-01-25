@@ -2,15 +2,17 @@ import * as THREE from 'three'
 
 import CVector3 from '../../../type/CVector3'
 import Particle from './Particle'
-import Color from '../../../type/Color'
+import PColor from '../../../type/PColor'
+import PStatus from '../../../type/PType'
 
 export default class BaseParticle implements Particle {
     private beginAbsolutePoint: CVector3
-    private explosionType: string
-    private color: Color
+    private pStatus: PStatus
+    private pColor: PColor
     private geometry: THREE.BufferGeometry
     private material: THREE.MeshStandardMaterial
     private mesh: THREE.InstancedMesh | THREE.Mesh
+    private time: number
     private totalFrames: number
     private remainingFrames: number
     private elapsedFrames: number
@@ -19,25 +21,26 @@ export default class BaseParticle implements Particle {
 
     protected constructor(
         beginAbsolutePoint: CVector3,
-        explosionType: string,
-        color: Color,
+        pStatus: PStatus,
+        pColor: PColor,
         geometry: THREE.BufferGeometry,
         material: THREE.MeshStandardMaterial,
         mesh: THREE.InstancedMesh | THREE.Mesh,
-        time: number,
+        time: number = 0,
         dustCreationInterval: number = 0,
     ) {
         this.beginAbsolutePoint = beginAbsolutePoint
-        this.explosionType = explosionType
-        this.color = color
+        this.pStatus = pStatus
+        this.pColor = pColor
         this.geometry = geometry
         this.material = material
         this.mesh = mesh
-        this.dustCreationFlag = false
-        this.dustCreationInterval = dustCreationInterval
+        this.time = time
         this.totalFrames = time * 60
         this.remainingFrames = this.totalFrames
         this.elapsedFrames = 0
+        this.dustCreationFlag = false
+        this.dustCreationInterval = dustCreationInterval
     }
 
     public update(): void {
@@ -68,26 +71,26 @@ export default class BaseParticle implements Particle {
         }
     }
 
-    public getExplosionType(): Readonly<string> {
-        return this.explosionType
+    public getPStatus(): Readonly<PStatus> {
+        return this.pStatus
     }
 
-    protected setExplosionType(explosionType: string): void {
-        this.explosionType = explosionType
+    protected setPStatus(pStatus: PStatus): void {
+        this.pStatus = pStatus
     }
 
-    public getColor(): Readonly<Color> {
-        return this.color
+    public getPColor(): Readonly<PColor> {
+        return this.pColor
     }
 
     // Set the color for the material and update the color variable.
-    protected setColor(color: Color): void {
-        this.color = color
+    protected setPColor(pColor: PColor): void {
+        this.pColor = pColor
 
         // [TODO]: #1
         // For InstancedMesh, the material color must remain white (#ffffff) to ensure instance colors display correctly.
         if (this.mesh instanceof THREE.InstancedMesh) return
-        this.material.color.set(color.main)
+        this.material.color.set(pColor.main)
     }
 
     // Set the color for a specific instance in the InstancedMesh.
@@ -139,18 +142,6 @@ export default class BaseParticle implements Particle {
         if (this.mesh instanceof THREE.InstancedMesh) this.mesh.instanceMatrix.needsUpdate = true
     }
 
-    protected setDustCreationInterval(dustCreationInterval: number) {
-        this.dustCreationInterval = dustCreationInterval
-    }
-
-    public getDustCreationFlag(): Readonly<boolean> {
-        return this.dustCreationFlag
-    }
-
-    public setDustCreationFlag(flag: boolean): void {
-        this.dustCreationFlag = flag
-    }
-
     public getDustVector3(): Readonly<CVector3[]> {
         if (this.mesh instanceof THREE.InstancedMesh) {
             const result: CVector3[] = []
@@ -168,8 +159,20 @@ export default class BaseParticle implements Particle {
         }
     }
 
+    protected getTime(): Readonly<number> {
+        return this.time
+    }
+
+    protected setTime(time: number) {
+        this.time = time
+    }
+
     protected getTotalFrames(): Readonly<number> {
         return this.totalFrames
+    }
+
+    protected setTotalFrames(time: number) {
+        this.totalFrames = time * 60
     }
 
     public getRemainingFrames(): Readonly<number> {
@@ -187,6 +190,22 @@ export default class BaseParticle implements Particle {
     // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
     protected setElapsedFrames(elapsedFrames: number): void {
         this.elapsedFrames = elapsedFrames
+    }
+
+    // protected getElapsedRate(): Readonly<number> {
+    //     return this.elapsedFrames / this.totalFrames
+    // }
+
+    protected setDustCreationInterval(dustCreationInterval: number) {
+        this.dustCreationInterval = dustCreationInterval
+    }
+
+    public getDustCreationFlag(): Readonly<boolean> {
+        return this.dustCreationFlag
+    }
+
+    public setDustCreationFlag(flag: boolean): void {
+        this.dustCreationFlag = flag
     }
 
     protected rotateTowardsEndPoint(currentPoint: CVector3, endPoint: CVector3, object3D: THREE.Object3D | null = null): void {

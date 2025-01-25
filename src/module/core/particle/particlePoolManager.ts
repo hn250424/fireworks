@@ -4,35 +4,55 @@ import Particle from "./Particle"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
+import PType from "../../../type/PType"
 
 const activatePool: Particle[] = []
 const launchingParticlePool: LaunchingParticle[] = []
 const explosionParticlePool: ExplosionParticle[] = []
 const dustParticlePool: DustParticle[] = []
 
-const expectedLaunchingParticleCount = 33
-const expectedExplosionParticleCount = 33
-const expectedDustParticleCount = 1000
+const expectedLaunchingParticleCount = 11
+const expectedExplosionParticleCount = 66
+const expectedDustParticleCount = 105
 
 const particlePoolManager = {
-    // Test.
+    // Test to determine how many particles are needed.
     countPool() {
-        console.log('launchingParticlePool: ', launchingParticlePool.length)
-        console.log('explosionParticlePool: ', explosionParticlePool.length)
-        console.log('dustParticlePool: ', dustParticlePool.length)
+        console.log(
+            'launchingParticlePool: ', launchingParticlePool.length, 
+            'explosionParticlePool: ', explosionParticlePool.length, 
+            'dustParticlePool: ', dustParticlePool.length
+        )
     },
 
     init() {
         for (let i = 0; i < expectedLaunchingParticleCount; i++) {
-            launchingParticlePool.push( LaunchingParticle.create({x: 0, y: 0, z: 0}, {x: 0, y: 0, z: 0}, TYPE.EXPLOSION.ROUTINE.BURST) )
+            const _beginAbsolutePoint = {x: 0, y: 0, z: 0}
+            const _endRelativePoint = {x: 0, y: 0, z: 0}
+            const _pType: PType = {
+                instance: LaunchingParticle.name,
+                explosion: TYPE.EXPLOSION.ROUTINE.BURST
+            }
+            launchingParticlePool.push( LaunchingParticle.create(_beginAbsolutePoint, _endRelativePoint, _pType) )
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
-            explosionParticlePool.push( ExplosionParticle.create({x: 0, y: 0, z: 0}, [{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BURST) )
+            const _beginAbsolutePoint = {x: 0, y: 0, z: 0}
+            const _endRelativePoint = [{x: 0, y: 0, z: 0}]
+            const _pType: PType = {
+                instance: ExplosionParticle.name,
+                explosion: TYPE.EXPLOSION.ROUTINE.BURST
+            }
+            explosionParticlePool.push( ExplosionParticle.create(_beginAbsolutePoint, _endRelativePoint, _pType) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
-            dustParticlePool.push( DustParticle.create([{x: 0, y: 0, z: 0}], TYPE.EXPLOSION.ROUTINE.BURST) )
+            const _currentAbsolutePoint = [{x: 0, y: 0, z: 0}]
+            const _pType: PType = {
+                instance: DustParticle.name,
+                explosion: TYPE.EXPLOSION.ROUTINE.BURST
+            }
+            dustParticlePool.push( DustParticle.create(_currentAbsolutePoint, _pType) )
         }
     },
 
