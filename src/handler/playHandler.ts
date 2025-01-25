@@ -1,9 +1,9 @@
 import { getRandomNumberInRange } from "../module/utils"
 import particlePoolManager from "../module/core/particle/particlePoolManager"
 import eventManager from "../module/feature/eventManager"
-import POINT from "../definition/point"
 
-const launchingBaseArrLength = Object.values(POINT.LAUNCHING_BASE).length   // 11.
+const minRippleCount = 2
+const maxRippleCount = 5
 
 function registerPlayHandler() {
     // eventManager.executeTest()  
@@ -22,13 +22,13 @@ async function play() {
         eventManager.executeHighlightsShot()
         await particlePoolManager.isActivatePoolEmpty()
         
-        eventManager.executeRoutineRipple(getRandomNumberInRange(1, launchingBaseArrLength))
+        eventManager.executeRoutineRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
         await particlePoolManager.isActivatePoolEmpty()
 
-        eventManager.executeSpecialRipple(getRandomNumberInRange(1, launchingBaseArrLength))
+        eventManager.executeSpecialRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
         await particlePoolManager.isActivatePoolEmpty()
 
-        eventManager.executeHighlightsRipple(getRandomNumberInRange(1, launchingBaseArrLength))
+        eventManager.executeHighlightsRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
         await particlePoolManager.isActivatePoolEmpty()
 
         eventManager.executeRoutineVolley()

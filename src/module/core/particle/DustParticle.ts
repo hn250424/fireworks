@@ -15,7 +15,11 @@ export default class DustParticle extends BaseParticle {
     ) {
         const size = 0.03
         const geometry = new THREE.BoxGeometry(size, size, size)
-        const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
+        // [TODO]: #1
+        // The base material color blends with the instance color set by setColorAt.
+        // When the material color is white (#ffffff), the intended instance colors display correctly.
+        // const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, currentAbsolutePointArr.length)
         const object3D = new THREE.Object3D()
         const time = 0.5
@@ -39,7 +43,7 @@ export default class DustParticle extends BaseParticle {
     public static create(
         currentAbsolutePointArr: CVector3[],
         explosionType: string,
-        color: Color = { main: 'white', sub: 'white'},
+        color: Color = { main: 'white', sub: 'white' },
     ): DustParticle {
         return new DustParticle(currentAbsolutePointArr, explosionType, color)
     }
@@ -52,7 +56,7 @@ export default class DustParticle extends BaseParticle {
         this.currentAbsolutePointArr = currentAbsolutePointArr
         super.setExplosionType(explosionType)
         super.setColor(color)
-        super.setMesh( new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length) )
+        super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
         super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
 
@@ -68,6 +72,21 @@ export default class DustParticle extends BaseParticle {
     }
 
     public update(): void {
+        // [TODO]: #1
+        // The base material color blends with the instance color set by setColorAt.
+        // To avoid this, the material color is now set to white (#ffffff).
+        // However, this means the color for all instances must be explicitly set, not just specific ones.
+        for (let i = 0; i < this.currentAbsolutePointArr.length; i++) {
+            if (super.getMesh() instanceof THREE.InstancedMesh) {
+                if (i % 2 === 0) {
+                    super.setColorAt(i, super.getColor().main)
+                } else {
+                    super.setColorAt(i, super.getColor().sub)
+                }
+            }
+        }
+        super.needsUpdateInstanceColor()
+
         super.update()
     }
 }

@@ -83,9 +83,11 @@ export default class BaseParticle implements Particle {
     // Set the color for the material and update the color variable.
     protected setColor(color: Color): void {
         this.color = color
-        if (this.material instanceof THREE.MeshStandardMaterial) {
-            this.material.color.set(color.main)
-        }
+
+        // [TODO]: #1
+        // For InstancedMesh, the material color must remain white (#ffffff) to ensure instance colors display correctly.
+        if (this.mesh instanceof THREE.InstancedMesh) return
+        this.material.color.set(color.main)
     }
 
     // Set the color for a specific instance in the InstancedMesh.
@@ -94,13 +96,15 @@ export default class BaseParticle implements Particle {
             if (! this.mesh.instanceColor) {
                 this.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.mesh.count * 3), 3)
             }
-
-            const c = new THREE.Color(color)
-            this.mesh.instanceColor.setXYZ(index, c.r, c.g, c.b)
-            this.mesh.instanceColor.needsUpdate = true
+            
+            this.mesh.setColorAt(index, new THREE.Color().setStyle(color))
         } else {
-            console.log('Only InstancedMesh can setColor now.')
+            console.log('setColorAt can only be used with InstancedMesh in BaseParticle.')
         }
+    }
+
+    protected needsUpdateInstanceColor(): void {
+        if (this.mesh instanceof THREE.InstancedMesh && this.mesh.instanceColor) this.mesh.instanceColor.needsUpdate = true
     }
 
     protected getGeometry(): Readonly<THREE.BufferGeometry> {

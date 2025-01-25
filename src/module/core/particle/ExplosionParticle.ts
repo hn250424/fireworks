@@ -19,7 +19,11 @@ export default class ExplosionParticle extends BaseParticle {
     ) {
         const size = 0.1
         const geometry = new THREE.BoxGeometry(size, size, size)
-        const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
+        // [TODO]: #1
+        // The base material color blends with the instance color set by setColorAt.
+        // When the material color is white (#ffffff), the intended instance colors display correctly.
+        // const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, endRelativePointArr.length)
         const object3D = new THREE.Object3D()
         const time = 5
@@ -93,14 +97,21 @@ export default class ExplosionParticle extends BaseParticle {
             this.object3D.updateMatrix()
             if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
 
-            // todo:
-            // set subColor.
-            // if (super.getMesh() instanceof THREE.InstancedMesh) {
-            //     const newColor = i % 2 === 0 ? super.getColor().main : super.getColor().sub
-            //     super.setColorAt(i, newColor)
-            // }
+            // [TODO]: #1
+            // The base material color blends with the instance color set by setColorAt.
+            // To avoid this, the material color is now set to white (#ffffff).
+            // However, this means the color for all instances must be explicitly set, not just specific ones.
+            if (super.getMesh() instanceof THREE.InstancedMesh) {
+                if (i % 2 === 0) {
+                    super.setColorAt(i, super.getColor().main)
+                } else {
+                    super.setColorAt(i, super.getColor().sub)
+                }
+            }
         }
+
         super.needsUpdateInstanceMatrix()
+        super.needsUpdateInstanceColor()
 
         super.update()
     }

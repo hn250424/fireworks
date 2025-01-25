@@ -6,9 +6,7 @@ import stateManager from "../core/stateManager"
 import ParticleFactory from "../core/particle/ParticleFactory"
 import * as utils from "../utils"
 
-import particlePoolManager from "../core/particle/particlePoolManager"
-
-const launchingDelay = 500
+const launchingDelay = 200
 
 const launchingBaseArr: CVector3[] = []
 const launchingOffsetArr: CVector3[] = []
