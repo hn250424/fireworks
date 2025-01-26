@@ -1,8 +1,8 @@
 const TYPE = {
-    PARTICLE: {
-        LAUNCHING: 'LAUNCHING',
-        EXPLOSION: 'EXPLOSION',
-        DUST: 'DUST',
+    INSTANCE: {
+        LAUNCHING: 'LaunchingParticle',
+        EXPLOSION: 'ExplosionParticle',
+        DUST: 'DustParticle',
     },
 
     EXPLOSION: {

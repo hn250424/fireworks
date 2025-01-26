@@ -3,22 +3,30 @@ import * as THREE from 'three'
 import BaseParticle from "./BaseParticle"
 import CVector3 from "../../../type/CVector3"
 import PColor from '../../../type/PColor'
-import PStatus from '../../../type/PType'
 import TYPE from '../../../definition/type'
 
-const petiteBurstTime = 1
+const LIFE_TIME = {
+    // quickest: 0.5,
+    quick: 1,
+    moderate: 1.5,
+    // slow: 2,
+    // slowest: 2.5,
+}
+
+const SIZE = 0.03
 
 export default class DustParticle extends BaseParticle {
     private object3D: THREE.Object3D
     private currentAbsolutePointArr: CVector3[]
+    private triggerClass: string
 
     constructor(
         currentAbsolutePointArr: CVector3[],
-        pStatus: PStatus,
+        explosionType: string,
+        triggerClass: string,
         pColor: PColor,
     ) {
-        const size = 0.03
-        const geometry = new THREE.BoxGeometry(size, size, size)
+        const geometry = new THREE.BoxGeometry(SIZE, SIZE, SIZE)
         // [TODO]: #1
         // The base material color blends with the instance color set by setColorAt.
         // When the material color is white (#ffffff), the intended instance colors display correctly.
@@ -28,17 +36,20 @@ export default class DustParticle extends BaseParticle {
         const object3D = new THREE.Object3D()
 
         // Time.
-        let time = 1.5
+        let time
         if (
-            pStatus.instance === TYPE.PARTICLE.EXPLOSION && pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            time = petiteBurstTime
+            time = LIFE_TIME.quick
+        } else {
+            time = LIFE_TIME.moderate
         }
 
-        super({ x: 0, y: 0, z: 0 }, pStatus, pColor, geometry, material, instancedMesh, time)
+        super(TYPE.INSTANCE.DUST, { x: 0, y: 0, z: 0 }, explosionType, pColor, geometry, material, instancedMesh, time)
 
         this.object3D = object3D
         this.currentAbsolutePointArr = currentAbsolutePointArr
+        this.triggerClass = triggerClass
 
         for (let i = 0; i < this.currentAbsolutePointArr.length; i++) {
             this.object3D.position.x = this.currentAbsolutePointArr[i].x
@@ -67,22 +78,25 @@ export default class DustParticle extends BaseParticle {
 
     public static create(
         currentAbsolutePointArr: CVector3[],
-        pStatus: PStatus,
+        explosionType: string,
+        triggerClass: string,
         pColor: PColor = { main: 'white', sub: 'white' },
     ): DustParticle {
-        return new DustParticle(currentAbsolutePointArr, pStatus, pColor)
+        return new DustParticle(currentAbsolutePointArr, explosionType, triggerClass, pColor)
     }
 
     public recycle(
         currentAbsolutePointArr: CVector3[],
-        pStatus: PStatus,
-        pColor: PColor
+        explosionType: string,
+        triggerClass: string,
+        pColor: PColor,
     ): void {
         this.currentAbsolutePointArr = currentAbsolutePointArr
-        super.setPStatus(pStatus)
+        super.setExplosionType(explosionType)
+        this.triggerClass = triggerClass
         super.setPColor(pColor)
         super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
-        this._setTime(pStatus)
+        this._setTime(explosionType)
         super.setTotalFrames(super.getTime())
         super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
@@ -112,11 +126,13 @@ export default class DustParticle extends BaseParticle {
         super.needsUpdateInstanceColor()
     }
 
-    private _setTime(pStatus: PStatus) {
+    private _setTime(explosionType: string) {
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            this.triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            super.setTime(petiteBurstTime)
+            super.setTime(LIFE_TIME.quick)
+        } else {
+            super.setTime(LIFE_TIME.moderate)
         }
     }
 }

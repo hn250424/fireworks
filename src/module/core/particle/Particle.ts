@@ -1,13 +1,13 @@
 import * as THREE from 'three'
 import CVector3 from "../../../type/CVector3"
 import Color from '../../../type/PColor'
-import PStatus from '../../../type/PType'
 
 export default interface Particle {
     update(): void
+    getInstanceName(): Readonly<string>
     getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh>
     getCurrentAbsolutePoint(): Readonly<CVector3>
-    getPStatus(): Readonly<PStatus>
+    getExplosionType(): Readonly<string>
     getPColor(): Readonly<Color>
     getRemainingFrames(): Readonly<number>
     getDustCreationFlag(): Readonly<boolean>

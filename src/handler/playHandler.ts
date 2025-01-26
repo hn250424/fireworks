@@ -13,41 +13,44 @@ function registerPlayHandler() {
 
 async function play() {
     while(1) {
+        // Test.
+        // particlePoolManager.countPool()
+
         eventManager.executeRoutineShot()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeSpecialShot()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeHighlightsShot()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
         
         eventManager.executeRoutineRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeSpecialRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeHighlightsRipple(getRandomNumberInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeRoutineVolley()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeSpecialVolley()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeHighlightsVolley()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeRoutineFinale()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeSpecialFinale()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         eventManager.executeHighlightsFinale()
-        await particlePoolManager.isActivatePoolEmpty()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
 
         // Test.
         // particlePoolManager.countPool()

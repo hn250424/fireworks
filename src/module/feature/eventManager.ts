@@ -5,8 +5,6 @@ import CVector3 from "../../type/CVector3"
 import stateManager from "../core/stateManager"
 import ParticleFactory from "../core/particle/ParticleFactory"
 import * as utils from "../utils"
-import PType from "../../type/PType"
-import LaunchingParticle from "../core/particle/LaunchingParticle"
 
 const twoStepDelay = 500
 const oneStepDelay = 200
@@ -41,11 +39,7 @@ const eventManager = {
     init() {
         testEventArr.push(
             async () => {
-                // const pType: PType = {
-                //     instance: LaunchingParticle.name,
-                //     explosion: TYPE.EXPLOSION.ROUTINE.PETITE_BURST
-                // }
-                // ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.HIGHEST }, pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.HIGHEST }, TYPE.EXPLOSION.ROUTINE.PETITE_BURST)
             },
         )
 
@@ -65,24 +59,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
             },
         )   // shotRoutineArr.push
 
         rippleRoutineArr.push(
             async (count: number) => {
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
                 
                 utils.shuffle(launchingBaseArr)
 
@@ -91,7 +77,7 @@ const eventManager = {
                     const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
-                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
                     await utils.sleep(twoStepDelay)
                 }
             },
@@ -103,21 +89,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Increasing.
@@ -125,25 +107,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Decreasing.
@@ -151,25 +129,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right.
@@ -177,23 +151,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Increasing.
@@ -201,28 +171,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Decreasing.
@@ -230,28 +196,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left.
@@ -259,21 +221,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Increasing.
@@ -281,25 +239,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Decreasing.
@@ -307,25 +261,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left.
@@ -333,23 +283,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Increasing.
@@ -357,28 +303,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Decreasing.
@@ -386,28 +328,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer.
@@ -415,19 +353,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
                 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Increasing.
@@ -435,21 +369,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
                 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Decreasing.
@@ -457,21 +387,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
                 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer.
@@ -479,20 +405,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Increasing.
@@ -500,22 +422,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Decreasing.
@@ -523,22 +441,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStep)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center.
@@ -546,19 +460,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Increasing.
@@ -566,21 +476,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Decreasing.
@@ -588,21 +494,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center.
@@ -610,20 +512,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Increasing.
@@ -631,22 +529,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Decreasing.
@@ -654,22 +548,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right.
@@ -677,33 +567,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -711,43 +597,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -755,43 +637,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -799,33 +677,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -833,43 +707,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -877,43 +747,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -921,28 +787,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -950,33 +812,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Decreasing.
@@ -984,33 +842,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -1018,28 +872,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -1047,33 +897,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -1081,33 +927,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // volleyEventArr.push
 
@@ -1117,33 +959,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -1151,43 +989,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -1195,43 +1029,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -1239,33 +1069,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -1273,43 +1099,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -1317,43 +1139,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -1361,28 +1179,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -1390,33 +1204,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Decreasing.
@@ -1424,33 +1234,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -1458,28 +1264,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -1487,33 +1289,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -1521,33 +1319,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
-                const _explosion = explosionRoutineArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionRoutineArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // finaleRoutineArr.push
 
@@ -1560,24 +1354,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
             },
         )   // shotSpecialArr.push
 
         rippleSpecialArr.push(
             async (count: number) => {
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 utils.shuffle(launchingBaseArr)
 
@@ -1586,7 +1372,7 @@ const eventManager = {
                     const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
-                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
                     await utils.sleep(twoStepDelay)
                 }
             },
@@ -1598,21 +1384,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Increasing.
@@ -1620,25 +1402,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Decreasing.
@@ -1646,25 +1424,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right.
@@ -1672,23 +1446,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Increasing.
@@ -1696,28 +1466,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Decreasing.
@@ -1725,28 +1491,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left.
@@ -1754,21 +1516,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Increasing.
@@ -1776,25 +1534,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Decreasing.
@@ -1802,25 +1556,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left.
@@ -1828,23 +1578,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Increasing.
@@ -1852,28 +1598,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Decreasing.
@@ -1881,28 +1623,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer.
@@ -1910,19 +1648,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Increasing.
@@ -1930,21 +1664,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Decreasing.
@@ -1952,21 +1682,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer.
@@ -1974,20 +1700,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Increasing.
@@ -1995,22 +1717,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Decreasing.
@@ -2018,22 +1736,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center.
@@ -2041,19 +1755,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Increasing.
@@ -2061,21 +1771,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Decreasing.
@@ -2083,21 +1789,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center.
@@ -2105,20 +1807,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Increasing.
@@ -2126,22 +1824,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Decreasing.
@@ -2149,22 +1843,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right.
@@ -2172,33 +1862,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -2206,43 +1892,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -2250,43 +1932,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -2294,33 +1972,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -2328,43 +2002,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -2372,43 +2042,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -2416,28 +2082,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -2445,33 +2107,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
              // Center to outer, Decreasing.
@@ -2479,33 +2137,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -2513,28 +2167,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -2542,33 +2192,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -2576,33 +2222,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // volleySpecialArr.push
 
@@ -2612,33 +2254,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -2646,43 +2284,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -2690,43 +2324,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -2734,33 +2364,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -2768,43 +2394,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -2812,43 +2434,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -2856,28 +2474,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -2885,33 +2499,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
              // Center to outer, Decreasing.
@@ -2919,33 +2529,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -2953,28 +2559,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -2982,33 +2584,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -3016,33 +2614,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
-                const _explosion = explosionSpecialArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionSpecialArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // finaleSpecialArr.push
 
@@ -3055,24 +2649,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
             },
         )   // shotHighlightsArr.push
 
         rippleHighlightsArr.push(
             async (count: number) => {
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 utils.shuffle(launchingBaseArr)
 
@@ -3081,7 +2667,7 @@ const eventManager = {
                     const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
-                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _pType)
+                    ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
                     await utils.sleep(twoStepDelay)
                 }
             },
@@ -3093,21 +2679,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Increasing.
@@ -3115,25 +2697,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Left to right, Decreasing.
@@ -3141,25 +2719,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right.
@@ -3167,23 +2741,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Increasing.
@@ -3191,28 +2761,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Left to right, Decreasing.
@@ -3220,28 +2786,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left.
@@ -3249,21 +2811,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Increasing.
@@ -3271,25 +2829,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Right to left, Decreasing.
@@ -3297,25 +2851,21 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left.
@@ -3323,23 +2873,19 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Increasing.
@@ -3347,28 +2893,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Right to left, Decreasing.
@@ -3376,28 +2918,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer.
@@ -3405,19 +2943,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Increasing.
@@ -3425,21 +2959,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Center to outer, Decreasing.
@@ -3447,21 +2977,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer.
@@ -3469,20 +2995,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Increasing.
@@ -3490,22 +3012,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Center to outer, Decreasing.
@@ -3513,22 +3031,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center.
@@ -3536,19 +3050,15 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Increasing.
@@ -3556,21 +3066,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Even indexed, Outer to center, Decreasing.
@@ -3578,21 +3084,17 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center.
@@ -3600,20 +3102,16 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Increasing.
@@ -3621,22 +3119,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y += twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Odd indexed, Outer to center, Decreasing.
@@ -3644,22 +3138,18 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
 
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(twoStepDelay)
                 _launchingOffset.y -= twoStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right.
@@ -3667,33 +3157,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -3701,43 +3187,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -3745,43 +3227,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -3789,33 +3267,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -3823,43 +3297,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -3867,43 +3337,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -3911,28 +3377,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -3940,33 +3402,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Decreasing.
@@ -3974,33 +3432,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -4008,28 +3462,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -4037,33 +3487,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -4071,33 +3517,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // volleyHighlightsArr.push
 
@@ -4107,33 +3549,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Increasing.
@@ -4141,43 +3579,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Left to right, Decreasing.
@@ -4185,43 +3619,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Right to left.
@@ -4229,33 +3659,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Increasing.
@@ -4263,43 +3689,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
 
             // Right to left, Decreasing.
@@ -4307,43 +3729,39 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
             },
         
             // Center to outer.
@@ -4351,28 +3769,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Increasing.
@@ -4380,33 +3794,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
 
             // Center to outer, Decreasing.
@@ -4414,33 +3824,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
             },
         
             // Outer to center.
@@ -4448,28 +3854,24 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Increasing.
@@ -4477,33 +3879,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y += oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
 
             // Outer to center, Decreasing.
@@ -4511,33 +3909,29 @@ const eventManager = {
                 const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
                 const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
-                const _explosion = explosionHighlightsArr[_explosionIdx]
-                const _pType: PType = {
-                    instance: LaunchingParticle.name,
-                    explosion: _explosion
-                }
+                const _explosionType = explosionHighlightsArr[_explosionIdx]
         
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.THREE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.NINE }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.EIGHT }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _pType)
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SEVEN }, { ..._launchingOffset }, _explosionType)
                 await utils.sleep(oneStepDelay)
                 _launchingOffset.y -= oneStep
-                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _pType)
+                ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
             },
         )   // finaleHighlightsArr.push
     },

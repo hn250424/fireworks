@@ -5,10 +5,16 @@ import BaseParticle from "./BaseParticle"
 import CVector3 from "../../../type/CVector3"
 import { shuffle } from '../../utils'
 import PColor from '../../../type/PColor'
-import PStatus from '../../../type/PType'
+import TYPE from '../../../definition/type'
 
-const preDustCreationInterval: number = 10
-const postDustCreationInterval: number = 0
+const preDustCreationInterval = 10
+const postDustCreationInterval = 0
+
+const radiusTop = 0.05
+const radiusBottom = 0
+const height = 0.7
+
+const time = 4
 
 export default class LaunchingParticle extends BaseParticle {
     private pointStorage: CVector3[]
@@ -17,11 +23,8 @@ export default class LaunchingParticle extends BaseParticle {
     private constructor(
         beginAbsolutePoint: CVector3,
         endRelativePoint: CVector3,
-        pStatus: PStatus
+        explosionType: string
     ) {
-        const radiusTop = 0.05
-        const radiusBottom = 0
-        const height = 0.7
         shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
             main: COLOR.FIREWORKS[0],
@@ -30,16 +33,17 @@ export default class LaunchingParticle extends BaseParticle {
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height)
         const material = new THREE.MeshStandardMaterial({ color: pColor.main, transparent: true })
         const mesh = new THREE.Mesh(geometry, material)
-        const time = 5
-        super(beginAbsolutePoint, pStatus, pColor, geometry, material, mesh, time, preDustCreationInterval)
+        
+        super(TYPE.INSTANCE.LAUNCHING, beginAbsolutePoint, explosionType, pColor, geometry, material, mesh, time, preDustCreationInterval)
 
         this.endRelativePoint = endRelativePoint
         
-        this.pointStorage = new Array(super.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.endRelativePoint.x / super.getTotalFrames()
-        const delta_z = this.endRelativePoint.z / super.getTotalFrames()
+        const totalFrames = super.getTotalFrames()
+        this.pointStorage = new Array(totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const delta_x = this.endRelativePoint.x / totalFrames
+        const delta_z = this.endRelativePoint.z / totalFrames
         const currentPoint = {...super.getBeginAbsolutePoint()}
-        for (let i = 0; i < super.getTotalFrames(); i++) {
+        for (let i = 0; i < totalFrames; i++) {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = currentPoint.x
@@ -55,34 +59,35 @@ export default class LaunchingParticle extends BaseParticle {
     public static create(
         beginAbsolutePoint: CVector3,
         endRelativePoint: CVector3,
-        pStatus: PStatus
+        explosionType: string
     ): LaunchingParticle {
-        return new LaunchingParticle(beginAbsolutePoint, endRelativePoint, pStatus)
+        return new LaunchingParticle(beginAbsolutePoint, endRelativePoint, explosionType)
     }
 
     public recycle(
         beginAbsolutePoint: CVector3,
         endRelativePoint: CVector3,
-        pStatus: PStatus
+        explosionType: string
     ): void {
         super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePoint = endRelativePoint
-        super.setPStatus(pStatus)
+        super.setExplosionType(explosionType)
         shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
             main: COLOR.FIREWORKS[0],
             sub: COLOR.FIREWORKS[1]
         }
         super.setPColor(pColor)
-        super.setRemainingFrames(super.getTotalFrames())
+        const totalFrames = super.getTotalFrames()
+        super.setRemainingFrames(totalFrames)
         super.setElapsedFrames(0)
         super.setDustCreationInterval(preDustCreationInterval)
         
-        this.pointStorage = new Array(super.getTotalFrames()).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
-        const delta_x = this.endRelativePoint.x / super.getTotalFrames()
-        const delta_z = this.endRelativePoint.z / super.getTotalFrames()
+        this.pointStorage = new Array(totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
+        const delta_x = this.endRelativePoint.x / totalFrames
+        const delta_z = this.endRelativePoint.z / totalFrames
         const currentPoint = {...super.getBeginAbsolutePoint()}
-        for (let i = 0; i < super.getTotalFrames(); i++) {
+        for (let i = 0; i < totalFrames; i++) {
             const easeOutFactor = super.getEaseOutFactor(i)
 
             this.pointStorage[i].x = currentPoint.x

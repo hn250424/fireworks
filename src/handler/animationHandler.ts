@@ -32,7 +32,7 @@ function particlesUpdate() {
 
         if ( particle.getDustCreationFlag() ) {
             // Unlike 'ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(),' CVector3[] requires a deep copy.
-            ParticleFactory.provideDustParticle(JSON.parse(JSON.stringify(particle.getDustVector3())), particle.getPStatus(), particle.getPColor())
+            ParticleFactory.provideDustParticle(JSON.parse(JSON.stringify(particle.getDustVector3())), particle.getExplosionType(), particle.getInstanceName(), particle.getPColor())
             particle.setDustCreationFlag(false)
         }
 
@@ -41,26 +41,26 @@ function particlesUpdate() {
             ParticleFactory.retrieveParticle(particle)
 
             if (particle instanceof LaunchingParticle) {
-                switch (particle.getPStatus().explosion) {
+                switch (particle.getExplosionType()) {
                     case TYPE.EXPLOSION.ROUTINE.PETITE_BURST:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getPStatus(), particle.getPColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getPStatus(), particle.getPColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.SPECIAL.ERUPT:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getPStatus(), particle.getPColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.SPECIAL.BLOOM:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getPStatus(), particle.getPColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST:
                         playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getPStatus(), particle.getPColor()) 
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST:
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
@@ -70,7 +70,7 @@ function particlesUpdate() {
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
 
                             playExplosionSound()
-                            ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET)), particle.getPStatus(), particle.getPColor()) 
+                            ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET)), particle.getExplosionType(), particle.getPColor()) 
 
                             await sleep(200)
                         }

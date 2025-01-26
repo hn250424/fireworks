@@ -3,11 +3,11 @@ import * as THREE from 'three'
 import CVector3 from '../../../type/CVector3'
 import Particle from './Particle'
 import PColor from '../../../type/PColor'
-import PStatus from '../../../type/PType'
 
 export default class BaseParticle implements Particle {
+    private instanceName: string
     private beginAbsolutePoint: CVector3
-    private pStatus: PStatus
+    private explosionType: string
     private pColor: PColor
     private geometry: THREE.BufferGeometry
     private material: THREE.MeshStandardMaterial
@@ -20,8 +20,9 @@ export default class BaseParticle implements Particle {
     private dustCreationInterval: number
 
     protected constructor(
+        instanceName: string,
         beginAbsolutePoint: CVector3,
-        pStatus: PStatus,
+        explosionType: string,
         pColor: PColor,
         geometry: THREE.BufferGeometry,
         material: THREE.MeshStandardMaterial,
@@ -29,8 +30,9 @@ export default class BaseParticle implements Particle {
         time: number = 0,
         dustCreationInterval: number = 0,
     ) {
+        this.instanceName = instanceName
         this.beginAbsolutePoint = beginAbsolutePoint
-        this.pStatus = pStatus
+        this.explosionType = explosionType
         this.pColor = pColor
         this.geometry = geometry
         this.material = material
@@ -54,6 +56,10 @@ export default class BaseParticle implements Particle {
         }
     }
 
+    public getInstanceName(): Readonly<string> {
+        return this.instanceName
+    }
+
     protected getBeginAbsolutePoint(): Readonly<CVector3> {
         return this.beginAbsolutePoint
     }
@@ -71,12 +77,12 @@ export default class BaseParticle implements Particle {
         }
     }
 
-    public getPStatus(): Readonly<PStatus> {
-        return this.pStatus
+    public getExplosionType(): Readonly<string> {
+        return this.explosionType
     }
 
-    protected setPStatus(pStatus: PStatus): void {
-        this.pStatus = pStatus
+    protected setExplosionType(explosionType: string): void {
+        this.explosionType = explosionType
     }
 
     public getPColor(): Readonly<PColor> {

@@ -5,9 +5,30 @@ import CVector3 from "../../../type/CVector3"
 import BaseParticle from "./BaseParticle"
 import TYPE from '../../../definition/type'
 import PColor from '../../../type/PColor'
-import PStatus from '../../../type/PType'
 
-const petiteBurstTime = 1.5
+const LIFE_TIME = {
+    quickest: 1.5,
+    // quick: 3,
+    moderate: 4.5,
+    // slow: 6,
+    // slowest: 7.5,
+}
+
+const DUST_CREATION_INTERVAL = {
+    // quickest: 1.5,
+    // quick: 3,
+    moderate: 15,
+    slow: 25
+    // slowest: 7.5,
+}
+
+const GRAVITY = {
+    light: 0.01,
+    moderate: 0.02,
+    heavy: 0.03
+}
+
+const SIZE = 0.1
 
 export default class ExplosionParticle extends BaseParticle {
     private object3D: THREE.Object3D
@@ -17,11 +38,11 @@ export default class ExplosionParticle extends BaseParticle {
     private constructor(
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
-        pStatus: PStatus,
+        explosionType: string,
         pColor: PColor
     ) {
-        const size = 0.1
-        const geometry = new THREE.BoxGeometry(size, size, size)
+        
+        const geometry = new THREE.BoxGeometry(SIZE, SIZE, SIZE)
         // [TODO]: #1
         // The base material color blends with the instance color set by setColorAt.
         // When the material color is white (#ffffff), the intended instance colors display correctly.
@@ -31,57 +52,60 @@ export default class ExplosionParticle extends BaseParticle {
         const object3D = new THREE.Object3D()
 
         // Time.
-        let time = 5
+        let time
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            time = petiteBurstTime
+            time = LIFE_TIME.quickest
+        } else {
+            time = LIFE_TIME.moderate
         }
 
         // DustCreationInterval.
-        let dustCreationInterval = 15
+        let dustCreationInterval
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            dustCreationInterval = 25
-        } else if (pStatus.explosion === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
+            dustCreationInterval = DUST_CREATION_INTERVAL.slow
+        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
             dustCreationInterval = 0
+        } else {
+            dustCreationInterval = DUST_CREATION_INTERVAL.moderate
         }
-        super(beginAbsolutePoint, pStatus, pColor, geometry, material, instancedMesh, time, dustCreationInterval)
+        super(TYPE.INSTANCE.EXPLOSION, beginAbsolutePoint, explosionType, pColor, geometry, material, instancedMesh, time, dustCreationInterval)
         
         this.object3D = object3D
         this.endRelativePointArr = endRelativePointArr
         
-        this._setGravity(pStatus)
+        this._setGravity(explosionType)
     }
 
     public static create(
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
-        pStatus: PStatus,
+        explosionType: string,
         pColor: PColor = { main: 'white', sub: 'white'},
     ): ExplosionParticle {
-        return new ExplosionParticle(beginAbsolutePoint, endRelativePointArr, pStatus, pColor)
+        return new ExplosionParticle(beginAbsolutePoint, endRelativePointArr, explosionType, pColor)
     }
 
     public recycle(
         beginAbsolutePoint: CVector3,
         endRelativePointArr: CVector3[],
-        pStatus: PStatus,
+        explosionType: string,
         pColor: PColor
     ): void {
         super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePointArr = endRelativePointArr
-        super.setPStatus(pStatus)
+        super.setExplosionType(explosionType)
         super.setPColor(pColor)
         super.setMesh( new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), endRelativePointArr.length) )
-        
-        this._setTime(pStatus)
+        this._setTime(explosionType)
         super.setTotalFrames(super.getTime())
         super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
-        this._setDustCreationInterval(pStatus)
-        this._setGravity(pStatus)
+        this._setDustCreationInterval(explosionType)
+        this._setGravity(explosionType)
     }
 
     public update(): void {
@@ -125,44 +149,44 @@ export default class ExplosionParticle extends BaseParticle {
         super.update()
     }
 
-    private _setTime(pStatus: PStatus) {
+    private _setTime(explosionType: string) {
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            super.setTime(petiteBurstTime)
+            super.setTime(LIFE_TIME.quickest)
         } else {
-            super.setTime(5)
+            super.setTime(LIFE_TIME.moderate)
         }
     }
 
-    private _setDustCreationInterval(pStatus: PStatus) {
+    private _setDustCreationInterval(explosionType: string) {
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.BURST ||
-            pStatus.explosion === TYPE.EXPLOSION.SPECIAL.BLOOM ||
-            pStatus.explosion === TYPE.EXPLOSION.SPECIAL.ERUPT ||
-            pStatus.explosion === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT ||
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
             super.setDustCreationInterval(15)
         } else if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
             super.setDustCreationInterval(25)
-        } else if (pStatus.explosion === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
+        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
             super.setDustCreationInterval(0)
         } else {
             super.setDustCreationInterval(15)
         }
     }
 
-    private _setGravity(pStatus: PStatus) {
+    private _setGravity(explosionType: string) {
         if (
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.BURST ||
-            pStatus.explosion === TYPE.EXPLOSION.ROUTINE.PETITE_BURST ||
-            pStatus.explosion === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
+            explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
+            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST ||
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
-            this.gravity = 0.01
+            this.gravity = GRAVITY.light
         } else {
-            this.gravity = 0.03
+            this.gravity = GRAVITY.moderate
         }
     }
 }
