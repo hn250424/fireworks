@@ -9,9 +9,7 @@ export default class BaseParticle implements Particle {
     private beginAbsolutePoint: CVector3
     private explosionType: string
     private pColor: PColor
-    private geometry: THREE.BufferGeometry
-    private material: THREE.MeshStandardMaterial
-    private mesh: THREE.InstancedMesh | THREE.Mesh
+    private mesh: THREE.InstancedMesh | THREE.Mesh | THREE.Object3D
     private time: number
     private totalFrames: number
     private remainingFrames: number
@@ -24,9 +22,7 @@ export default class BaseParticle implements Particle {
         beginAbsolutePoint: CVector3,
         explosionType: string,
         pColor: PColor,
-        geometry: THREE.BufferGeometry,
-        material: THREE.MeshStandardMaterial,
-        mesh: THREE.InstancedMesh | THREE.Mesh,
+        mesh: THREE.InstancedMesh | THREE.Mesh | THREE.Object3D,
         time: number = 0,
         dustCreationInterval: number = 0,
     ) {
@@ -34,8 +30,6 @@ export default class BaseParticle implements Particle {
         this.beginAbsolutePoint = beginAbsolutePoint
         this.explosionType = explosionType
         this.pColor = pColor
-        this.geometry = geometry
-        this.material = material
         this.mesh = mesh
         this.time = time
         this.totalFrames = time * 60
@@ -51,8 +45,16 @@ export default class BaseParticle implements Particle {
 
         if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
 
-        if (this.material instanceof THREE.MeshStandardMaterial) {
-            this.material.opacity = this.remainingFrames / this.totalFrames
+        // Opacity.
+        const _opacityFactor = this.remainingFrames / this.totalFrames
+        if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
+            this.mesh.material.opacity = _opacityFactor
+        } else if (this.mesh instanceof THREE.Object3D) {
+            this.mesh.children.forEach(c => {
+                if (c instanceof THREE.Mesh) {
+                    c.material.opacity = _opacityFactor
+                }
+            })
         }
     }
 
@@ -66,15 +68,6 @@ export default class BaseParticle implements Particle {
 
     protected setBeginAbsolutePoint(beginAbsolutePoint: CVector3): void {
         this.beginAbsolutePoint = beginAbsolutePoint
-    }
-
-    public getCurrentAbsolutePoint(): Readonly<CVector3> {
-        if (this.mesh instanceof THREE.Mesh) {
-            const arr = this.mesh.position.toArray()
-            return { x: arr[0], y: arr[1], z: arr[2] }
-        } else {
-            throw new Error('Only the mesh type, not instancedMesh type, can call this method.')
-        }
     }
 
     public getExplosionType(): Readonly<string> {
@@ -92,11 +85,6 @@ export default class BaseParticle implements Particle {
     // Set the color for the material and update the color variable.
     protected setPColor(pColor: PColor): void {
         this.pColor = pColor
-
-        // [TODO]: #1
-        // For InstancedMesh, the material color must remain white (#ffffff) to ensure instance colors display correctly.
-        if (this.mesh instanceof THREE.InstancedMesh) return
-        this.material.color.set(pColor.main)
     }
 
     // Set the color for a specific instance in the InstancedMesh.
@@ -116,23 +104,7 @@ export default class BaseParticle implements Particle {
         if (this.mesh instanceof THREE.InstancedMesh && this.mesh.instanceColor) this.mesh.instanceColor.needsUpdate = true
     }
 
-    protected getGeometry(): Readonly<THREE.BufferGeometry> {
-        return this.geometry
-    }
-
-    protected setGeometry(geometry: THREE.BufferGeometry): void {
-        this.geometry = geometry
-    }
-
-    protected getMaterial(): Readonly<THREE.MeshStandardMaterial> {
-        return this.material
-    }
-
-    protected setMaterial(material: THREE.MeshStandardMaterial): void {
-        this.material = material
-    }
-
-    public getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh> {
+    public getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh> | THREE.Object3D {
         return this.mesh
     }
 
@@ -146,23 +118,6 @@ export default class BaseParticle implements Particle {
 
     protected needsUpdateInstanceMatrix(): void {
         if (this.mesh instanceof THREE.InstancedMesh) this.mesh.instanceMatrix.needsUpdate = true
-    }
-
-    public getDustVector3(): Readonly<CVector3[]> {
-        if (this.mesh instanceof THREE.InstancedMesh) {
-            const result: CVector3[] = []
-            for (let i = 0; i < this.mesh.count; i++) {
-                const matrix = new THREE.Matrix4()
-                this.mesh.getMatrixAt(i, matrix)
-                const position = new THREE.Vector3().setFromMatrixPosition(matrix)
-                result.push({ x: position.x, y: position.y, z: position.z })
-            }
-            return result
-        } else if (this.mesh instanceof THREE.Mesh) {
-            return [this.getCurrentAbsolutePoint()]
-        } else {
-            return []
-        }
     }
 
     protected getTime(): Readonly<number> {
@@ -212,6 +167,24 @@ export default class BaseParticle implements Particle {
 
     public setDustCreationFlag(flag: boolean): void {
         this.dustCreationFlag = flag
+    }
+
+    public getDustVector3(): Readonly<CVector3[]> {
+        if (this.mesh instanceof THREE.InstancedMesh) {
+            const result: CVector3[] = []
+            for (let i = 0; i < this.mesh.count; i++) {
+                const matrix = new THREE.Matrix4()
+                this.mesh.getMatrixAt(i, matrix)
+                const position = new THREE.Vector3().setFromMatrixPosition(matrix)
+                result.push({ x: position.x, y: position.y, z: position.z })
+            }
+            return result
+        } else if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.Object3D) {
+            const position = this.mesh.position
+            return [{ x: position.x, y: position.y, z: position.z }]
+        } else {
+            return []
+        }
     }
 
     protected rotateTowardsEndPoint(currentPoint: CVector3, endPoint: CVector3, object3D: THREE.Object3D | null = null): void {

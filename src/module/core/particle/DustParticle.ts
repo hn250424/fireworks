@@ -5,15 +5,13 @@ import CVector3 from "../../../type/CVector3"
 import PColor from '../../../type/PColor'
 import TYPE from '../../../definition/type'
 
-const LIFE_TIME = {
-    // quickest: 0.5,
-    quick: 1,
-    moderate: 1.5,
-    // slow: 2,
-    // slowest: 2.5,
-}
+// const time_quickest = 0.5
+const time_quick = 1
+const time_moderate = 1.5
+// const time_slow = 2
+// const time_slowest = 2.5
 
-const SIZE = 0.03
+const size = 0.03
 
 export default class DustParticle extends BaseParticle {
     private object3D: THREE.Object3D
@@ -26,7 +24,7 @@ export default class DustParticle extends BaseParticle {
         triggerClass: string,
         pColor: PColor,
     ) {
-        const geometry = new THREE.BoxGeometry(SIZE, SIZE, SIZE)
+        const geometry = new THREE.BoxGeometry(size, size, size)
         // [TODO]: #1
         // The base material color blends with the instance color set by setColorAt.
         // When the material color is white (#ffffff), the intended instance colors display correctly.
@@ -40,12 +38,12 @@ export default class DustParticle extends BaseParticle {
         if (
             triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            time = LIFE_TIME.quick
+            time = time_quick
         } else {
-            time = LIFE_TIME.moderate
+            time = time_moderate
         }
 
-        super(TYPE.INSTANCE.DUST, { x: 0, y: 0, z: 0 }, explosionType, pColor, geometry, material, instancedMesh, time)
+        super(TYPE.INSTANCE.DUST, { x: 0, y: 0, z: 0 }, explosionType, pColor, instancedMesh, time)
 
         this.object3D = object3D
         this.currentAbsolutePointArr = currentAbsolutePointArr
@@ -95,7 +93,9 @@ export default class DustParticle extends BaseParticle {
         super.setExplosionType(explosionType)
         this.triggerClass = triggerClass
         super.setPColor(pColor)
-        super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
+        const _mesh: THREE.Mesh = super.getMesh() as THREE.InstancedMesh
+        // super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
+        super.setMesh(new THREE.InstancedMesh(_mesh.geometry, _mesh.material, currentAbsolutePointArr.length))
         this._setTime(explosionType)
         super.setTotalFrames(super.getTime())
         super.setRemainingFrames(super.getTotalFrames())
@@ -130,9 +130,9 @@ export default class DustParticle extends BaseParticle {
         if (
             this.triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            super.setTime(LIFE_TIME.quick)
+            super.setTime(time_quick)
         } else {
-            super.setTime(LIFE_TIME.moderate)
+            super.setTime(time_moderate)
         }
     }
 }

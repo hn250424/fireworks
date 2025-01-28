@@ -5,8 +5,7 @@ import Color from '../../../type/PColor'
 export default interface Particle {
     update(): void
     getInstanceName(): Readonly<string>
-    getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh>
-    getCurrentAbsolutePoint(): Readonly<CVector3>
+    getMesh(): Readonly<THREE.Mesh | THREE.InstancedMesh> | THREE.Object3D
     getExplosionType(): Readonly<string>
     getPColor(): Readonly<Color>
     getRemainingFrames(): Readonly<number>
