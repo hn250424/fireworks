@@ -5,7 +5,7 @@ import particlePoolManager from "./particlePoolManager"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
-import Color from "../../../type/PColor"
+import PColor from "../../../type/PColor"
 
 class ParticleFactory {
     static provideLaunchingParticle(currentAbsolutePoint: CVector3, endRelativePoint: CVector3, explosionType: string) {
@@ -17,20 +17,20 @@ class ParticleFactory {
         this.addSceneAndActivateParticlesPool(particle)
     }
 
-    static provideExplosionParticle(currentAbsolutePoint: CVector3, endRelativePointArr: CVector3[], explosionType: string, color: Color) {
+    static provideExplosionParticle(currentAbsolutePoint: CVector3, endRelativePointArr: CVector3[], explosionType: string, pColor: PColor) {
         let particle = particlePoolManager.shiftExplosionParticle()
 
-        if (particle) particle.recycle(currentAbsolutePoint, endRelativePointArr, explosionType, color)
-        else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePointArr, explosionType, color)
+        if (particle) particle.recycle(currentAbsolutePoint, endRelativePointArr, explosionType, pColor)
+        else particle = ExplosionParticle.create(currentAbsolutePoint, endRelativePointArr, explosionType, pColor)
 
         this.addSceneAndActivateParticlesPool(particle)
     }
 
-    static provideDustParticle(currentAbsolutePointArr: CVector3[], explosionType: string, triggerClass: string, color: Color) {
+    static provideDustParticle(currentAbsolutePointArr: CVector3[], explosionType: string, triggerClass: string, pColor: PColor) {
         let particle = particlePoolManager.shiftDustParticle()
 
-        if (particle) particle.recycle(currentAbsolutePointArr, explosionType, triggerClass, color)
-        else particle = DustParticle.create(currentAbsolutePointArr, explosionType, triggerClass, color)
+        if (particle) particle.recycle(currentAbsolutePointArr, explosionType, triggerClass, pColor)
+        else particle = DustParticle.create(currentAbsolutePointArr, explosionType, triggerClass, pColor)
 
         this.addSceneAndActivateParticlesPool(particle)
     }
