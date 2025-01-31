@@ -53,12 +53,12 @@ const eventManager = {
         // routine.
         shotRoutineArr.push(
             () => {
-                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomNumberInRange(0, 5) : utils.getRandomNumberInRange(7, 10)
+                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(0, 5) : utils.getRandomIntInRange(7, 10)
                 const _launchingBase = launchingBaseArr[_launchingBaseIdx]
 
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -67,14 +67,14 @@ const eventManager = {
 
         rippleRoutineArr.push(
             async (count: number) => {
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
                 
                 utils.shuffle(launchingBaseArr)
 
                 for (let i = 0; i < count; i++) {
                     const _launchingBase = launchingBaseArr[i]
-                    const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                    const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
                     ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -86,9 +86,9 @@ const eventManager = {
         volleyRoutineArr.push(
             // Even indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -104,9 +104,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -126,9 +126,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -148,9 +148,9 @@ const eventManager = {
 
             // Odd indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -168,9 +168,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -193,9 +193,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -218,9 +218,9 @@ const eventManager = {
 
             // Even indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -236,9 +236,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -258,9 +258,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -280,9 +280,9 @@ const eventManager = {
 
             // Odd indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -300,9 +300,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -325,9 +325,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -350,9 +350,9 @@ const eventManager = {
 
             // Even indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
                 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -366,9 +366,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
                 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -384,9 +384,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
                 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -402,9 +402,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -419,9 +419,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -438,9 +438,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -457,9 +457,9 @@ const eventManager = {
 
             // Even indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -473,9 +473,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -491,9 +491,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -509,9 +509,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -526,9 +526,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -545,9 +545,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -564,9 +564,9 @@ const eventManager = {
 
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -594,9 +594,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -634,9 +634,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -674,9 +674,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -704,9 +704,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -744,9 +744,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -784,9 +784,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -809,9 +809,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -839,9 +839,9 @@ const eventManager = {
 
             // Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -869,9 +869,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -894,9 +894,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -924,9 +924,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -956,9 +956,9 @@ const eventManager = {
         finaleRoutineArr.push(
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -986,9 +986,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1026,9 +1026,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1066,9 +1066,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1096,9 +1096,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1136,9 +1136,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1176,9 +1176,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1201,9 +1201,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1231,9 +1231,9 @@ const eventManager = {
 
             // Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1261,9 +1261,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1286,9 +1286,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1316,9 +1316,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionRoutineArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
                 const _explosionType = explosionRoutineArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1348,12 +1348,12 @@ const eventManager = {
         // special.
         shotSpecialArr.push(
             () => {
-                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomNumberInRange(0, 5) : utils.getRandomNumberInRange(7, 10)
+                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(0, 5) : utils.getRandomIntInRange(7, 10)
                 const _launchingBase = launchingBaseArr[_launchingBaseIdx]
 
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -1362,14 +1362,14 @@ const eventManager = {
 
         rippleSpecialArr.push(
             async (count: number) => {
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 utils.shuffle(launchingBaseArr)
 
                 for (let i = 0; i < count; i++) {
                     const _launchingBase = launchingBaseArr[i]
-                    const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                    const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
                     ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -1381,9 +1381,9 @@ const eventManager = {
         volleySpecialArr.push(
             // Even indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1399,9 +1399,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1421,9 +1421,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1443,9 +1443,9 @@ const eventManager = {
 
             // Odd indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1463,9 +1463,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1488,9 +1488,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1513,9 +1513,9 @@ const eventManager = {
 
             // Even indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -1531,9 +1531,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -1553,9 +1553,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -1575,9 +1575,9 @@ const eventManager = {
 
             // Odd indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1595,9 +1595,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1620,9 +1620,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1645,9 +1645,9 @@ const eventManager = {
 
             // Even indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1661,9 +1661,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1679,9 +1679,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -1697,9 +1697,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -1714,9 +1714,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -1733,9 +1733,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -1752,9 +1752,9 @@ const eventManager = {
 
             // Even indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1768,9 +1768,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1786,9 +1786,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -1804,9 +1804,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1821,9 +1821,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1840,9 +1840,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1859,9 +1859,9 @@ const eventManager = {
 
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1889,9 +1889,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1929,9 +1929,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -1969,9 +1969,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -1999,9 +1999,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2039,9 +2039,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2079,9 +2079,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2104,9 +2104,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2134,9 +2134,9 @@ const eventManager = {
 
              // Center to outer, Decreasing.
              async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2164,9 +2164,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2189,9 +2189,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2219,9 +2219,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2251,9 +2251,9 @@ const eventManager = {
         finaleSpecialArr.push(
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2281,9 +2281,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2321,9 +2321,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2361,9 +2361,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2391,9 +2391,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2431,9 +2431,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2471,9 +2471,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2496,9 +2496,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2526,9 +2526,9 @@ const eventManager = {
 
              // Center to outer, Decreasing.
              async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2556,9 +2556,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2581,9 +2581,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2611,9 +2611,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionSpecialArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
                 const _explosionType = explosionSpecialArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2643,12 +2643,12 @@ const eventManager = {
         // highlights.
         shotHighlightsArr.push(
             () => {
-                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomNumberInRange(0, 5) : utils.getRandomNumberInRange(7, 10)
+                const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(0, 5) : utils.getRandomIntInRange(7, 10)
                 const _launchingBase = launchingBaseArr[_launchingBaseIdx]
 
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -2657,14 +2657,14 @@ const eventManager = {
 
         rippleHighlightsArr.push(
             async (count: number) => {
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 utils.shuffle(launchingBaseArr)
 
                 for (let i = 0; i < count; i++) {
                     const _launchingBase = launchingBaseArr[i]
-                    const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                    const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                     const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
 
                     ParticleFactory.provideLaunchingParticle({ ..._launchingBase }, { ..._launchingOffset }, _explosionType)
@@ -2676,9 +2676,9 @@ const eventManager = {
         volleyHighlightsArr.push(
             // Even indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -2694,9 +2694,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -2716,9 +2716,9 @@ const eventManager = {
 
             // Even indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -2738,9 +2738,9 @@ const eventManager = {
 
             // Odd indexed, Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2758,9 +2758,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2783,9 +2783,9 @@ const eventManager = {
 
             // Odd indexed, Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -2808,9 +2808,9 @@ const eventManager = {
 
             // Even indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -2826,9 +2826,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -2848,9 +2848,9 @@ const eventManager = {
 
             // Even indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TEN }, { ..._launchingOffset }, _explosionType)
@@ -2870,9 +2870,9 @@ const eventManager = {
 
             // Odd indexed, Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2890,9 +2890,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2915,9 +2915,9 @@ const eventManager = {
 
             // Odd indexed, Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -2940,9 +2940,9 @@ const eventManager = {
 
             // Even indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2956,9 +2956,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2974,9 +2974,9 @@ const eventManager = {
 
             // Even indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -2992,9 +2992,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -3009,9 +3009,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -3028,9 +3028,9 @@ const eventManager = {
 
             // Odd indexed, Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FIVE }, { ..._launchingOffset }, _explosionType)
@@ -3047,9 +3047,9 @@ const eventManager = {
 
             // Even indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -3063,9 +3063,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -3081,9 +3081,9 @@ const eventManager = {
 
             // Even indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.TWO }, { ..._launchingOffset }, _explosionType)
@@ -3099,9 +3099,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3116,9 +3116,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3135,9 +3135,9 @@ const eventManager = {
 
             // Odd indexed, Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
 
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3154,9 +3154,9 @@ const eventManager = {
 
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3184,9 +3184,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3224,9 +3224,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3264,9 +3264,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3294,9 +3294,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3334,9 +3334,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3374,9 +3374,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3399,9 +3399,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3429,9 +3429,9 @@ const eventManager = {
 
             // Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3459,9 +3459,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3484,9 +3484,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3514,9 +3514,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3546,9 +3546,9 @@ const eventManager = {
         finaleHighlightsArr.push(
             // Left to right.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3576,9 +3576,9 @@ const eventManager = {
 
             // Left to right, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3616,9 +3616,9 @@ const eventManager = {
 
             // Left to right, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3656,9 +3656,9 @@ const eventManager = {
         
             // Right to left.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3686,9 +3686,9 @@ const eventManager = {
 
             // Right to left, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3726,9 +3726,9 @@ const eventManager = {
 
             // Right to left, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ELEVEN }, { ..._launchingOffset }, _explosionType)
@@ -3766,9 +3766,9 @@ const eventManager = {
         
             // Center to outer.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3791,9 +3791,9 @@ const eventManager = {
 
             // Center to outer, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3821,9 +3821,9 @@ const eventManager = {
 
             // Center to outer, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.SIX }, { ..._launchingOffset }, _explosionType)
@@ -3851,9 +3851,9 @@ const eventManager = {
         
             // Outer to center.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3876,9 +3876,9 @@ const eventManager = {
 
             // Outer to center, Increasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3906,9 +3906,9 @@ const eventManager = {
 
             // Outer to center, Decreasing.
             async () => {
-                const _launchingOffsetIdx = utils.getRandomNumberInRange(0, launchingOffsetArr.length - 1)
+                const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
                 const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
-                const _explosionIdx = utils.getRandomNumberInRange(0, explosionHighlightsArr.length - 1)
+                const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
                 const _explosionType = explosionHighlightsArr[_explosionIdx]
         
                 ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.ONE }, { ..._launchingOffset }, _explosionType)
@@ -3943,76 +3943,76 @@ const eventManager = {
 
     executeRoutineShot() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, shotRoutineArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, shotRoutineArr.length - 1)
         shotRoutineArr[idx]()
     },
 
     executeRoutineRipple(count: number) {
         playLaunchSound()
-        // const idx = utils.getRandomNumberInRange(0, rippleRoutineArr.length - 1)
+        // const idx = utils.getRandomIntInRange(0, rippleRoutineArr.length - 1)
         // rippleRoutineArr[idx](count)
         rippleRoutineArr[0](count)
     },
 
     executeRoutineVolley() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, volleyRoutineArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, volleyRoutineArr.length - 1)
         volleyRoutineArr[idx]()
     },
 
     executeRoutineFinale() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, finaleRoutineArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, finaleRoutineArr.length - 1)
         finaleRoutineArr[idx]()
     },
 
     executeSpecialShot() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, shotSpecialArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, shotSpecialArr.length - 1)
         shotSpecialArr[idx]()
     },
 
     executeSpecialRipple(count: number) {
         playLaunchSound()
-        // const idx = utils.getRandomNumberInRange(0, rippleSpecialArr.length - 1)
+        // const idx = utils.getRandomIntInRange(0, rippleSpecialArr.length - 1)
         // rippleSpecialArr[idx](count)
         rippleSpecialArr[0](count)
     },
 
     executeSpecialVolley() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, volleySpecialArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, volleySpecialArr.length - 1)
         volleySpecialArr[idx]()
     },
 
     executeSpecialFinale() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, finaleSpecialArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, finaleSpecialArr.length - 1)
         finaleSpecialArr[idx]()
     },
 
     executeHighlightsShot() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, shotHighlightsArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, shotHighlightsArr.length - 1)
         shotHighlightsArr[idx]()
     },
 
     executeHighlightsRipple(count: number) {
         playLaunchSound()
-        // const idx = utils.getRandomNumberInRange(0, rippleHighlightsArr.length - 1)
+        // const idx = utils.getRandomIntInRange(0, rippleHighlightsArr.length - 1)
         // rippleHighlightsArr[idx](count)
         rippleHighlightsArr[0](count)
     },
 
     executeHighlightsVolley() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, volleyHighlightsArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, volleyHighlightsArr.length - 1)
         volleyHighlightsArr[idx]()
     },
 
     executeHighlightsFinale() {
         playLaunchSound()
-        const idx = utils.getRandomNumberInRange(0, finaleHighlightsArr.length - 1)
+        const idx = utils.getRandomIntInRange(0, finaleHighlightsArr.length - 1)
         finaleHighlightsArr[idx]()
     },
 }

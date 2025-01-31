@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import CVector3 from '../../../type/CVector3'
 import Particle from './Particle'
 import PColor from '../../../type/PColor'
+import { getRandomFloatInRange } from '../../utils'
 
 export default class BaseParticle implements Particle {
     private instanceName: string
@@ -170,7 +171,7 @@ export default class BaseParticle implements Particle {
     }
 
     public getDustVector3(): Readonly<CVector3[]> {
-        if (this.mesh instanceof THREE.InstancedMesh) {
+        if (this.mesh instanceof THREE.InstancedMesh) {     // this.instanceName === TYPE.INSTANCE.EXPLOSION || this.instanceName === TYPE.INSTANCE.DUST
             const result: CVector3[] = []
             for (let i = 0; i < this.mesh.count; i++) {
                 const matrix = new THREE.Matrix4()
@@ -179,9 +180,15 @@ export default class BaseParticle implements Particle {
                 result.push({ x: position.x, y: position.y, z: position.z })
             }
             return result
-        } else if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.Object3D) {
+        } else if (this.mesh instanceof THREE.Mesh || this.mesh instanceof THREE.Object3D) {    // this.instanceName === TYPE.INSTANCE.LAUNCHING
             const position = this.mesh.position
-            return [{ x: position.x, y: position.y, z: position.z }]
+            const dustVectorList = [
+                { x: position.x, y: position.y, z: position.z },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.2, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.3, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.4, z: position.z + getRandomFloatInRange(-0.2, 0.2) }
+            ]
+            return dustVectorList
         } else {
             return []
         }
