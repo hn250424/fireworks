@@ -38,11 +38,11 @@ const POINT = {
     },
 
     LAUNCHING_OFFSET: {
-        LOWEST: { x: 0, y: 16, z: 0 },
-        LOW: { x: 0, y: 17, z: 0 },
-        MEDIUM: { x: 0, y: 18, z: 0 },
-        HIGH: { x: 0, y: 19, z: 0 },
-        HIGHEST: { x: 0, y: 20, z: 0 }
+        LOWEST: { x: 0, y: 14, z: 0 },
+        LOW: { x: 0, y: 15, z: 0 },
+        MEDIUM: { x: 0, y: 16, z: 0 },
+        HIGH: { x: 0, y: 17, z: 0 },
+        HIGHEST: { x: 0, y: 18, z: 0 }
     },
 
     EXPLOSION_OFFSET: {

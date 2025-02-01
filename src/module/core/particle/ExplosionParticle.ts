@@ -180,15 +180,15 @@ export default class ExplosionParticle extends BaseParticle {
             explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT ||
             explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
-            super.setDustCreationInterval(15)
+            super.setDustCreationInterval(dustCreationInterval_moderate)
         } else if (
             explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
         ) {
-            super.setDustCreationInterval(25)
+            super.setDustCreationInterval(dustCreationInterval_slowest)
         } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
             super.setDustCreationInterval(0)
         } else {
-            super.setDustCreationInterval(15)
+            super.setDustCreationInterval(dustCreationInterval_moderate)
         }
     }
 

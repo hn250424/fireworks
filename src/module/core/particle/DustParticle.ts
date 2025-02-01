@@ -62,11 +62,7 @@ export default class DustParticle extends BaseParticle {
             // To avoid this, the material color is now set to white (#ffffff).
             // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                if (i % 2 === 0) {
-                    super.setColorAt(i, super.getPColor().main)
-                } else {
-                    super.setColorAt(i, super.getPColor().sub)
-                }
+                super.setColorAt(i, super.getPColor().main)
             }
         }
 
@@ -114,11 +110,7 @@ export default class DustParticle extends BaseParticle {
             // To avoid this, the material color is now set to white (#ffffff).
             // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                if (i % 2 === 0) {
-                    super.setColorAt(i, super.getPColor().main)
-                } else {
-                    super.setColorAt(i, super.getPColor().sub)
-                }
+                super.setColorAt(i, super.getPColor().main)
             }
         }
 
