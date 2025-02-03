@@ -17,6 +17,9 @@ const explosionRoutineArr: string[] = []
 const explosionSpecialArr: string[] = []
 const explosionHighlightsArr: string[] = []
 
+const launchingBaseLength = Object.keys(POINT.LAUNCHING_BASE).length
+const launchingBaseCenterIdx = Math.floor(launchingBaseLength / 2)
+
 const eventManager = {
     init() {
         for (const v of Object.values(POINT.LAUNCHING_BASE)) { launchingBaseArr.push(v) }
@@ -27,10 +30,11 @@ const eventManager = {
     },
 
     executeTest() {
-        ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.HIGHEST }, TYPE.EXPLOSION.ROUTINE.PETITE_BURST)
+        ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOWEST }, TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST)
     },
 
     shot(explosionType: string) {
+        playLaunchSound()
         const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(2, 4) : utils.getRandomIntInRange(6, 8)
         ParticleFactory.provideLaunchingParticle(launchingBaseArr[_launchingBaseIdx], getLaunchingRandomOffset(), explosionType)
     },
@@ -39,6 +43,7 @@ const eventManager = {
         utils.shuffle(launchingBaseArr)
 
         for (let i = 0; i < count; i++) {
+            playLaunchSound()
             ParticleFactory.provideLaunchingParticle(launchingBaseArr[i], getLaunchingRandomOffset(), explosionType)
             await utils.sleep(rippleDelay)
         }
@@ -51,6 +56,7 @@ const eventManager = {
         const _increasing = utils.getRandomIntInRange(-1, 1)
 
         for (let i = _beginIdx; i < launchingBaseArr.length; i += step) {
+            playLaunchSound()
             ParticleFactory.provideLaunchingParticle(launchingBaseArr[i], _launchingOffset, explosionType)
             _launchingOffset.y += _increasing
             await utils.sleep(volleyAndFinaleDelay)
@@ -64,6 +70,7 @@ const eventManager = {
         const _increasing = utils.getRandomIntInRange(-1, 1)
 
         for (let i = _beginIdx; i > -1; i -= step) {
+            playLaunchSound()
             ParticleFactory.provideLaunchingParticle(launchingBaseArr[i], _launchingOffset, explosionType)
             _launchingOffset.y += _increasing
             await utils.sleep(volleyAndFinaleDelay)
@@ -73,18 +80,18 @@ const eventManager = {
     async centerToOuter(explosionType: string, step: number) {
         const _launchingOffset = getLaunchingRandomOffset()
 
-        const _centerIdx = Math.floor(launchingBaseArr.length / 2)
         const _beginIdx = step === finaleStep ? 0 : utils.getRandomIntInRange(0, 1)
         const _increasing = utils.getRandomIntInRange(-1, 1)
 
-        for (let i = _beginIdx; i <= _centerIdx; i += step) {
-            ParticleFactory.provideLaunchingParticle(launchingBaseArr[_centerIdx + i], _launchingOffset, explosionType)
-            if (_centerIdx + i === _centerIdx) {
+        for (let i = _beginIdx; i <= launchingBaseCenterIdx; i += step) {
+            playLaunchSound()
+            ParticleFactory.provideLaunchingParticle(launchingBaseArr[launchingBaseCenterIdx + i], _launchingOffset, explosionType)
+            if (launchingBaseCenterIdx + i === launchingBaseCenterIdx) {
                 _launchingOffset.y += _increasing
                 await utils.sleep(volleyAndFinaleDelay)  
                 continue
             }
-            ParticleFactory.provideLaunchingParticle(launchingBaseArr[_centerIdx - i], _launchingOffset, explosionType)
+            ParticleFactory.provideLaunchingParticle(launchingBaseArr[launchingBaseCenterIdx - i], _launchingOffset, explosionType)
             _launchingOffset.y += _increasing
             await utils.sleep(volleyAndFinaleDelay)
         }
@@ -97,7 +104,8 @@ const eventManager = {
         const _rightIdx = _leftIdx === 0 ? launchingBaseArr.length - 1 : launchingBaseArr.length - 2
         const _increasing = utils.getRandomIntInRange(-1, 1)
 
-        for (let i = 0; i < 6; i += step) {
+        for (let i = 0; i <= launchingBaseCenterIdx; i += step) {
+            playLaunchSound()
             ParticleFactory.provideLaunchingParticle(launchingBaseArr[_leftIdx + i], _launchingOffset, explosionType)
             if (_leftIdx + i === 5) return
             ParticleFactory.provideLaunchingParticle(launchingBaseArr[_rightIdx - i], _launchingOffset, explosionType)
@@ -107,21 +115,18 @@ const eventManager = {
     },
 
     executeRoutineShot() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
         const _explosionType = explosionRoutineArr[_explosionIdx]
         this.shot(_explosionType)
     },
 
     executeRoutineRipple(count: number) {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
         const _explosionType = explosionRoutineArr[_explosionIdx]
         this.ripple(_explosionType, count)
     },
 
     executeRoutineVolley() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
         const _explosionType = explosionRoutineArr[_explosionIdx]
 
@@ -143,7 +148,6 @@ const eventManager = {
     },
 
     executeRoutineFinale() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionRoutineArr.length - 1)
         const _explosionType = explosionRoutineArr[_explosionIdx]
 
@@ -165,21 +169,18 @@ const eventManager = {
     },
 
     executeSpecialShot() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
         const _explosionType = explosionSpecialArr[_explosionIdx]
         this.shot(_explosionType)
     },
 
     executeSpecialRipple(count: number) {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
         const _explosionType = explosionSpecialArr[_explosionIdx]
         this.ripple(_explosionType, count)
     },
 
     executeSpecialVolley() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
         const _explosionType = explosionSpecialArr[_explosionIdx]
 
@@ -201,7 +202,6 @@ const eventManager = {
     },
 
     executeSpecialFinale() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionSpecialArr.length - 1)
         const _explosionType = explosionSpecialArr[_explosionIdx]
 
@@ -223,21 +223,18 @@ const eventManager = {
     },
 
     executeHighlightsShot() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
         const _explosionType = explosionHighlightsArr[_explosionIdx]
         this.shot(_explosionType)
     },
 
     executeHighlightsRipple(count: number) {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
         const _explosionType = explosionHighlightsArr[_explosionIdx]
         this.ripple(_explosionType, count)
     },
 
     executeHighlightsVolley() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
         const _explosionType = explosionHighlightsArr[_explosionIdx]
 
@@ -259,7 +256,6 @@ const eventManager = {
     },
 
     executeHighlightsFinale() {
-        playLaunchSound()
         const _explosionIdx = utils.getRandomIntInRange(0, explosionHighlightsArr.length - 1)
         const _explosionType = explosionHighlightsArr[_explosionIdx]
 

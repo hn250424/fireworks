@@ -8,10 +8,10 @@ const maxRippleCount = 5
 async function registerPlayHandler() {
     // eventManager.executeTest()
 
-    // for (let i = 0; i < 13; i++) {
-    //     eventManager.executeRoutineFinale()
-    //     await particlePoolManager.isActivateParticlesPoolEmpty()
-    // }
+    for (let i = 0; i < 13; i++) {
+        eventManager.executeRoutineVolley()
+        await particlePoolManager.isActivateParticlesPoolEmpty()
+    }
 
     // play()
 }

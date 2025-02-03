@@ -48,7 +48,7 @@ export default class ExplosionParticle extends BaseParticle {
         // Time.
         let time
         if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
         ) {
             time = time_quickest
         } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
@@ -60,7 +60,7 @@ export default class ExplosionParticle extends BaseParticle {
         // DustCreationInterval.
         let dustCreationInterval
         if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
         ) {
             dustCreationInterval = dustCreationInterval_slowest
         } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
@@ -163,7 +163,7 @@ export default class ExplosionParticle extends BaseParticle {
 
     private _setTime(explosionType: string) {
         if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
         ) {
             super.setTime(time_quickest)
         } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
@@ -182,7 +182,7 @@ export default class ExplosionParticle extends BaseParticle {
         ) {
             super.setDustCreationInterval(dustCreationInterval_moderate)
         } else if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
         ) {
             super.setDustCreationInterval(dustCreationInterval_slowest)
         } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
@@ -195,7 +195,7 @@ export default class ExplosionParticle extends BaseParticle {
     private _setGravity(explosionType: string) {
         if (
             explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
-            explosionType === TYPE.EXPLOSION.ROUTINE.PETITE_BURST ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST ||
             explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
         ) {
             this.gravity = gravity_light

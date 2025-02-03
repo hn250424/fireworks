@@ -42,24 +42,24 @@ function particlesUpdate() {
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
-                    case TYPE.EXPLOSION.ROUTINE.PETITE_BURST:
-                        playExplosionSound()
-                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getPColor()) 
-                        break
                     case TYPE.EXPLOSION.ROUTINE.BURST:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
+                    case TYPE.EXPLOSION.SPECIAL.PETITE_BURST:
+                        playSpecialExplosionSound()
+                        ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getPColor()) 
+                        break
                     case TYPE.EXPLOSION.SPECIAL.ERUPT:
-                        playExplosionSound()
+                        playSpecialExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.ERUPT)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.SPECIAL.BLOOM:
-                        playExplosionSound()
+                        playSpecialExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST:
-                        playExplosionSound()
+                        playBigExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST:
@@ -84,6 +84,18 @@ function particlesUpdate() {
 function playExplosionSound() {
     if (stateManager.getVolumeState()) { 
         new Audio(ASSETS.SOUNDS.EXPLOSION).play() 
+    }
+}
+
+function playBigExplosionSound() {
+    if (stateManager.getVolumeState()) { 
+        new Audio(ASSETS.SOUNDS.BIG_EXPLOSION).play() 
+    }
+}
+
+function playSpecialExplosionSound() {
+    if (stateManager.getVolumeState()) { 
+        new Audio(ASSETS.SOUNDS.SPECIAL_EXPLOSION).play() 
     }
 }
 
