@@ -59,12 +59,8 @@ export default class ExplosionParticle extends BaseParticle {
 
         // DustCreationInterval.
         let dustCreationInterval
-        if (
-            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
-        ) {
+        if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
             dustCreationInterval = dustCreationInterval_slowest
-        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
-            dustCreationInterval = 0
         } else {
             dustCreationInterval = dustCreationInterval_moderate
         }
@@ -174,19 +170,8 @@ export default class ExplosionParticle extends BaseParticle {
     }
 
     private _setDustCreationInterval(explosionType: string) {
-        if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
-            explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM ||
-            explosionType === TYPE.EXPLOSION.SPECIAL.ERUPT ||
-            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
-        ) {
-            super.setDustCreationInterval(dustCreationInterval_moderate)
-        } else if (
-            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
-        ) {
+        if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
             super.setDustCreationInterval(dustCreationInterval_slowest)
-        } else if (explosionType === TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST) {
-            super.setDustCreationInterval(0)
         } else {
             super.setDustCreationInterval(dustCreationInterval_moderate)
         }

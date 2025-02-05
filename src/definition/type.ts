@@ -12,13 +12,13 @@ const TYPE = {
         
         SPECIAL: {
             PETITE_BURST: 'PETITE_BURST',
-            ERUPT: 'ERUPT',
             BLOOM: 'BLOOM'
         },
 
         HIGHLIGHTS: {
             HUGE_BURST: 'HUGE_BURST',
             CHAIN_BURST: 'CHAIN_BURST',
+            FESTIVAL_ERUPT: 'FESTIVAL_ERUPT',
         }
     },
 

@@ -10,8 +10,8 @@ const deactivateExplosionParticlesPool: ExplosionParticle[] = []
 const deactivateDustParticlesPool: DustParticle[] = []
 
 const expectedLaunchingParticleCount = 11
-const expectedExplosionParticleCount = 66
-const expectedDustParticleCount = 105
+const expectedExplosionParticleCount = 77
+const expectedDustParticleCount = 405
 
 const particlePoolManager = {
     // Test to determine how many particles are needed.

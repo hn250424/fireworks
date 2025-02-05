@@ -30,7 +30,7 @@ const eventManager = {
     },
 
     executeTest() {
-        ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOWEST }, TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST)
+        ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST)
     },
 
     shot(explosionType: string) {
