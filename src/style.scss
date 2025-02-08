@@ -1,6 +1,10 @@
 @import './css/common.scss';
 @import './css/variable.scss';
 
+#button-container > * {
+    position: absolute;
+}
+
 #displayButton,
 #volumeButton {
     width: map-get($map: $circle, $key: width);
@@ -22,13 +26,11 @@
 #displayButton {
     top: 10%;
     left: 80%;
-    // background-image: url('/images/show_menu.png'); // uiManager init()
 }
 
 #volumeButton {
     top: 10%;
     left: 83%;
-    // background-image: url('/images/on_volume.png'); // uiManager init() 
 }
 
 #cartesianAxesButton,
@@ -55,3 +57,9 @@
     left: 80%;
 }
 
+#phrase {
+    top: 10%;
+    left: 50%;
+    color: $key-color;
+    transform: translate(-50%, 0%);
+}

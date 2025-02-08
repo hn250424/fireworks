@@ -1,4 +1,5 @@
 $background: transparent;
+$key-color: #266bb5;
 
 $circle: (
     width: 25px,
@@ -9,6 +10,6 @@ $circle: (
 $rect: (
     width: 150px,
     height: 50px,
-    color: #266bb5,
+    color: $key-color,
     hoverColor: #3f3f3f,
 );

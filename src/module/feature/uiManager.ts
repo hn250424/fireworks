@@ -24,6 +24,9 @@ if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
 const launchPointButton = document.getElementById('launchPointButton')
 if (! launchPointButton) throw new Error('launchPointButton is not exist !')
 
+const phrase = document.getElementById('phrase')
+if (! phrase) throw new Error('phrase is not exist !')
+
 let display: boolean
 let volume: boolean
 let cartesianAxes: boolean
@@ -74,25 +77,25 @@ function createElements(): void {
     })
 
     // For testing point during development.
-    const radius = 0.1
-    const segment = 8
-    POINT.RED.forEach(p => {
-        const point = new THREE.Mesh(
-            new THREE.SphereGeometry(radius, segment, segment),
-            new THREE.MeshStandardMaterial({ color: 'red' })
-        )
-        point.position.set(p.x, p.y, p.z)
-        launchPointArray.push(point)
-    })
-    POINT.BLUE.forEach(p => {
-        const point = new THREE.Mesh(
-            // new THREE.CylinderGeometry(0.05, 0, 0.7),
-            new THREE.SphereGeometry(radius, segment, segment),
-            new THREE.MeshStandardMaterial({ color: 'blue' })
-        )
-        point.position.set(p.x, p.y, p.z)
-        launchPointArray.push(point)
-    })
+    // const radius = 0.1
+    // const segment = 8
+    // POINT.RED.forEach(p => {
+    //     const point = new THREE.Mesh(
+    //         new THREE.SphereGeometry(radius, segment, segment),
+    //         new THREE.MeshStandardMaterial({ color: 'red' })
+    //     )
+    //     point.position.set(p.x, p.y, p.z)
+    //     launchPointArray.push(point)
+    // })
+    // POINT.BLUE.forEach(p => {
+    //     const point = new THREE.Mesh(
+    //         // new THREE.CylinderGeometry(0.05, 0, 0.7),
+    //         new THREE.SphereGeometry(radius, segment, segment),
+    //         new THREE.MeshStandardMaterial({ color: 'blue' })
+    //     )
+    //     point.position.set(p.x, p.y, p.z)
+    //     launchPointArray.push(point)
+    // })
 }
 
 function displayButtons() {
@@ -101,6 +104,7 @@ function displayButtons() {
         display = true
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'block'
         if (launchPointButton) launchPointButton.style.display = 'block'
+        if (phrase) phrase.style.display = 'block'
     }
 }
 
@@ -110,6 +114,7 @@ function hideButtons() {
         display = false
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'none'
         if (launchPointButton) launchPointButton.style.display = 'none'
+        if (phrase) phrase.style.display = 'none'
     }
 }
 
@@ -164,8 +169,8 @@ const uiManager = {
         createElements()
         hideButtons()
         turnOffTheVolume()
-        showCartesianAxes()
-        showLaunchPoint()
+        hideCartesianAxes()
+        hideLaunchPoint()
     },
 
     registerUiListeners() {
