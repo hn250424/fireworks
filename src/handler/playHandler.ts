@@ -9,7 +9,7 @@ async function registerPlayHandler() {
     // eventManager.executeTest()
 
     // for (let i = 0; i < 4; i++) {
-    //     eventManager.executeHighlightsFinale()
+    //     eventManager.executeSpecialFinale()
     //     await particlePoolManager.isActivateParticlesPoolEmpty()
     // }
 

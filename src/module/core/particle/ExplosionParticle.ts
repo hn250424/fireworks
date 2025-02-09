@@ -9,10 +9,10 @@ import PColor from '../../../type/PColor'
 const time_quickest = 1.5
 const time_quick = 3
 const time_moderate = 4.5
-// const time_slow = 6
+const time_slow = 6
 // const time_slowest = 7.5
 
-// const dustCreationInterval_quickest = 5
+const dustCreationInterval_quickest = 5
 // const dustCreationInterval_quick = 10
 const dustCreationInterval_moderate = 15
 // const dustCreationInterval_slow = 20
@@ -53,6 +53,8 @@ export default class ExplosionParticle extends BaseParticle {
             time = time_quickest
         } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
             time = time_quick
+        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+            time = time_slow
         } else {    
             time = time_moderate
         }
@@ -61,6 +63,8 @@ export default class ExplosionParticle extends BaseParticle {
         let dustCreationInterval
         if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
             dustCreationInterval = dustCreationInterval_slowest
+        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+            dustCreationInterval = dustCreationInterval_quickest
         } else {
             dustCreationInterval = dustCreationInterval_moderate
         }
@@ -164,6 +168,8 @@ export default class ExplosionParticle extends BaseParticle {
             super.setTime(time_quickest)
         } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
             super.setTime(time_quick)
+        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+            super.setTime(time_slow)
         } else {    
             super.setTime(time_moderate)
         }
@@ -172,6 +178,8 @@ export default class ExplosionParticle extends BaseParticle {
     private _setDustCreationInterval(explosionType: string) {
         if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
             super.setDustCreationInterval(dustCreationInterval_slowest)
+        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+            super.setDustCreationInterval(dustCreationInterval_quickest)
         } else {
             super.setDustCreationInterval(dustCreationInterval_moderate)
         }
@@ -181,7 +189,8 @@ export default class ExplosionParticle extends BaseParticle {
         if (
             explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
             explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST ||
-            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST
+            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST ||
+            explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM
         ) {
             this.gravity = gravity_light
         } else {
