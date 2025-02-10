@@ -42,23 +42,23 @@ function particlesUpdate() {
 
             if (particle instanceof LaunchingParticle) {
                 switch (particle.getExplosionType()) {
-                    case TYPE.EXPLOSION.ROUTINE.BURST:
+                    case TYPE.EXPLOSION.BURST:
                         playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
-                    case TYPE.EXPLOSION.SPECIAL.PETITE_BURST:
+                    case TYPE.EXPLOSION.PETITE_BURST:
                         playSpecialExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
-                    case TYPE.EXPLOSION.SPECIAL.BLOOM:
+                    case TYPE.EXPLOSION.BLOOM:
                         playSpecialExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BLOOM)), particle.getExplosionType(), particle.getPColor()) 
                         break
-                    case TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST:
+                    case TYPE.EXPLOSION.HUGE_BURST:
                         playBigExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
-                    case TYPE.EXPLOSION.HIGHLIGHTS.CHAIN_BURST:
+                    case TYPE.EXPLOSION.CHAIN_BURST:
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x
@@ -71,7 +71,7 @@ function particlesUpdate() {
                             await sleep(200)
                         }
                         break
-                    case TYPE.EXPLOSION.HIGHLIGHTS.FESTIVAL_ERUPT:
+                    case TYPE.EXPLOSION.FESTIVAL_ERUPT:
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_ERUPT.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x

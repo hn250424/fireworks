@@ -1,6 +1,7 @@
 import { getRandomIntInRange } from "../module/utils"
 import particlePoolManager from "../module/core/particle/particlePoolManager"
 import eventManager from "../module/feature/eventManager"
+import TYPE from "../definition/type"
 
 const minRippleCount = 2
 const maxRippleCount = 5
@@ -15,7 +16,7 @@ async function registerPlayHandler() {
 
     // particlePoolManager.countPool()
 
-    // play()
+    play()
 }
 
 async function play() {
@@ -23,40 +24,16 @@ async function play() {
         // Test.
         // particlePoolManager.countPool()
 
-        eventManager.executeRoutineShot()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
+        // eventManager.shot(TYPE.EXPLOSION.BLOOM)
+        // await particlePoolManager.isActivateParticlesPoolEmpty()
 
-        eventManager.executeSpecialShot()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeHighlightsShot()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
+        // eventManager.ripple(TYPE.EXPLOSION.BURST, getRandomIntInRange(minRippleCount, maxRippleCount))
+        // await particlePoolManager.isActivateParticlesPoolEmpty()
         
-        eventManager.executeRoutineRipple(getRandomIntInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivateParticlesPoolEmpty()
+        // eventManager.volley(TYPE.EXPLOSION.HUGE_BURST)
+        // await particlePoolManager.isActivateParticlesPoolEmpty()
 
-        eventManager.executeSpecialRipple(getRandomIntInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeHighlightsRipple(getRandomIntInRange(minRippleCount, maxRippleCount))
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeRoutineVolley()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeSpecialVolley()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeHighlightsVolley()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeRoutineFinale()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeSpecialFinale()
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-
-        eventManager.executeHighlightsFinale()
+        eventManager.finale(TYPE.EXPLOSION.PETITE_BURST)
         await particlePoolManager.isActivateParticlesPoolEmpty()
 
         // Test.

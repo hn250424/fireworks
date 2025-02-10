@@ -36,7 +36,7 @@ export default class DustParticle extends BaseParticle {
         // Time.
         let time
         if (
-            triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
+            triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.PETITE_BURST
         ) {
             time = time_quick
         } else {
@@ -120,7 +120,7 @@ export default class DustParticle extends BaseParticle {
 
     private _setTime(explosionType: string) {
         if (
-            this.triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
+            this.triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.PETITE_BURST
         ) {
             super.setTime(time_quick)
         } else {

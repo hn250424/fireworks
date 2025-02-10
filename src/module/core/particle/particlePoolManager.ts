@@ -11,7 +11,7 @@ const deactivateDustParticlesPool: DustParticle[] = []
 
 const expectedLaunchingParticleCount = 11
 const expectedExplosionParticleCount = 77
-const expectedDustParticleCount = 405
+const expectedDustParticleCount = 470
 
 const particlePoolManager = {
     // Test to determine how many particles are needed.
@@ -27,18 +27,18 @@ const particlePoolManager = {
         for (let i = 0; i < expectedLaunchingParticleCount; i++) {
             const _beginAbsolutePoint = {x: 0, y: 0, z: 0}
             const _endRelativePoint = {x: 0, y: 0, z: 0}
-            deactivateLaunchingParticlesPool.push( LaunchingParticle.create(_beginAbsolutePoint, _endRelativePoint, TYPE.EXPLOSION.ROUTINE.BURST) )
+            deactivateLaunchingParticlesPool.push( LaunchingParticle.create(_beginAbsolutePoint, _endRelativePoint, TYPE.EXPLOSION.BURST) )
         }
 
         for (let i = 0; i < expectedExplosionParticleCount; i++) {
             const _beginAbsolutePoint = {x: 0, y: 0, z: 0}
             const _endRelativePoint = [{x: 0, y: 0, z: 0}]
-            deactivateExplosionParticlesPool.push( ExplosionParticle.create(_beginAbsolutePoint, _endRelativePoint, TYPE.EXPLOSION.ROUTINE.BURST) )
+            deactivateExplosionParticlesPool.push( ExplosionParticle.create(_beginAbsolutePoint, _endRelativePoint, TYPE.EXPLOSION.BURST) )
         }
 
         for (let i = 0; i < expectedDustParticleCount; i++) {
             const _currentAbsolutePoint = [{x: 0, y: 0, z: 0}]
-            deactivateDustParticlesPool.push( DustParticle.create(_currentAbsolutePoint, TYPE.EXPLOSION.ROUTINE.BURST, TYPE.INSTANCE.DUST) )
+            deactivateDustParticlesPool.push( DustParticle.create(_currentAbsolutePoint, TYPE.EXPLOSION.BURST, TYPE.INSTANCE.DUST) )
         }
     },
 

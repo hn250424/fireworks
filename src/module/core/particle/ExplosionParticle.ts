@@ -9,7 +9,7 @@ import PColor from '../../../type/PColor'
 const time_quickest = 1.5
 const time_quick = 3
 const time_moderate = 4.5
-const time_slow = 6
+// const time_slow = 6
 // const time_slowest = 7.5
 
 const dustCreationInterval_quickest = 5
@@ -48,22 +48,20 @@ export default class ExplosionParticle extends BaseParticle {
         // Time.
         let time
         if (
-            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.PETITE_BURST
         ) {
             time = time_quickest
-        } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
+        } else if (explosionType === TYPE.EXPLOSION.BURST) {
             time = time_quick
-        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
-            time = time_slow
         } else {    
             time = time_moderate
         }
 
         // DustCreationInterval.
         let dustCreationInterval
-        if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
+        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             dustCreationInterval = dustCreationInterval_slowest
-        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+        } else if (explosionType === TYPE.EXPLOSION.BLOOM) {
             dustCreationInterval = dustCreationInterval_quickest
         } else {
             dustCreationInterval = dustCreationInterval_moderate
@@ -163,22 +161,20 @@ export default class ExplosionParticle extends BaseParticle {
 
     private _setTime(explosionType: string) {
         if (
-            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST
+            explosionType === TYPE.EXPLOSION.PETITE_BURST
         ) {
             super.setTime(time_quickest)
-        } else if (explosionType === TYPE.EXPLOSION.ROUTINE.BURST) {
+        } else if (explosionType === TYPE.EXPLOSION.BURST) {
             super.setTime(time_quick)
-        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
-            super.setTime(time_slow)
         } else {    
             super.setTime(time_moderate)
         }
     }
 
     private _setDustCreationInterval(explosionType: string) {
-        if (explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST) {
+        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             super.setDustCreationInterval(dustCreationInterval_slowest)
-        } else if (explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM) {
+        } else if (explosionType === TYPE.EXPLOSION.BLOOM) {
             super.setDustCreationInterval(dustCreationInterval_quickest)
         } else {
             super.setDustCreationInterval(dustCreationInterval_moderate)
@@ -187,10 +183,10 @@ export default class ExplosionParticle extends BaseParticle {
 
     private _setGravity(explosionType: string) {
         if (
-            explosionType === TYPE.EXPLOSION.ROUTINE.BURST ||
-            explosionType === TYPE.EXPLOSION.SPECIAL.PETITE_BURST ||
-            explosionType === TYPE.EXPLOSION.HIGHLIGHTS.HUGE_BURST ||
-            explosionType === TYPE.EXPLOSION.SPECIAL.BLOOM
+            explosionType === TYPE.EXPLOSION.BURST ||
+            explosionType === TYPE.EXPLOSION.PETITE_BURST ||
+            explosionType === TYPE.EXPLOSION.HUGE_BURST ||
+            explosionType === TYPE.EXPLOSION.BLOOM
         ) {
             this.gravity = gravity_light
         } else {
