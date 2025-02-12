@@ -43,17 +43,21 @@ export default class BaseParticle implements Particle {
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
-
-        if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
+        
+        let remainingFramesRate = this.remainingFrames / this.totalFrames
+        
+        // Dust.
+        if (remainingFramesRate > 0.5) {
+            if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
+        }
 
         // Opacity.
-        const _opacityFactor = this.remainingFrames / this.totalFrames
         if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
-            this.mesh.material.opacity = _opacityFactor
+            this.mesh.material.opacity = remainingFramesRate
         } else if (this.mesh instanceof THREE.Object3D) {
             this.mesh.children.forEach(c => {
                 if (c instanceof THREE.Mesh) {
-                    c.material.opacity = _opacityFactor
+                    c.material.opacity = remainingFramesRate
                 }
             })
         }

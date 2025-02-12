@@ -21,5 +21,5 @@ async function main() {
     uiManager.registerUiListeners()
     
     registerAnimationHandler()  
-    registerPlayHandler()       
+    registerPlayHandler()
 }

@@ -38,9 +38,9 @@ const POINT = {
     },
 
     LAUNCHING_OFFSET: {
-        LOW: { x: 0, y: 14, z: 0 },
-        MEDIUM: { x: 0, y: 15, z: 0 },
-        HIGH: { x: 0, y: 16, z: 0 },
+        LOW: { x: 0, y: 18, z: 0 },
+        MEDIUM: { x: 0, y: 19, z: 0 },
+        HIGH: { x: 0, y: 20, z: 0 },
     },
 
     EXPLOSION_OFFSET: {
@@ -417,7 +417,7 @@ const POINT = {
                 { x: 2.48, y: 10, z: -2.48 }, // 315°
             ],
         },
-        CHAIN_ERUPT: {
+        FESTIVAL_ERUPT: {
             ORIGIN: [
                 { x: 0, y: 4, z: 0 },
                 { x: 1, y: 2, z: 5 },

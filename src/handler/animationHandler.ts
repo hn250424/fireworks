@@ -59,27 +59,29 @@ function particlesUpdate() {
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.HUGE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.CHAIN_BURST:
+                        playExplosionSound()
+
                         for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_BURST.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x
                             _copyedCurrentAbsolutePoint.y += explosionRelativePoint.y
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
-
-                            playExplosionSound()
+                            
                             ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.CHAIN_BURST.OFFSET)), particle.getExplosionType(), particle.getPColor()) 
 
                             await sleep(200)
                         }
                         break
                     case TYPE.EXPLOSION.FESTIVAL_ERUPT:
-                        for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.CHAIN_ERUPT.ORIGIN) {
+                        playExplosionSound()
+                        
+                        for (const explosionRelativePoint of POINT.EXPLOSION_OFFSET.FESTIVAL_ERUPT.ORIGIN) {
                             const _copyedCurrentAbsolutePoint = {...particle.getCurrentAbsolutePoint()}
                             _copyedCurrentAbsolutePoint.x += explosionRelativePoint.x
                             _copyedCurrentAbsolutePoint.y += explosionRelativePoint.y
                             _copyedCurrentAbsolutePoint.z += explosionRelativePoint.z
-
-                            playExplosionSound()
-                            ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.CHAIN_ERUPT.OFFSET)), particle.getExplosionType(), particle.getPColor()) 
+                            
+                            ParticleFactory.provideExplosionParticle(_copyedCurrentAbsolutePoint, JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.FESTIVAL_ERUPT.OFFSET)), particle.getExplosionType(), particle.getPColor()) 
                         }
                         break
                 }

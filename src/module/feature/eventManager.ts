@@ -29,16 +29,17 @@ const eventManager = {
 
     shot(explosionType: string) {
         playLaunchSound()
-        const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(2, 4) : utils.getRandomIntInRange(6, 8)
-        ParticleFactory.provideLaunchingParticle(launchingBaseArr[_launchingBaseIdx], getLaunchingRandomOffset(), explosionType)
+        const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(3, 4) : utils.getRandomIntInRange(6, 7)
+        ParticleFactory.provideLaunchingParticle(launchingBaseArr[_launchingBaseIdx], getLaunchingRandomOffset(explosionType), explosionType)
     },
 
     async ripple(explosionType: string, count: number) {
-        utils.shuffle(launchingBaseArr)
+        const copyedLaunchingBaseArr = {...launchingBaseArr}
+        utils.shuffle(copyedLaunchingBaseArr)
     
         for (let i = 0; i < count; i++) {
             playLaunchSound()
-            ParticleFactory.provideLaunchingParticle(launchingBaseArr[i], getLaunchingRandomOffset(), explosionType)
+            ParticleFactory.provideLaunchingParticle(copyedLaunchingBaseArr[i], getLaunchingRandomOffset(explosionType), explosionType)
             await utils.sleep(rippleDelay)
         }
     },
@@ -82,7 +83,7 @@ const eventManager = {
 
 const volleyAndFinale = {
     async leftToRight(explosionType: string, step: number) {
-        const launchingOffset = getLaunchingRandomOffset()
+        const launchingOffset = getLaunchingRandomOffset(explosionType)
     
         const _beginIdx = step === finaleStep ? 0 : utils.getRandomIntInRange(0, 1)
     
@@ -96,7 +97,7 @@ const volleyAndFinale = {
     },
     
     async rightToLeft(explosionType: string, step: number) {
-        const launchingOffset = getLaunchingRandomOffset()
+        const launchingOffset = getLaunchingRandomOffset(explosionType)
     
         const _beginIdx = step === finaleStep ? launchingBaseArr.length - 1: utils.getRandomIntInRange(launchingBaseArr.length - 2, launchingBaseArr.length - 1)
     
@@ -111,7 +112,7 @@ const volleyAndFinale = {
     },
     
     async centerToOuter(explosionType: string, step: number) {
-        const _launchingOffset = getLaunchingRandomOffset()
+        const _launchingOffset = getLaunchingRandomOffset(explosionType)
     
         const _beginIdx = step === finaleStep ? 0 : utils.getRandomIntInRange(0, 1)
         const _increasing = utils.getRandomIntInRange(-1, 1)
@@ -131,7 +132,7 @@ const volleyAndFinale = {
     },
     
     async outerToCenter(explosionType: string, step: number) {
-        const _launchingOffset = getLaunchingRandomOffset()
+        const _launchingOffset = getLaunchingRandomOffset(explosionType)
     
         const _leftIdx = step === finaleStep ? 0 : utils.getRandomIntInRange(0, 1)
         const _rightIdx = _leftIdx === 0 ? launchingBaseArr.length - 1 : launchingBaseArr.length - 2
@@ -148,9 +149,21 @@ const volleyAndFinale = {
     }
 }
 
-function getLaunchingRandomOffset(): CVector3 {
+function getLaunchingRandomOffset(explosionType: string): CVector3 {
     const _launchingOffsetIdx = utils.getRandomIntInRange(0, launchingOffsetArr.length - 1)
-    return { ...launchingOffsetArr[_launchingOffsetIdx] }
+    const _launchingOffset = { ...launchingOffsetArr[_launchingOffsetIdx] }
+    
+    switch(explosionType) {
+        case TYPE.EXPLOSION.FESTIVAL_ERUPT:
+            _launchingOffset.y -= 5
+            break
+
+        case TYPE.EXPLOSION.CHAIN_BURST:
+            _launchingOffset.y -= 3
+            break
+    }
+
+    return _launchingOffset
 }
 
 function playLaunchSound() {
