@@ -47,9 +47,7 @@ export default class ExplosionParticle extends BaseParticle {
 
         // Time.
         let time
-        if (
-            explosionType === TYPE.EXPLOSION.PETITE_BURST
-        ) {
+        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             time = time_quickest
         } else if (explosionType === TYPE.EXPLOSION.BURST) {
             time = time_quick
@@ -160,9 +158,7 @@ export default class ExplosionParticle extends BaseParticle {
     }
 
     private _setTime(explosionType: string) {
-        if (
-            explosionType === TYPE.EXPLOSION.PETITE_BURST
-        ) {
+        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             super.setTime(time_quickest)
         } else if (explosionType === TYPE.EXPLOSION.BURST) {
             super.setTime(time_quick)

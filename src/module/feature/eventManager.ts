@@ -23,10 +23,6 @@ const eventManager = {
         for (const v of Object.values(POINT.LAUNCHING_OFFSET)) { launchingOffsetArr.push(v) }
     },
 
-    executeTest() {
-        ParticleFactory.provideLaunchingParticle({ ...POINT.LAUNCHING_BASE.FOUR }, { ...POINT.LAUNCHING_OFFSET.LOW }, TYPE.EXPLOSION.BLOOM)
-    },
-
     shot(explosionType: string) {
         playLaunchSound()
         const _launchingBaseIdx = (Math.random() > 0.5) ? utils.getRandomIntInRange(3, 4) : utils.getRandomIntInRange(6, 7)

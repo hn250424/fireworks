@@ -115,17 +115,11 @@ export default class LaunchingParticle extends BaseParticle {
     }
 
     public update(): void {
-        const totalFrames = super.getTotalFrames()
         const elapsedFrames = super.getElapsedFrames()
         const _x = this.pointStorage[elapsedFrames].x
         const _y = this.pointStorage[elapsedFrames].y
         const _z = this.pointStorage[elapsedFrames].z
         super.getMesh().position.set(_x, _y, _z)
-
-        const elapsedRate = elapsedFrames / totalFrames
-        if (elapsedRate > 0.6) {
-            super.setDustCreationInterval(postDustCreationInterval)
-        } 
 
         // super.rotateTowardsEndPoint(this.currentAbsolutePoint, this.endRelativePoint)
         super.update()
