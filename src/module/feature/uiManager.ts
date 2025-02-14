@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import ASSETS from '../../definition/assets'
 import COLOR from '../../definition/color'
 import POINT from '../../definition/point'
+import camera from '../core/camera'
 import scene from '../core/scene'
 
 import stateManager from '../core/stateManager'
@@ -18,11 +19,15 @@ if (! displayButton) throw new Error('displayButton is not exist !')
 const volumeButton = document.getElementById('volumeButton')
 if (! volumeButton) throw new Error('volumeButton is not exist !')
 
+const launchPointButton = document.getElementById('launchPointButton')
+if (! launchPointButton) throw new Error('launchPointButton is not exist !')
+
 const cartesianAxesButton = document.getElementById('cartesianAxesButton')
 if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
 
-const launchPointButton = document.getElementById('launchPointButton')
-if (! launchPointButton) throw new Error('launchPointButton is not exist !')
+const originButton = document.getElementById('originButton')
+if (! originButton) throw new Error('originButton is not exist !')
+
 
 const phrase = document.getElementById('phrase')
 if (! phrase) throw new Error('phrase is not exist !')
@@ -102,8 +107,9 @@ function displayButtons() {
     if (displayButton) {
         displayButton.style.backgroundImage = "url('/images/hide_menu.png')"
         display = true
-        if (cartesianAxesButton) cartesianAxesButton.style.display = 'block'
         if (launchPointButton) launchPointButton.style.display = 'block'
+        if (cartesianAxesButton) cartesianAxesButton.style.display = 'block'
+        if (originButton) originButton.style.display = 'block'
         if (phrase) phrase.style.display = 'block'
     }
 }
@@ -112,8 +118,9 @@ function hideButtons() {
     if (displayButton) {
         displayButton.style.backgroundImage = "url('/images/show_menu.png')"
         display = false
-        if (cartesianAxesButton) cartesianAxesButton.style.display = 'none'
         if (launchPointButton) launchPointButton.style.display = 'none'
+        if (cartesianAxesButton) cartesianAxesButton.style.display = 'none'
+        if (originButton) originButton.style.display = 'none'
         if (phrase) phrase.style.display = 'none'
     }
 }
@@ -184,14 +191,18 @@ const uiManager = {
             else turnOnTheVolume()
         })
 
+        launchPointButton.addEventListener('click', () => {
+            if (launchPoint) hideLaunchPoint()
+            else showLaunchPoint()
+        })
+
         cartesianAxesButton.addEventListener('click', () => {
             if (cartesianAxes) hideCartesianAxes()
             else showCartesianAxes() 
         })
 
-        launchPointButton.addEventListener('click', () => {
-            if (launchPoint) hideLaunchPoint()
-            else showLaunchPoint()
+        originButton.addEventListener('click', () => {
+            camera.position.set(250, -30, 250)
         })
     },
 }

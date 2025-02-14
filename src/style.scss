@@ -33,8 +33,9 @@
     left: 83%;
 }
 
+#launchPointButton,
 #cartesianAxesButton,
-#launchPointButton {
+#originButton {
     width: map-get($map: $rect, $key: width);
     height: map-get($map: $rect, $key: height);
 
@@ -42,18 +43,24 @@
     color: map-get($map: $rect, $key: color);
 }
 
+#launchPointButton:hover,
 #cartesianAxesButton:hover,
-#launchPointButton:hover {
+#originButton:hover {
     background-color: map-get($map: $rect, $key: hoverColor)
 }
 
-#cartesianAxesButton {
-    top: 80%;
+#launchPointButton {
+    top: 60%;
     left: 80%;
 }
 
-#launchPointButton {
+#cartesianAxesButton {
     top: 70%;
+    left: 80%;
+}
+
+#originButton {
+    top: 80%;
     left: 80%;
 }
 
