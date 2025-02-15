@@ -35,6 +35,7 @@
 
 #launchPointButton,
 #cartesianAxesButton,
+#revolveButton,
 #originButton {
     width: map-get($map: $rect, $key: width);
     height: map-get($map: $rect, $key: height);
@@ -45,16 +46,22 @@
 
 #launchPointButton:hover,
 #cartesianAxesButton:hover,
+#revolveButton:hover,
 #originButton:hover {
     background-color: map-get($map: $rect, $key: hoverColor)
 }
 
 #launchPointButton {
-    top: 60%;
+    top: 50%;
     left: 80%;
 }
 
 #cartesianAxesButton {
+    top: 60%;
+    left: 80%;
+}
+
+#revolveButton {
     top: 70%;
     left: 80%;
 }
@@ -66,7 +73,7 @@
 
 #phrase {
     top: 10%;
-    left: 50%;
+    left: 5%;
     color: $key-color;
-    transform: translate(-50%, 0%);
+    // transform: translate(-50%, 0%);
 }

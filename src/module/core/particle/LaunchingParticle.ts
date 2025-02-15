@@ -28,10 +28,10 @@ export default class LaunchingParticle extends BaseParticle {
         endRelativePoint: CVector3,
         explosionType: string
     ) {
-        const colorArr = shuffle(COLOR.FIREWORKS)
+        shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
-            main: colorArr[0],
-            sub: colorArr[1]
+            main: COLOR.FIREWORKS[0],
+            sub: COLOR.FIREWORKS[1]
         }
         const headGeometry = new THREE.SphereGeometry(headRadius, 32, 32)
         const headMaterial = new THREE.MeshStandardMaterial({ color: headColor, transparent: true })
@@ -86,10 +86,10 @@ export default class LaunchingParticle extends BaseParticle {
         super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePoint = endRelativePoint
         super.setExplosionType(explosionType)
-        const colorArr = shuffle(COLOR.FIREWORKS)
+        shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
-            main: colorArr[0],
-            sub: colorArr[1]
+            main: COLOR.FIREWORKS[0],
+            sub: COLOR.FIREWORKS[1]
         }
         this._setPColor(pColor)
         const totalFrames = super.getTotalFrames()

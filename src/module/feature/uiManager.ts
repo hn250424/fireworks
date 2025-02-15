@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+
+import INIT from '../../definition/init'
 import ASSETS from '../../definition/assets'
 import COLOR from '../../definition/color'
 import POINT from '../../definition/point'
@@ -25,9 +27,11 @@ if (! launchPointButton) throw new Error('launchPointButton is not exist !')
 const cartesianAxesButton = document.getElementById('cartesianAxesButton')
 if (! cartesianAxesButton) throw new Error('cartesianAxesButton is not exist !')
 
+const revolveButton = document.getElementById('revolveButton')
+if (! revolveButton) throw new Error('revolveButton is not exist !')
+
 const originButton = document.getElementById('originButton')
 if (! originButton) throw new Error('originButton is not exist !')
-
 
 const phrase = document.getElementById('phrase')
 if (! phrase) throw new Error('phrase is not exist !')
@@ -36,6 +40,7 @@ let display: boolean
 let volume: boolean
 let cartesianAxes: boolean
 let launchPoint: boolean
+let revolve: boolean
 
 const cartesianAxesElementArray: THREE.Mesh[] = []
 const launchPointArray: THREE.Mesh[] = []
@@ -109,6 +114,7 @@ function displayButtons() {
         display = true
         if (launchPointButton) launchPointButton.style.display = 'block'
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'block'
+        if (revolveButton) revolveButton.style.display = 'block'
         if (originButton) originButton.style.display = 'block'
         if (phrase) phrase.style.display = 'block'
     }
@@ -120,6 +126,7 @@ function hideButtons() {
         display = false
         if (launchPointButton) launchPointButton.style.display = 'none'
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'none'
+        if (revolveButton) revolveButton.style.display = 'none'
         if (originButton) originButton.style.display = 'none'
         if (phrase) phrase.style.display = 'none'
     }
@@ -165,6 +172,18 @@ function hideLaunchPoint() {
     if (launchPointButton) launchPointButton.innerText = 'Show launch point'
 }
 
+function startRevolving() {
+    revolve = true
+    stateManager.setRevolveState(revolve)
+    if (revolveButton) revolveButton.innerText = 'Stop revolving'
+}
+
+function stopRevolving() {
+    revolve = false
+    stateManager.setRevolveState(revolve)
+    if (revolveButton) revolveButton.innerText = 'Start revolving'
+}
+
 const uiManager = {
     init() {
         loadingPage.style.display = 'none'
@@ -178,6 +197,7 @@ const uiManager = {
         turnOffTheVolume()
         hideCartesianAxes()
         hideLaunchPoint()
+        stopRevolving()
     },
 
     registerUiListeners() {
@@ -201,8 +221,13 @@ const uiManager = {
             else showCartesianAxes() 
         })
 
+        revolveButton.addEventListener('click', () => {
+            if (revolve) stopRevolving()
+            else startRevolving()
+        })
+
         originButton.addEventListener('click', () => {
-            camera.position.set(250, -30, 250)
+            if (! stateManager.getRevolveState()) camera.position.set(INIT.CAMERA.X, INIT.CAMERA.Y, INIT.CAMERA.Z)
         })
     },
 }

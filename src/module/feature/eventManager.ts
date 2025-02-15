@@ -30,7 +30,7 @@ const eventManager = {
     },
 
     async ripple(explosionType: string, count: number) {
-        const copyedLaunchingBaseArr = {...launchingBaseArr}
+        const copyedLaunchingBaseArr = [...launchingBaseArr]
         utils.shuffle(copyedLaunchingBaseArr)
     
         for (let i = 0; i < count; i++) {

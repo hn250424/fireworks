@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 import POINT from "../definition/point"
 import TYPE from "../definition/type"
 import ASSETS from "../definition/assets"
@@ -15,15 +17,45 @@ import ParticleFactory from "../module/core/particle/ParticleFactory"
 import LaunchingParticle from "../module/core/particle/LaunchingParticle"
 import { sleep } from "../module/utils"
 
+// Revolve info.
+let resolveState = false
+const target = new THREE.Vector3(orbitControls.target.x, orbitControls.target.y, orbitControls.target.z)
+const revolveSpeed = 0.002
+let angle = 0
+let radius = 0
+
 function registerAnimationHandler() {
     animate()
 }
 
 function animate() {
+    revolveCamera()
     particlesUpdate()
     requestAnimationFrame(animate)
     orbitControls.update()
     renderer.render(scene, camera)
+}
+
+function revolveCamera() {
+    // If the revolve state has changed,
+    if (resolveState !== stateManager.getRevolveState()) {
+        resolveState = stateManager.getRevolveState()
+
+        // and if the new state is active (true),
+        if (resolveState) {
+            orbitControls.enabled = false
+            angle = Math.atan2(camera.position.z - target.z, camera.position.x - target.x)
+            radius = new THREE.Vector3(camera.position.x, camera.position.y, camera.position.z).distanceTo(target)
+        } else {
+            orbitControls.enabled = true
+        }
+    }
+
+    if (resolveState) {
+        angle += revolveSpeed
+        camera.position.x = target.x + Math.cos(angle) * radius
+        camera.position.z = target.z + Math.sin(angle) * radius
+    }
 }
 
 function particlesUpdate() {

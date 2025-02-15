@@ -9,15 +9,20 @@ const closingLaunchingDelay = 1000
 
 async function registerPlayHandler() {
     play()
+    // test()
+}
+
+async function test() {
+    while(1) {
+        eventManager.ripple(TYPE.EXPLOSION.BURST, 3)
+        await particlePoolManager.isActivateParticlesPoolEmpty()
+    }
 }
 
 async function play() {
     while(1) {
         // Test.
         // particlePoolManager.countPool()
-        eventManager.shot(TYPE.EXPLOSION.FESTIVAL_ERUPT)
-        await particlePoolManager.isActivateParticlesPoolEmpty()
-        break
 
         eventManager.shot(TYPE.EXPLOSION.BURST)
         await particlePoolManager.isActivateParticlesPoolEmpty()
