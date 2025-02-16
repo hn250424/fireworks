@@ -190,7 +190,10 @@ export default class BaseParticle implements Particle {
                 { x: position.x, y: position.y, z: position.z },
                 { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.2, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
                 { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.3, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
-                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.4, z: position.z + getRandomFloatInRange(-0.2, 0.2) }
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.4, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.5, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.6, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
+                { x: position.x + getRandomFloatInRange(-0.2, 0.2), y: position.y - 0.7, z: position.z + getRandomFloatInRange(-0.2, 0.2) },
             ]
             return dustVectorList
         } else {
