@@ -20,7 +20,7 @@ import { sleep } from "../module/utils"
 // Revolve info.
 let resolveState = false
 const target = new THREE.Vector3(orbitControls.target.x, orbitControls.target.y, orbitControls.target.z)
-const revolveSpeed = 0.002
+const revolveSpeed = 0.001
 let angle = 0
 let radius = 0
 
@@ -79,7 +79,7 @@ function particlesUpdate() {
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.PETITE_BURST:
-                        playSpecialExplosionSound()
+                        playExplosionSound()
                         ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(), JSON.parse(JSON.stringify(POINT.EXPLOSION_OFFSET.PETITE_BURST)), particle.getExplosionType(), particle.getPColor()) 
                         break
                     case TYPE.EXPLOSION.BLOOM:

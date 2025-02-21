@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fireworks</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        #loadingPage {
+            width: 100%;
+            height: 100%;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 3rem;
+            font-weight: bold;
+
+            background-color: black;
+            color: white;
+        }
+
+        #container {
+            display: none;
+        }
+    </style>
+
+  <script type="module" crossorigin src="/fireworks/assets/index-D1fHKZfm.js"></script>
+  <link rel="stylesheet" crossorigin href="/fireworks/assets/index-C8w-Hvpo.css">
+</head>
+
+<body>
+    <div id="loadingPage">Loading...</div>
+
+    <div id="container">
+        <div id="button-container">
+            <button id="displayButton"></button>
+            <button id="volumeButton"></button>
+            <button id="launchPointButton"></button>
+            <button id="cartesianAxesButton"></button>
+            <button id="revolveButton"></button>
+            <button id="originButton">Set origin</button>
+
+            <p id="phrase">
+                You can change the camera angle using mouse drag, the scroll wheel, and the "Set origin" button when the camera is not revolving.
+            </p>
+        </div>
+    </div>
+
+</body>
+
+</html>

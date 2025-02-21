@@ -110,7 +110,7 @@ function createElements(): void {
 
 function displayButtons() {
     if (displayButton) {
-        displayButton.style.backgroundImage = "url('/images/hide_menu.png')"
+        displayButton.style.backgroundImage = "url('images/hide_menu.png')"
         display = true
         if (launchPointButton) launchPointButton.style.display = 'block'
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'block'
@@ -122,7 +122,7 @@ function displayButtons() {
 
 function hideButtons() {
     if (displayButton) {
-        displayButton.style.backgroundImage = "url('/images/show_menu.png')"
+        displayButton.style.backgroundImage = "url('images/show_menu.png')"
         display = false
         if (launchPointButton) launchPointButton.style.display = 'none'
         if (cartesianAxesButton) cartesianAxesButton.style.display = 'none'

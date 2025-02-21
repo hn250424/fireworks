@@ -46,12 +46,10 @@ export default class BaseParticle implements Particle {
         
         let remainingFramesRate = this.remainingFrames / this.totalFrames
         
-        // Dust.
         if (remainingFramesRate > 0.5) {
             if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
         }
 
-        // Opacity.
         if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
             this.mesh.material.opacity = remainingFramesRate
         } else if (this.mesh instanceof THREE.Object3D) {
@@ -95,10 +93,6 @@ export default class BaseParticle implements Particle {
     // Set the color for a specific instance in the InstancedMesh.
     protected setColorAt(index: number, color: string): void {
         if (this.mesh instanceof THREE.InstancedMesh) {
-            if (! this.mesh.instanceColor) {
-                this.mesh.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.mesh.count * 3), 3)
-            }
-            
             this.mesh.setColorAt(index, new THREE.Color().setStyle(color))
         } else {
             console.log('setColorAt can only be used with InstancedMesh in BaseParticle.')

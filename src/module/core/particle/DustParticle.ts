@@ -25,15 +25,12 @@ export default class DustParticle extends BaseParticle {
         pColor: PColor,
     ) {
         const geometry = new THREE.BoxGeometry(size, size, size)
-        // [TODO]: #1
-        // The base material color blends with the instance color set by setColorAt.
-        // When the material color is white (#ffffff), the intended instance colors display correctly.
-        // const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
-        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, currentAbsolutePointArr.length)
+        const instanceColors = new Float32Array(instancedMesh.count * 3).fill(1)
+        instancedMesh.instanceColor = new THREE.InstancedBufferAttribute(instanceColors, 3)
         const object3D = new THREE.Object3D()
 
-        // Time.
         let time
         if (triggerClass === TYPE.INSTANCE.EXPLOSION && explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             time = time_quick
@@ -55,12 +52,13 @@ export default class DustParticle extends BaseParticle {
             this.object3D.updateMatrix()
             if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
 
-            // [TODO]: #1
-            // The base material color blends with the instance color set by setColorAt.
-            // To avoid this, the material color is now set to white (#ffffff).
-            // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                super.setColorAt(i, super.getPColor().main)
+                if (triggerClass === TYPE.INSTANCE.LAUNCHING) {
+                    super.setColorAt(i, super.getPColor().main)
+                } else if (triggerClass === TYPE.INSTANCE.EXPLOSION) {
+                    if (i % 2 === 0) super.setColorAt(i, super.getPColor().main)
+                    else super.setColorAt(i, super.getPColor().sub) 
+                }
             }
         }
 
@@ -88,7 +86,6 @@ export default class DustParticle extends BaseParticle {
         this.triggerClass = triggerClass
         super.setPColor(pColor)
         const _mesh: THREE.Mesh = super.getMesh() as THREE.InstancedMesh
-        // super.setMesh(new THREE.InstancedMesh(super.getGeometry(), super.getMaterial(), currentAbsolutePointArr.length))
         super.setMesh(new THREE.InstancedMesh(_mesh.geometry, _mesh.material, currentAbsolutePointArr.length))
         this._setTime(explosionType)
         super.setTotalFrames(super.getTime())
@@ -103,12 +100,13 @@ export default class DustParticle extends BaseParticle {
             this.object3D.updateMatrix()
             if (super.getMesh() instanceof THREE.InstancedMesh) super.setMatrixAt(i, this.object3D.matrix)
 
-            // [TODO]: #1
-            // The base material color blends with the instance color set by setColorAt.
-            // To avoid this, the material color is now set to white (#ffffff).
-            // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                super.setColorAt(i, super.getPColor().main)
+                if (triggerClass === TYPE.INSTANCE.LAUNCHING) {
+                    super.setColorAt(i, super.getPColor().main)
+                } else if (triggerClass === TYPE.INSTANCE.EXPLOSION) {
+                    if (i % 2 === 0) super.setColorAt(i, super.getPColor().main)
+                    else super.setColorAt(i, super.getPColor().sub)
+                }
             }
         }
 

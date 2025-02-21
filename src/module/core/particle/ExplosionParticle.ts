@@ -19,7 +19,7 @@ const dustCreationInterval_moderate = 15
 const dustCreationInterval_slowest = 25
 
 const gravity_light = 0.01
-const gravity_moderate = 0.02
+const gravity_medium = 0.02
 // const gravity_heavy = 0.03
 
 const size = 0.1
@@ -37,15 +37,12 @@ export default class ExplosionParticle extends BaseParticle {
     ) {
         
         const geometry = new THREE.BoxGeometry(size, size, size)
-        // [TODO]: #1
-        // The base material color blends with the instance color set by setColorAt.
-        // When the material color is white (#ffffff), the intended instance colors display correctly.
-        // const material = new THREE.MeshStandardMaterial({ color: color.main, transparent: true })
-        const material = new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true })
+        const material = new THREE.MeshStandardMaterial({ transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, endRelativePointArr.length)
+        const instanceColors = new Float32Array(instancedMesh.count * 3).fill(1)
+        instancedMesh.instanceColor = new THREE.InstancedBufferAttribute(instanceColors, 3)
         const object3D = new THREE.Object3D()
 
-        // Time.
         let time
         if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             time = time_quickest
@@ -55,7 +52,6 @@ export default class ExplosionParticle extends BaseParticle {
             time = time_moderate
         }
 
-        // DustCreationInterval.
         let dustCreationInterval
         if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
             dustCreationInterval = dustCreationInterval_slowest
@@ -71,16 +67,9 @@ export default class ExplosionParticle extends BaseParticle {
         this._setGravity(explosionType)
 
         for (let i = 0; i < this.endRelativePointArr.length; i++) {
-            // [TODO]: #1
-            // The base material color blends with the instance color set by setColorAt.
-            // To avoid this, the material color is now set to white (#ffffff).
-            // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                if (i % 2 === 0) {
-                    super.setColorAt(i, super.getPColor().main)
-                } else {
-                    super.setColorAt(i, super.getPColor().sub)
-                }
+                if (i % 2 === 0) super.setColorAt(i, super.getPColor().main)
+                else super.setColorAt(i, super.getPColor().sub)
             }
         }
         super.needsUpdateInstanceColor()
@@ -115,16 +104,9 @@ export default class ExplosionParticle extends BaseParticle {
         this._setGravity(explosionType)
 
         for (let i = 0; i < this.endRelativePointArr.length; i++) {
-            // [TODO]: #1
-            // The base material color blends with the instance color set by setColorAt.
-            // To avoid this, the material color is now set to white (#ffffff).
-            // However, this means the color for all instances must be explicitly set, not just specific ones.
             if (super.getMesh() instanceof THREE.InstancedMesh) {
-                if (i % 2 === 0) {
-                    super.setColorAt(i, super.getPColor().main)
-                } else {
-                    super.setColorAt(i, super.getPColor().sub)
-                }
+                if (i % 2 === 0) super.setColorAt(i, super.getPColor().main)
+                else super.setColorAt(i, super.getPColor().sub) 
             }
         }
         super.needsUpdateInstanceColor()
@@ -186,7 +168,7 @@ export default class ExplosionParticle extends BaseParticle {
         ) {
             this.gravity = gravity_light
         } else {
-            this.gravity = gravity_moderate
+            this.gravity = gravity_medium
         }
     }
 }

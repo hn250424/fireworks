@@ -8,7 +8,7 @@ import PColor from '../../../type/PColor'
 import TYPE from '../../../definition/type'
 
 const preDustCreationInterval = 10
-const postDustCreationInterval = 0
+// const postDustCreationInterval = 0
 
 const headColor = 0xffffff
 const headRadius = 0.06
