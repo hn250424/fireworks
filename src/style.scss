@@ -1,79 +1,27 @@
 @import './css/common.scss';
 @import './css/variable.scss';
 
-#button-container > * {
+#button-container {
     position: absolute;
-}
-
-#displayButton,
-#volumeButton {
-    width: map-get($map: $circle, $key: width);
-    height: map-get($map: $circle, $key: height);
-
-    border: none;
-    border-radius: map-get($map: $circle, $key: radius);
-
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-}
-
-#displayButton:hover,
-#volumeButton:hover {
-    filter: brightness(0.7);
-}
-
-#displayButton {
     top: 10%;
     left: 80%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $icon-gap;
 }
 
-#volumeButton {
-    top: 10%;
-    left: 83%;
+span {
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: $icon-size;
+    height: $icon-size;
+    filter: brightness(1.2); 
+    transition: filter 0.2s ease;
 }
 
-#launchPointButton,
-#cartesianAxesButton,
-#revolveButton,
-#originButton {
-    width: map-get($map: $rect, $key: width);
-    height: map-get($map: $rect, $key: height);
-
-    border: 1px solid map-get($map: $rect, $key: color);
-    color: map-get($map: $rect, $key: color);
-}
-
-#launchPointButton:hover,
-#cartesianAxesButton:hover,
-#revolveButton:hover,
-#originButton:hover {
-    background-color: map-get($map: $rect, $key: hoverColor)
-}
-
-#launchPointButton {
-    top: 50%;
-    left: 80%;
-}
-
-#cartesianAxesButton {
-    top: 60%;
-    left: 80%;
-}
-
-#revolveButton {
-    top: 70%;
-    left: 80%;
-}
-
-#originButton {
-    top: 80%;
-    left: 80%;
-}
-
-#phrase {
-    top: 10%;
-    left: 5%;
-    color: $key-color;
-    // transform: translate(-50%, 0%);
+span:hover {
+    cursor: pointer;
+    filter: brightness(1.6);
 }

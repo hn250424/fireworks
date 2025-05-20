@@ -1,11 +1,11 @@
 let volume: boolean = false
-let revolve: boolean = false
+let spin: boolean = false
 
 const stateManager = {
     getVolumeState: () => { return volume },
     setVolumeState: (state: boolean) => { volume = state },
-    getRevolveState: () => { return revolve },
-    setRevolveState: (state: boolean) => { revolve = state },
+    getSpinState: () => { return spin },
+    setSpinState: (state: boolean) => { spin = state },
 }
 
 export default stateManager

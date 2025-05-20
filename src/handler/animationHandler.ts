@@ -38,8 +38,8 @@ function animate() {
 
 function revolveCamera() {
     // If the revolve state has changed,
-    if (resolveState !== stateManager.getRevolveState()) {
-        resolveState = stateManager.getRevolveState()
+    if (resolveState !== stateManager.getSpinState()) {
+        resolveState = stateManager.getSpinState()
 
         // and if the new state is active (true),
         if (resolveState) {

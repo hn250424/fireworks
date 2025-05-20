@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="icons/fireworks.png" />
     <title>Fireworks</title>
     <style>
         * {
@@ -43,20 +44,14 @@
 
     <div id="container">
         <div id="button-container">
-            <button id="displayButton"></button>
-            <button id="volumeButton"></button>
-            <button id="launchPointButton"></button>
-            <button id="cartesianAxesButton"></button>
-            <button id="revolveButton"></button>
-            <button id="originButton">Set origin</button>
-
-            <p id="phrase">
-                You can change the camera angle using mouse drag, the scroll wheel, and the "Set origin" button when the camera is not revolving.
-            </p>
+            <span id="originIcon"></span>
+            <span id="spinningIcon"></span>
+            <span id="cartesianIcon"></span>
+            <span id="volumeIcon"></span>
         </div>
     </div>
 
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="src/main.ts"></script>
 </body>
 
 </html>
