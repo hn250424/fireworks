@@ -10,7 +10,13 @@ const wrapUpDelay = 1000
 
 async function registerPlayHandler() {
     play()
+    
     // test()
+
+    // eventManager.finale(TYPE.EXPLOSION.HUGE_BURST)
+    // await sleep(wrapUpDelay)
+    // eventManager.ripple(TYPE.EXPLOSION.FESTIVAL_ERUPT, 3)
+    // await particlePoolManager.isActivateParticlesPoolEmpty()
 }
 
 // async function test() {

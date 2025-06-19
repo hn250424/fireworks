@@ -11,6 +11,8 @@ const time_moderate = 1.5
 // const time_slow = 2
 // const time_slowest = 2.5
 
+const dustCreationDistanceThreshold = 0
+
 const size = 0.03
 
 export default class DustParticle extends BaseParticle {
@@ -38,7 +40,7 @@ export default class DustParticle extends BaseParticle {
             time = time_moderate
         }
 
-        super(TYPE.INSTANCE.DUST, { x: 0, y: 0, z: 0 }, explosionType, pColor, instancedMesh, time)
+        super(TYPE.INSTANCE.DUST, { x: 0, y: 0, z: 0 }, explosionType, pColor, instancedMesh, time, dustCreationDistanceThreshold)
 
         this.object3D = object3D
         this.currentAbsolutePointArr = currentAbsolutePointArr

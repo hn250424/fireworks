@@ -12,15 +12,11 @@ const time_moderate = 4.5
 // const time_slow = 6
 // const time_slowest = 7.5
 
-const dustCreationInterval_quickest = 5
-// const dustCreationInterval_quick = 10
-const dustCreationInterval_moderate = 15
-// const dustCreationInterval_slow = 20
-const dustCreationInterval_slowest = 25
+const dustCreationDistanceThreshold = 1
 
-const gravity_light = 0.01
-const gravity_medium = 0.02
-// const gravity_heavy = 0.03
+const gravity_light = 0.007
+const gravity_medium = 0.01
+const gravity_heavy = 0.02
 
 const size = 0.1
 
@@ -35,7 +31,6 @@ export default class ExplosionParticle extends BaseParticle {
         explosionType: string,
         pColor: PColor
     ) {
-        
         const geometry = new THREE.BoxGeometry(size, size, size)
         const material = new THREE.MeshStandardMaterial({ transparent: true })
         const instancedMesh = new THREE.InstancedMesh(geometry, material, endRelativePointArr.length)
@@ -52,16 +47,8 @@ export default class ExplosionParticle extends BaseParticle {
             time = time_moderate
         }
 
-        let dustCreationInterval
-        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
-            dustCreationInterval = dustCreationInterval_slowest
-        } else if (explosionType === TYPE.EXPLOSION.BLOOM) {
-            dustCreationInterval = dustCreationInterval_quickest
-        } else {
-            dustCreationInterval = dustCreationInterval_moderate
-        }
-        super(TYPE.INSTANCE.EXPLOSION, beginAbsolutePoint, explosionType, pColor, instancedMesh, time, dustCreationInterval)
-        
+        super(TYPE.INSTANCE.EXPLOSION, beginAbsolutePoint, explosionType, pColor, instancedMesh, time, dustCreationDistanceThreshold)
+
         this.object3D = object3D
         this.endRelativePointArr = endRelativePointArr
         this._setGravity(explosionType)
@@ -100,7 +87,7 @@ export default class ExplosionParticle extends BaseParticle {
         super.setTotalFrames(super.getTime())
         super.setRemainingFrames(super.getTotalFrames())
         super.setElapsedFrames(0)
-        this._setDustCreationInterval(explosionType)
+        // this._setDustCreationInterval(explosionType)
         this._setGravity(explosionType)
 
         for (let i = 0; i < this.endRelativePointArr.length; i++) {
@@ -149,26 +136,21 @@ export default class ExplosionParticle extends BaseParticle {
         }
     }
 
-    private _setDustCreationInterval(explosionType: string) {
-        if (explosionType === TYPE.EXPLOSION.PETITE_BURST) {
-            super.setDustCreationInterval(dustCreationInterval_slowest)
-        } else if (explosionType === TYPE.EXPLOSION.BLOOM) {
-            super.setDustCreationInterval(dustCreationInterval_quickest)
-        } else {
-            super.setDustCreationInterval(dustCreationInterval_moderate)
-        }
-    }
-
     private _setGravity(explosionType: string) {
         if (
             explosionType === TYPE.EXPLOSION.BURST ||
             explosionType === TYPE.EXPLOSION.PETITE_BURST ||
-            explosionType === TYPE.EXPLOSION.HUGE_BURST ||
-            explosionType === TYPE.EXPLOSION.BLOOM
+            explosionType === TYPE.EXPLOSION.HUGE_BURST
         ) {
+            this.gravity = gravity_medium
+        } else if (explosionType === TYPE.EXPLOSION.BLOOM) {
             this.gravity = gravity_light
         } else {
-            this.gravity = gravity_medium
+            this.gravity = gravity_heavy
         }
+    }
+
+    protected getTrackingPosition() {
+        return this.object3D.position
     }
 }

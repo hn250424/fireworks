@@ -15,7 +15,6 @@ const ASSETS = {
         LAUNCH: 'sounds/launch.mp3',
         EXPLOSION: 'sounds/explosion.mp3',
         BIG_EXPLOSION: 'sounds/big_explosion.mp3',
-        SPECIAL_EXPLOSION: 'sounds/special_explosion.mp3'
     },
 }
 

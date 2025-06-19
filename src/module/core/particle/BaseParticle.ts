@@ -15,8 +15,11 @@ export default class BaseParticle implements Particle {
     private totalFrames: number
     private remainingFrames: number
     private elapsedFrames: number
+    private dustCreationDistanceThreshold: number
     private dustCreationFlag: boolean
-    private dustCreationInterval: number
+    private lastPosition: THREE.Vector3
+    private accumulatedDistance: number
+    private previousOpacity: number
 
     protected constructor(
         instanceName: string,
@@ -24,8 +27,8 @@ export default class BaseParticle implements Particle {
         explosionType: string,
         pColor: PColor,
         mesh: THREE.InstancedMesh | THREE.Mesh | THREE.Object3D,
-        time: number = 0,
-        dustCreationInterval: number = 0,
+        time: number,
+        dustCreationDistanceThreshold: number
     ) {
         this.instanceName = instanceName
         this.beginAbsolutePoint = beginAbsolutePoint
@@ -36,28 +39,44 @@ export default class BaseParticle implements Particle {
         this.totalFrames = time * 60
         this.remainingFrames = this.totalFrames
         this.elapsedFrames = 0
+        this.dustCreationDistanceThreshold = dustCreationDistanceThreshold
         this.dustCreationFlag = false
-        this.dustCreationInterval = dustCreationInterval
+        this.lastPosition = this.mesh.position.clone()
+        this.accumulatedDistance = 0
+        this.previousOpacity = 1
     }
 
     public update(): void {
         this.elapsedFrames++
         this.remainingFrames--
-        
+
         let remainingFramesRate = this.remainingFrames / this.totalFrames
-        
-        if (remainingFramesRate > 0.5) {
-            if (this.dustCreationInterval > 0 && (this.remainingFrames % this.dustCreationInterval === 0)) this.dustCreationFlag = true
+
+        const roundedOpacity = Math.round(remainingFramesRate * 100) / 100
+        if (this.previousOpacity !== roundedOpacity) {
+            if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
+                this.mesh.material.opacity = roundedOpacity
+            } else if (this.mesh instanceof THREE.Object3D) {
+                this.mesh.children.forEach(c => {
+                    if (c instanceof THREE.Mesh) {
+                        c.material.opacity = roundedOpacity
+                    }
+                })
+            }
+
+            this.previousOpacity = roundedOpacity
         }
 
-        if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
-            this.mesh.material.opacity = remainingFramesRate
-        } else if (this.mesh instanceof THREE.Object3D) {
-            this.mesh.children.forEach(c => {
-                if (c instanceof THREE.Mesh) {
-                    c.material.opacity = remainingFramesRate
-                }
-            })
+        if (this.dustCreationDistanceThreshold !== 0 && remainingFramesRate > 0.1 && remainingFramesRate < 0.9) {
+            const currentPosition = this.getTrackingPosition()
+            const frameDistanceSq = currentPosition.distanceToSquared(this.lastPosition)
+            this.accumulatedDistance += frameDistanceSq
+            const thresholdSq = this.dustCreationDistanceThreshold ** 2
+            if (this.accumulatedDistance >= thresholdSq) {
+                this.setDustCreationFlag(true)
+                this.accumulatedDistance = 0
+            }
+            this.lastPosition.copy(currentPosition)
         }
     }
 
@@ -156,10 +175,6 @@ export default class BaseParticle implements Particle {
     //     return this.elapsedFrames / this.totalFrames
     // }
 
-    protected setDustCreationInterval(dustCreationInterval: number) {
-        this.dustCreationInterval = dustCreationInterval
-    }
-
     public getDustCreationFlag(): Readonly<boolean> {
         return this.dustCreationFlag
     }
@@ -193,6 +208,10 @@ export default class BaseParticle implements Particle {
         } else {
             return []
         }
+    }
+
+    protected getTrackingPosition() {
+        return this.mesh.position
     }
 
     protected rotateTowardsEndPoint(currentPoint: CVector3, endPoint: CVector3, object3D: THREE.Object3D | null = null): void {

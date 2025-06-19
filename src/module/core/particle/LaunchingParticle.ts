@@ -1,14 +1,12 @@
 import * as THREE from 'three'
 
 import COLOR from "../../../definition/color"
-import BaseParticle from "./BaseParticle"
-import CVector3 from "../../../type/CVector3"
-import { shuffle } from '../../utils'
-import PColor from '../../../type/PColor'
 import TYPE from '../../../definition/type'
+import CVector3 from "../../../type/CVector3"
+import PColor from '../../../type/PColor'
+import BaseParticle from "./BaseParticle"
 
-const preDustCreationInterval = 10
-// const postDustCreationInterval = 0
+const dustCreationDistanceThreshold = 0.5
 
 const headColor = 0xffffff
 const headRadius = 0.06
@@ -28,10 +26,9 @@ export default class LaunchingParticle extends BaseParticle {
         endRelativePoint: CVector3,
         explosionType: string
     ) {
-        shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
-            main: COLOR.FIREWORKS[0],
-            sub: COLOR.FIREWORKS[1]
+            main: COLOR.FIREWORKS[Math.floor(Math.random() * 5)],
+            sub: COLOR.FIREWORKS[Math.floor(Math.random() * 5)]
         }
         const headGeometry = new THREE.SphereGeometry(headRadius, 32, 32)
         const headMaterial = new THREE.MeshStandardMaterial({ color: headColor, transparent: true })
@@ -48,7 +45,7 @@ export default class LaunchingParticle extends BaseParticle {
         meshGroup.add(headMesh)
         meshGroup.add(tailMesh)
         
-        super(TYPE.INSTANCE.LAUNCHING, beginAbsolutePoint, explosionType, pColor, meshGroup, time, preDustCreationInterval)
+        super(TYPE.INSTANCE.LAUNCHING, beginAbsolutePoint, explosionType, pColor, meshGroup, time, dustCreationDistanceThreshold)
 
         this.endRelativePoint = endRelativePoint
         
@@ -86,16 +83,14 @@ export default class LaunchingParticle extends BaseParticle {
         super.setBeginAbsolutePoint(beginAbsolutePoint)
         this.endRelativePoint = endRelativePoint
         super.setExplosionType(explosionType)
-        shuffle(COLOR.FIREWORKS)
         const pColor: PColor = {
-            main: COLOR.FIREWORKS[0],
-            sub: COLOR.FIREWORKS[1]
+            main: COLOR.FIREWORKS[Math.floor(Math.random() * 5)],
+            sub: COLOR.FIREWORKS[Math.floor(Math.random() * 5)]
         }
         this._setPColor(pColor)
         const totalFrames = super.getTotalFrames()
         super.setRemainingFrames(totalFrames)
         super.setElapsedFrames(0)
-        super.setDustCreationInterval(preDustCreationInterval)
         
         this.pointStorage = new Array(totalFrames).fill(null).map(() => ({ x: 0, y: 0, z: 0 }))
         const delta_x = this.endRelativePoint.x / totalFrames
@@ -139,4 +134,8 @@ export default class LaunchingParticle extends BaseParticle {
         if (tail instanceof THREE.Mesh) tail.material.color.set(pColor.main)
         super.setPColor(pColor)
     }
+
+    // protected getTrackingPosition(): THREE.Vector3 {
+    //     return (super.getMesh() as THREE.Object3D).position
+    // }
 }
