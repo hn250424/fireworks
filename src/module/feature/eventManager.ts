@@ -3,7 +3,7 @@ import POINT from "../../definition/point"
 import TYPE from "../../definition/type"
 import CVector3 from "../../type/CVector3"
 import stateManager from "../core/stateManager"
-import ParticleFactory from "../core/particle/ParticleFactory"
+import ParticleFactory from "../../particle/ParticleFactory"
 import * as utils from "../utils"
 
 const rippleDelay = 500

@@ -5,16 +5,16 @@ import TYPE from "../definition/type"
 import ASSETS from "../definition/assets"
 
 import stateManager from "../module/core/stateManager"
-import Particle from "../module/core/particle/Particle"
-import particlePoolManager from "../module/core/particle/particlePoolManager"
+import Particle from "../particle/Particle"
+import particlePoolManager from "../particle/particlePoolManager"
 
 import scene from "../module/core/scene"
 import camera from "../module/core/camera"
 import renderer from "../module/core/renderer"
 import orbitControls from "../module/feature/orbitControls"
 
-import ParticleFactory from "../module/core/particle/ParticleFactory"
-import LaunchingParticle from "../module/core/particle/LaunchingParticle"
+import ParticleFactory from "../particle/ParticleFactory"
+import LaunchingParticle from "../particle/LaunchingParticle"
 import { sleep } from "../module/utils"
 
 // Revolve info.
@@ -24,19 +24,24 @@ const revolveSpeed = 0.001
 let angle = 0
 let radius = 0
 
+let previousTimestamp = 0
+
 function registerAnimationHandler() {
     animate()
 }
 
-function animate() {
-    revolveCamera()
-    particlesUpdate()
+function animate(timestamp = 0) {
+    const deltaTime = (timestamp - previousTimestamp) / 1000
+    previousTimestamp = timestamp
+
+    revolveCamera(deltaTime)
+    particlesUpdate(deltaTime)
     requestAnimationFrame(animate)
     orbitControls.update()
     renderer.render(scene, camera)
 }
 
-function revolveCamera() {
+function revolveCamera(deltaTime: number) {
     // If the revolve state has changed,
     if (resolveState !== stateManager.getSpinState()) {
         resolveState = stateManager.getSpinState()
@@ -52,15 +57,15 @@ function revolveCamera() {
     }
 
     if (resolveState) {
-        angle += revolveSpeed
+        angle += revolveSpeed * deltaTime * 60
         camera.position.x = target.x + Math.cos(angle) * radius
         camera.position.z = target.z + Math.sin(angle) * radius
     }
 }
 
-function particlesUpdate() {
+function particlesUpdate(deltaTime: number) {
     particlePoolManager.processEachParticle(async (particle: Particle) => {
-        particle.update() 
+        particle.update(deltaTime) 
 
         if ( particle.getDustCreationFlag() ) {
             // Unlike 'ParticleFactory.provideExplosionParticle(particle.getCurrentAbsolutePoint(),' CVector3[] requires a deep copy.
@@ -68,8 +73,7 @@ function particlesUpdate() {
             particle.setDustCreationFlag(false)
         }
 
-        // If this.remainingFrames is zero, this.currentAbsolutePoint.y is infinity.
-        if (particle.getRemainingFrames() === 1) {
+        if (particle.getRemainingTime() < 0.1) {
             ParticleFactory.retrieveParticle(particle)
 
             if (particle instanceof LaunchingParticle) {

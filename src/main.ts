@@ -2,14 +2,12 @@ import './style.scss'
 
 import scene from './module/core/scene'
 import ambientLight from './module/core/ambientLight'
-import particlePoolManager from './module/core/particle/particlePoolManager'
+import particlePoolManager from './particle/particlePoolManager'
 import eventManager from './module/feature/eventManager'
 
 import registerAnimationHandler from './handler/animationHandler'
 import registerPlayHandler from './handler/playHandler'
 import uiManager from './module/feature/uiManager'
-
-main()
 
 async function main() {
     particlePoolManager.init()
@@ -21,5 +19,7 @@ async function main() {
     uiManager.registerUiListeners()
     
     registerAnimationHandler()  
-    registerPlayHandler()
+    setTimeout(() => { registerPlayHandler() }, 1000)
 }
+
+main()

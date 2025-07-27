@@ -1,4 +1,4 @@
-import TYPE from "../../../definition/type"
+import TYPE from "../definition/type"
 import Particle from "./Particle"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"

@@ -1,11 +1,11 @@
-import scene from "../scene"
-import CVector3 from "../../../type/CVector3"
+import scene from "../module/core/scene"
+import CVector3 from "../type/CVector3"
 import Particle from "./Particle"
 import particlePoolManager from "./particlePoolManager"
 import LaunchingParticle from "./LaunchingParticle"
 import ExplosionParticle from "./ExplosionParticle"
 import DustParticle from "./DustParticle"
-import PColor from "../../../type/PColor"
+import PColor from "../type/PColor"
 
 class ParticleFactory {
     static provideLaunchingParticle(currentAbsolutePoint: CVector3, endRelativePoint: CVector3, explosionType: string) {

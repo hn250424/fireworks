@@ -9,7 +9,7 @@ const INIT = {
         X: 0,
         Y: 15,
         Z: 0,
-    }
+    },
 }
 
 export default INIT

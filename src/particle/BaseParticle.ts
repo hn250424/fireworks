@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
-import CVector3 from '../../../type/CVector3'
+import CVector3 from '../type/CVector3'
 import Particle from './Particle'
-import PColor from '../../../type/PColor'
-import { getRandomFloatInRange } from '../../utils'
+import PColor from '../type/PColor'
+import { getRandomFloatInRange } from '../module/utils'
 
 export default class BaseParticle implements Particle {
     private instanceName: string
@@ -12,9 +12,9 @@ export default class BaseParticle implements Particle {
     private pColor: PColor
     private mesh: THREE.InstancedMesh | THREE.Mesh | THREE.Object3D
     private time: number
-    private totalFrames: number
-    private remainingFrames: number
-    private elapsedFrames: number
+    private totalTime: number
+    private remainingTime: number
+    private elapsedTime: number
     private dustCreationDistanceThreshold: number
     private dustCreationFlag: boolean
     private lastPosition: THREE.Vector3
@@ -36,9 +36,9 @@ export default class BaseParticle implements Particle {
         this.pColor = pColor
         this.mesh = mesh
         this.time = time
-        this.totalFrames = time * 60
-        this.remainingFrames = this.totalFrames
-        this.elapsedFrames = 0
+        this.totalTime = time
+        this.remainingTime = this.totalTime
+        this.elapsedTime = 0
         this.dustCreationDistanceThreshold = dustCreationDistanceThreshold
         this.dustCreationFlag = false
         this.lastPosition = this.mesh.position.clone()
@@ -46,13 +46,13 @@ export default class BaseParticle implements Particle {
         this.previousOpacity = 1
     }
 
-    public update(): void {
-        this.elapsedFrames++
-        this.remainingFrames--
+    public update(deltaTime: number): void {
+        this.remainingTime -= deltaTime
+        this.elapsedTime += deltaTime
+        if (this.remainingTime < 0) this.remainingTime = 0
+        const remainingTimeRate = this.remainingTime / this.totalTime
+        const roundedOpacity = Math.round(remainingTimeRate * 100) / 100
 
-        let remainingFramesRate = this.remainingFrames / this.totalFrames
-
-        const roundedOpacity = Math.round(remainingFramesRate * 100) / 100
         if (this.previousOpacity !== roundedOpacity) {
             if (this.mesh instanceof THREE.InstancedMesh || this.mesh instanceof THREE.Mesh) {
                 this.mesh.material.opacity = roundedOpacity
@@ -67,7 +67,7 @@ export default class BaseParticle implements Particle {
             this.previousOpacity = roundedOpacity
         }
 
-        if (this.dustCreationDistanceThreshold !== 0 && remainingFramesRate > 0.1 && remainingFramesRate < 0.9) {
+        if (this.dustCreationDistanceThreshold !== 0 && remainingTimeRate > 0.1 && remainingTimeRate < 0.9) {
             const currentPosition = this.getTrackingPosition()
             const frameDistanceSq = currentPosition.distanceToSquared(this.lastPosition)
             this.accumulatedDistance += frameDistanceSq
@@ -146,34 +146,29 @@ export default class BaseParticle implements Particle {
         this.time = time
     }
 
-    protected getTotalFrames(): Readonly<number> {
-        return this.totalFrames
+    protected getTotalTime(): Readonly<number> {
+        return this.totalTime
     }
 
-    protected setTotalFrames(time: number) {
-        this.totalFrames = time * 60
+    protected setTotalTime(time: number) {
+        this.totalTime = time
     }
 
-    public getRemainingFrames(): Readonly<number> {
-        return this.remainingFrames
+    public getRemainingTime(): Readonly<number> {
+        return this.remainingTime
     }
 
-    protected setRemainingFrames(remainingFrames: number): void {
-        this.remainingFrames = remainingFrames
+    protected setRemainingTime(remainingTime: number): void {
+        this.remainingTime = remainingTime
     }
 
-    protected getElapsedFrames(): Readonly<number> {
-        return this.elapsedFrames
+    protected getElapsedTime(): Readonly<number> {
+        return this.elapsedTime
     }
 
-    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
-    protected setElapsedFrames(elapsedFrames: number): void {
-        this.elapsedFrames = elapsedFrames
+    protected setElapsedTime(elapsedTime: number): void {
+        this.elapsedTime = elapsedTime
     }
-
-    // protected getElapsedRate(): Readonly<number> {
-    //     return this.elapsedFrames / this.totalFrames
-    // }
 
     public getDustCreationFlag(): Readonly<boolean> {
         return this.dustCreationFlag
@@ -230,9 +225,8 @@ export default class BaseParticle implements Particle {
         else this.mesh.quaternion.copy(quaternion)
     }
 
-    // Function for initializing the variable this.pointStorage using the index of for loop as elapsedFrames.
-    protected getEaseOutFactor(elapsedFrames: number): Readonly<number> {
-        const elapsedRate = elapsedFrames / this.totalFrames
+    protected getEaseOutFactor(elapsedTime: number): Readonly<number> {
+        const elapsedRate = elapsedTime / this.totalTime
         const easeOutFactor = 1 - (1 - elapsedRate) ** 4
         // const easeInFactor = elapsedRate ** 4
         return easeOutFactor

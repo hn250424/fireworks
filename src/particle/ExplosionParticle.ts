@@ -1,10 +1,10 @@
 import * as THREE from 'three'
 
-import CVector3 from "../../../type/CVector3"
+import CVector3 from "../type/CVector3"
 
 import BaseParticle from "./BaseParticle"
-import TYPE from '../../../definition/type'
-import PColor from '../../../type/PColor'
+import TYPE from '../definition/type'
+import PColor from '../type/PColor'
 
 const time_quickest = 1.5
 const time_quick = 3
@@ -14,9 +14,9 @@ const time_moderate = 4.5
 
 const dustCreationDistanceThreshold = 1
 
-const gravity_light = 0.007
-const gravity_medium = 0.01
-const gravity_heavy = 0.02
+const gravity_light = 0.42
+const gravity_medium = 0.6
+const gravity_heavy = 1.2
 
 const size = 0.1
 
@@ -84,9 +84,9 @@ export default class ExplosionParticle extends BaseParticle {
         const _mesh: THREE.Mesh = super.getMesh() as THREE.InstancedMesh
         super.setMesh( new THREE.InstancedMesh(_mesh.geometry, _mesh.material, endRelativePointArr.length) )
         this._setTime(explosionType)
-        super.setTotalFrames(super.getTime())
-        super.setRemainingFrames(super.getTotalFrames())
-        super.setElapsedFrames(0)
+        super.setTotalTime(super.getTime())
+        super.setRemainingTime(super.getTotalTime())
+        super.setElapsedTime(0)
         // this._setDustCreationInterval(explosionType)
         this._setGravity(explosionType)
 
@@ -99,16 +99,17 @@ export default class ExplosionParticle extends BaseParticle {
         super.needsUpdateInstanceColor()
     }
 
-    public update(): void {
+    public update(deltaTime: number): void {
         const bp = super.getBeginAbsolutePoint()
         for (let i = 0; i < this.endRelativePointArr.length; i++) {
             // vector.
-            const easeOutFactor = super.getEaseOutFactor(super.getElapsedFrames())
+            const easeOutFactor = super.getEaseOutFactor(super.getElapsedTime())
 
             this.object3D.position.x = bp.x + (this.endRelativePointArr[i].x * easeOutFactor)
             
             this.object3D.position.y = bp.y + (this.endRelativePointArr[i].y * easeOutFactor)
-            this.endRelativePointArr[i].y -= this.gravity
+            this.endRelativePointArr[i].y -= this.gravity * deltaTime
+            // this.endRelativePointArr[i].y -= this.gravity
 
             this.object3D.position.z = bp.z + (this.endRelativePointArr[i].z * easeOutFactor)
 
@@ -123,7 +124,7 @@ export default class ExplosionParticle extends BaseParticle {
         }
 
         super.needsUpdateInstanceMatrix()
-        super.update()
+        super.update(deltaTime)
     }
 
     private _setTime(explosionType: string) {

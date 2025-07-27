@@ -1,5 +1,5 @@
 import { getRandomIntInRange, sleep } from "../module/utils"
-import particlePoolManager from "../module/core/particle/particlePoolManager"
+import particlePoolManager from "../particle/particlePoolManager"
 import eventManager from "../module/feature/eventManager"
 import TYPE from "../definition/type"
 

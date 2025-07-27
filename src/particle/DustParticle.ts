@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
 import BaseParticle from "./BaseParticle"
-import CVector3 from "../../../type/CVector3"
-import PColor from '../../../type/PColor'
-import TYPE from '../../../definition/type'
+import CVector3 from "../type/CVector3"
+import PColor from '../type/PColor'
+import TYPE from '../definition/type'
 
 // const time_quickest = 0.5
 const time_quick = 1
@@ -90,9 +90,9 @@ export default class DustParticle extends BaseParticle {
         const _mesh: THREE.Mesh = super.getMesh() as THREE.InstancedMesh
         super.setMesh(new THREE.InstancedMesh(_mesh.geometry, _mesh.material, currentAbsolutePointArr.length))
         this._setTime(explosionType)
-        super.setTotalFrames(super.getTime())
-        super.setRemainingFrames(super.getTotalFrames())
-        super.setElapsedFrames(0)
+        super.setTotalTime(super.getTime())
+        super.setRemainingTime(super.getTotalTime())
+        super.setElapsedTime(0)
 
         for (let i = 0; i < this.currentAbsolutePointArr.length; i++) {
             this.object3D.position.x = this.currentAbsolutePointArr[i].x
